@@ -13,9 +13,10 @@
    * process a blog post
    */
   function processPost(data) {
-    try {
-      cue(function() { nunjucksEnv.render("entry.html"); });
-    } catch (e) { console.error("Nunjucks error", e); }
+    console.log(data);
+    //try {
+    //  cue(function() { nunjucksEnv.render("entry.html"); });
+    //} catch (e) { console.error("Nunjucks error", e); }
   }
 
   /*
