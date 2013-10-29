@@ -1,3 +1,7 @@
-<div class="weblog entry">
-	<p>This is a test</p>
+<div class="weblog entry" id="gh-weblog-{{ published}}">
+  <div class="content">{{ content }}</div>
+  <textarea class="hidden original content" onblur="window['gh-weblog'].updateEntry({{ published }}, this)">{{ content }}</textarea>
+  <button onclick="window['gh-weblog'].editEntry({{ published }})">Edit entry</button>
+  <button onclick="window['gh-weblog'].saveEntry({{ published }})">Save entry</button>
+  <button onclick="window['gh-weblog'].removeEntry({{ published }})">Remove entry</button>
 </div>

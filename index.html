@@ -1,68 +1,15 @@
 <!doctype html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <title>A GitHub weblog</title>
-<script>(function(){
-  var nunjucksEnv = false,
-      weblogContent = false,
-      cue = requestAnimationFrame;
-
-  /**
-   * process a blog post
-   */
-  function processPost(data) {
-    console.log(data);
-    //try {
-    //  cue(function() { nunjucksEnv.render("entry.html"); });
-    //} catch (e) { console.error("Nunjucks error", e); }
-  }
-
-  /*
-*   * Content building
-   */
-  function buildPage() {
-    weblogContent = window["gh-weblog"];
-    weblogContent.content.forEach(function(resource) {
-      try {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "content/"+resource+".json", false);
-        xhr.send(null);
-        var data = xhr.responseText;
-        try {
-          data = JSON.parse(data);
-          processPost(data);
-        }
-        catch (e) { console.error("JSON parse error", e); }
-      } catch (e) { console.error("XHR error for "+resource+".json", e); }
-    });
-  }
-
-  /**
-   * Resource loading
-   */
-  var done = 0;
-  function load(libraries) {
-    libraries.forEach(function(lib) {
-      done++;
-      var s = document.createElement("script");
-      s.onload = function() {
-      	done--;
-      	if(done === 0) {
-          nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader('views'));
-          cue(buildPage);
-        }
-      };
-      s.src = "js/" + lib;
-      document.head.appendChild(s);
-    });
-  }
-  load(["markdown.min.js", "github.js", "nunjucks.js", "content.js"]);
-}());</script>
+<link rel="stylesheet" href="styles/style.css" media="screen">
+<script src="js/main.js"></script>
 </head>
-
 <body>
+  <h1>Welcome to my gh-pages blog.</h1>
+  <button onclick="window['gh-weblog'].newEntry()">new Entry</button>
+  <p>Entries:</p>
+  <div id="entries"></div>
 </body>
-
 </html>
