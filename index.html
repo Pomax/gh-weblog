@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>A GitHub weblog</title>
+<script>(function(){
+  /**
+   * process a blog post
+   */
+  function processPost(data) {
+    console.log(data);
+  }
+
+  /**
+   * Content building
+   */
+  function buildPage() {
+    window["gh-weblog"].content.forEach(function(resource) {
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "content/"+resource+".json", false);
+        xhr.send(null);
+        var data = xhr.responseText;
+        try { processPost(JSON.parse(data)); }
+        catch (e) { console.error("JSON parse error", e); }
+      } catch (e) { console.error("XHR error for "+resource".json", e); }
+    });
+  }
+
+  /**
+   * Resource loading
+   */
+  var done = 0;
+  function load(libraries) {
+    libraries.forEach(function(lib) {
+      done++;
+      var s = document.createElement("script");
+      s.onload = function() {
+      	done--;
+      	if(done === 0) { buildPage(); }
+      };
+      s.src = "js/" + lib;
+      document.head.appendChild(s);
+    });
+  }
+  load(["markdown.min.js", "github.js", "nunjucks.min.js", "content.js"]);
+}());</script>
+</head>
+
+<body>
+<h1>test</h1>
+</body>
+
+</html>
