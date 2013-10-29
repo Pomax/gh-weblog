@@ -12,8 +12,8 @@
     console.log(data);
   }
 
-  /**
-   * Content building
+  /*
+*   * Content building
    */
   function buildPage() {
     window["gh-weblog"].content.forEach(function(resource) {
@@ -24,7 +24,7 @@
         var data = xhr.responseText;
         try { processPost(JSON.parse(data)); }
         catch (e) { console.error("JSON parse error", e); }
-      } catch (e) { console.error("XHR error for "+resource".json", e); }
+      } catch (e) { console.error("XHR error for "+resource+".json", e); }
     });
   }
 
