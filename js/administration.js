@@ -127,6 +127,7 @@
     console.log("save entry " + uid);
     if(!uid) return;
     var entryObject = context.entries[""+uid];
+    delete entryObject.pending;
     var entryString = JSON.stringify(entryObject);
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
