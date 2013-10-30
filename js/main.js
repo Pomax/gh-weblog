@@ -1,9 +1,14 @@
-window.cue = function(fn) {
-  requestAnimationFrame(fn);
-};
-
 (function(){
   var weblogContent = false;
+
+  /**
+   * Calling requestAnimationFrame, even though it does
+   * exactly what we want, is weird. So we alias it to "cue".
+   */
+  window.cue = function(fn) {
+    requestAnimationFrame(fn);
+  };
+
 
   /**
    * Content building
@@ -33,6 +38,12 @@ window.cue = function(fn) {
    */
   function setup() {
     window.nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader('views'));
+    nunjucksEnv.addFilter("readableDate", function(data) {
+      return (new Date(data)).toLocaleString();
+    });
+    nunjucksEnv.addFilter("shortDate", function(data) {
+      return (new Date(data)).toLocaleDateString();
+    });
     cue(buildPage);
   }
 

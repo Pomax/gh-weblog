@@ -1,7 +1,11 @@
-<div class="weblog entry" id="gh-weblog-{{ published}}">
-  <div class="content">{{ content }}</div>
-  <textarea class="hidden original content" onblur="window['gh-weblog'].updateEntry({{ published }}, this)">{{ content }}</textarea>
-  <button onclick="window['gh-weblog'].editEntry({{ published }})">Edit entry</button>
-  <button onclick="window['gh-weblog'].saveEntry({{ published }})">Save entry</button>
-  <button onclick="window['gh-weblog'].removeEntry({{ published }})">Remove entry</button>
+<div class="weblog entry{% if pending %} pending{% endif %}" id="gh-weblog-{{ published}}">
+	<div class="info">
+    <span>originally published: {{ published | readableDate }}</span>
+    <span>last updated: {{ updated | readableDate }}</span>
+    <button onclick="window['gh-weblog'].removeEntry({{ published }})">Remove entry</button>
+  </div>
+  <div>
+    <div class="content" data-prefix="{{ published | shortDate }}" onclick="window['gh-weblog'].editEntry({{ published }})">{{ content }}</div>
+    <textarea class="hidden original content" onblur="window['gh-weblog'].updateEntry({{ published }}, this)">{{ content }}</textarea>
+  </div>
 </div>

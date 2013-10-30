@@ -1,11 +1,36 @@
 #entries {
-  border: 1px solid grey;
+/*
+  border: 1px solid gray;
+*/
   padding: 1em;
 }
 
 #entries .entry {
+/*
   border: 1px solid red;
+*/
   padding: 1em;
+}
+
+#entries .entry.pending {
+  background: rgba(255,255,0,0.3);
+}
+
+#entries .info {
+	background: rgb(165, 185, 192);
+  color: white;
+  padding: 0 1em;
+}
+
+#entries .info span {
+  margin-right: 2em;
+}
+
+#entries .content:before {
+  float: right;
+  content: "published on " attr(data-prefix);
+  font-style: italic;
+  margin: 0 0 0.5em 0.5em;
 }
 
 #entries .original.content {
