@@ -61,7 +61,7 @@
       updated: uid,
       pending: true
     };
-    window['gh-weblog'].entries[""+uid] = entryObject;
+    context.entries[""+uid] = entryObject;
 
     // add to page
     try {
@@ -71,7 +71,7 @@
         _.innerHTML = result;
         var element = _.children[0];
         entriesDiv.prependChild(element);
-        window['gh-weblog'].parseEntry(element);
+        context.parseEntry(element);
       });
     } catch (e) { return console.error("Nunjucks error", e); }
   };
@@ -103,18 +103,21 @@
     var content = entry.querySelector(".content");
     var newContent = ocontent.value;
     // record the change to the entry
-    var entryObject = window['gh-weblog'].entries[""+uid];
+    var entryObject = context.entries[""+uid];
     entryObject.content = newContent;
     entryObject.updated = Date.now();
     // reswitcharoo
     ocontent.hide();
     content.innerHTML = markdown.toHTML(newContent);
     content.show();
-    // send a github "update" commit up to github for this entry's file
-    // ...
-    context.saveEntry(uid, function afterSaving(err) {
-      entry.classList.remove("pending");
-    });
+    // send a github "create" commit up to github for this entry's file
+    if (entry.classList.contains("pending")) {
+      context.saveEntry(uid, function afterSaving(err) {
+        entry.classList.remove("pending");
+      });
+    } else {
+      // ... code goes here ...
+    }
   };
 
   /**
@@ -123,14 +126,25 @@
   context.saveEntry = function saveEntry(uid, afterSaving) {
     console.log("save entry " + uid);
     if(!uid) return;
-    var entryObject = window['gh-weblog'].entries[""+uid];
+    var entryObject = context.entries[""+uid];
     var entryString = JSON.stringify(entryObject);
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
-    // ...
     var filename = cfnGenerator();
-    console.log(filename);
-    repo.write('gh-pages', 'content/' + filename, JSON.stringify() + '\n', 'weblog entry '+filename, afterSaving);
+    repo.write('gh-pages', 'content/' + filename, entryString + '\n', 'weblog entry '+filename, function(err) {
+      console.error("error while writing entry to github: ", err);
+    });
+
+    // also send up an updated js/content.js
+    var contentjs = context.content;
+    contentjs.push(filename.replace(".json",''));
+    var contentString = 'window["gh-weblog"].content = [\n  "' + contentjs.join('",\n  "') + '"\n];\n';
+    repo.write('gh-pages', 'js/content.js', JSON.stringify() + '\n', 'content entry for '+filename, function(err) {
+      console.error("error while writing entry log to github: ", err);
+    });
+
+    // aaaand callback on next tick
+    cue(afterSaving);
   };
 
   /**

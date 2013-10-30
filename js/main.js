@@ -17,7 +17,6 @@
     weblogContent = window["gh-weblog"];
     weblogContent.entries = {};
     weblogContent.content.forEach(function(resource) {
-      if(resource.trim() === "") return;
       try {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "content/"+resource+".json", false);
