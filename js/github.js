@@ -391,7 +391,9 @@
       // -------
 
       this.postTree = function(tree, cb) {
+        console.log(tree);
         _request("POST", repoPath + "/git/trees", { "tree": tree }, function(err, res) {
+          console.log("err:", err, "res:", res);
           if (err) return cb(err);
           cb(null, res.sha);
         });
