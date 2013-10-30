@@ -133,18 +133,26 @@
     // send a github "addition" commit up to github with the new file and an addition to content.js
     var filename = cfnGenerator();
     repo.write('gh-pages', 'content/' + filename, entryString + '\n', 'weblog entry '+filename, function(err) {
-      console.error("error while writing entry to github: ", err);
+      return console.error("error while writing entry to github: ", err);
     });
 
     // also send up an updated js/content.js
     var contentjs = context.content;
     contentjs.push(filename.replace(".json",''));
     var contentString = 'window["gh-weblog"].content = [\n  "' + contentjs.join('",\n  "') + '"\n];\n';
-    repo.write('gh-pages', 'js/content.js', JSON.stringify() + '\n', 'content entry for '+filename, function(err) {
-      console.error("error while writing entry log to github: ", err);
+    repo.remove('gh-pages', 'js/content.js', function(err) {
+      if(err) {
+        return console.error("error while removing old entry log (js/content.js) from github: ", err);
+      }
+
+      repo.write('gh-pages', 'js/content.js', JSON.stringify() + '\n', 'content entry for '+filename, function(err) {
+        if(err) {
+          return console.error("error while writing new entry log (js/content.js) to github: ", err);
+        }
+      });
     });
 
-    // aaaand callback on next tick
+    // then callback on next tick
     cue(afterSaving);
   };
 
