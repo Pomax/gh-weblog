@@ -3,7 +3,24 @@
   if(!window["gh-weblog"]) { window["gh-weblog"] = {}; }
 
   var context = window["gh-weblog"],
-      entriesDiv = document.getElementById("entries");
+      entriesDiv = document.getElementById("entries"),
+      github,
+      repo,
+      cfnGenerator = function() {
+        var d = new Date(),
+            components = [
+              d.getFullYear(),
+              d.getMonth(),
+              d.getDay(),
+              d.getHours(),
+              d.getMinutes(),
+              d.getSeconds()
+            ];
+        components = components.map(function(v) {
+          return (v < 10 ? "0" + v : v);
+        });
+        return components.join("-") + ".json";
+      };
 
   entriesDiv.prependChild = function(element) {
     if(entriesDiv.children.length === 0) {
@@ -69,9 +86,11 @@
         content = entry.querySelector(".content"),
         ocontent = entry.querySelector(".hidden.original.content");
     // switcharoo
-    content.hide();
-    ocontent.show();
-    ocontent.focus();
+    if(!document.body.classList.contains("default")) {
+      content.hide();
+      ocontent.show();
+      ocontent.focus();
+    }
   };
 
   /**
@@ -93,16 +112,15 @@
     content.show();
     // send a github "update" commit up to github for this entry's file
     // ...
-
-    (function oncomplete() {
+    context.saveEntry(uid, function afterSaving(err) {
       entry.classList.remove("pending");
-    }());
+    });
   };
 
   /**
    *
    */
-  context.saveEntry = function saveEntry(uid) {
+  context.saveEntry = function saveEntry(uid, afterSaving) {
     console.log("save entry " + uid);
     if(!uid) return;
     var entryObject = window['gh-weblog'].entries[""+uid];
@@ -110,6 +128,9 @@
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
     // ...
+    var filename = cfnGenerator();
+    console.log(filename);
+    repo.write('gh-pages', 'content/' + filename, JSON.stringify() + '\n', 'weblog entry '+filename, afterSaving);
   };
 
   /**
@@ -124,6 +145,22 @@
 
     // send a github "removal" commit up to github for the old file and removal from content.js
     // ...
+  };
+
+  /**
+   *
+   */
+  context.setCredentials = function setCredentials(silent) {
+    var creds = localStorage["gh-weblog-token"];
+    var newcreds = (silent ? creds : prompt("Please specify your github token" + (creds ? ". Current token: "+creds : '')));
+    localStorage["gh-weblog-token"] = newcreds;
+    if(newcreds == "") { document.body.classList.add("default"); }
+    else {
+      document.body.classList.remove("default");
+      github = new Github({ token: newcreds });
+      repo = github.getRepo("Pomax", "weblog");
+      console.log(repo);
+    }
   };
 
 }());

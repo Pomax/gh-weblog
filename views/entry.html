@@ -1,8 +1,8 @@
-<div class="weblog entry{% if pending %} pending{% endif %}" id="gh-weblog-{{ published}}">
+<div class="weblog entry{% if pending %} pending{% endif %} needstoken" id="gh-weblog-{{ published}}">
 	<div class="info">
     <span>originally published: {{ published | readableDate }}</span>
     <span>last updated: {{ updated | readableDate }}</span>
-    <button onclick="window['gh-weblog'].removeEntry({{ published }})">Remove entry</button>
+    <button class="needstoken" onclick="window['gh-weblog'].removeEntry({{ published }})">Remove entry</button>
   </div>
   <div>
     <div class="content" data-prefix="{{ published | shortDate }}" onclick="window['gh-weblog'].editEntry({{ published }})">{{ content }}</div>

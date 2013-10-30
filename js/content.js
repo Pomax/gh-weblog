@@ -1,6 +1,4 @@
-if(!window["gh-weblog"]) { window["gh-weblog"] = {}; }
-
 window["gh-weblog"].content = [
-  "2013-10-29-12-00",
+  "2013-10-29-12-00-00",
   ""
 ];

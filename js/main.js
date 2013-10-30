@@ -31,6 +31,7 @@
         catch (e) { console.error("JSON parse error", e); }
       } catch (e) { console.error("XHR error for "+resource+".json", e); }
     });
+    weblogContent.setCredentials(true);
   }
 
   /**

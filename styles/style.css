@@ -36,3 +36,7 @@
 #entries .hidden {
   display: none!important;
 }
+
+.default button.needstoken {
+  display: none!important;
+}

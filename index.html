@@ -7,8 +7,11 @@
 <script src="js/main.js"></script>
 </head>
 
-<body>
-<h1>A GitHub weblog <button onclick="window['gh-weblog'].addEntry()">new Entry</button></h1>
+<body class="default">
+<h1>A GitHub weblog
+ <button class="needstoken" onclick="window['gh-weblog'].addEntry()">new Entry</button>
+ <button onclick="window['gh-weblog'].setCredentials()">Authenticate</button>
+</h1>
 <hr>
 <div id="entries"></div>
 </body>
