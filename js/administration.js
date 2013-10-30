@@ -177,7 +177,7 @@
    */
   context.setCredentials = function setCredentials(silent) {
     var creds = localStorage["gh-weblog-token"];
-    var newcreds = (silent ? creds : prompt("Please specify your github token" + (creds ? ". Current token: "+creds : '')));
+    var newcreds = (silent ? creds || "undefined": prompt("Please specify your github token" + (creds ? ". Current token: "+creds : '')));
     if(newcreds.trim()=="") { newcreds = "undefined"; }
     localStorage["gh-weblog-token"] = newcreds;
     if(newcreds == "undefined") { document.body.classList.add("default"); }
