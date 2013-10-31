@@ -372,8 +372,8 @@
         data = {
           "branch": branch,
           "message": message,
-          "content": btoa(content),
-          sha: originalSHA
+          "content": content,
+          "sha": originalSHA
         };
 
         _request("PUT", repoPath + "/contents/" + path, data, function(err, res) {
@@ -616,10 +616,7 @@
               if (err) return cb(err);
               that.updateTree(latestCommit, path, blob, function(err, tree) {
                 if (err) return cb(err);
-                that.commit(latestCommit, tree, message, function(err, commit) {
-                  if (err) return cb(err);
-                  that.updateHead(branch, commit, cb);
-                });
+                that.updateHead(branch, commit, cb);
               });
             });
           });
