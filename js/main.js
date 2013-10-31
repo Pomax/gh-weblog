@@ -52,8 +52,8 @@
    */
   var done = 0;
   function load(libraries) {
+    done = libraries.length;
     libraries.forEach(function(lib) {
-      done++;
       var s = document.createElement("script");
       s.onload = function() {
       	done--;
