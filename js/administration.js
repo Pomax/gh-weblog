@@ -6,8 +6,8 @@
       entriesDiv = document.getElementById("entries"),
       github,
       repo,
-      cfnGenerator = function() {
-        var d = new Date(),
+      cfnGenerator = function(uid) {
+        var d = new Date(uid ? uid : Date.now()),
             components = [
               d.getFullYear(),
               d.getMonth(),
@@ -116,7 +116,14 @@
         entry.classList.remove("pending");
       });
     } else {
-      // ... code goes here ...
+      var entryObject = context.entries[""+uid];
+      var entryString = JSON.stringify(entryObject);
+      var filename = cfnGenerator(uid);
+      repo.update('gh-pages', 'content/'+filename, entryString, 'new content for entry '+filename, function(err) {
+        if(err) {
+          return console.error("error while writing updating entry (content/"+filename+") on github: ", err);
+        }
+      });
     }
   };
 
@@ -137,18 +144,21 @@
       if(err) {
         return console.error("error while writing entry to github: ", err);
       }
-
-      // also send up an updated js/content.js
-      context.content.push(filename.replace(".json",''));
-      var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-      repo.update('gh-pages', 'js/content.js', contentString, 'content entry for '+filename, function(err) {
-        if(err) {
-          return console.error("error while writing new entry log (js/content.js) to github: ", err);
-        }
-      });
-
-      // then callback on next tick
+      context.saveContentJS(filename);
       cue(afterSaving);
+    });
+  };
+
+  /**
+   *
+   */
+  context.saveContentJS = function saveContentJS(filename) {
+    context.content.push(filename.replace(".json",''));
+    var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+    repo.update('gh-pages', 'js/content.js', contentString, 'content entry for '+filename, function(err) {
+      if(err) {
+        return console.error("error while writing new entry log (js/content.js) to github: ", err);
+      }
     });
   };
 
