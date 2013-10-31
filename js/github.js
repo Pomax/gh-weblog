@@ -369,6 +369,8 @@
       // -------
 
       this.updateBlob = function(branch, path, content, originalSHA, message, cb) {
+        console.log(content);
+
         data = {
           "branch": branch,
           "message": message,
@@ -376,10 +378,12 @@
           sha: originalSHA
         };
 
+        console.log(data.content);
+
         _request("PUT", repoPath + "/contents/" + path, data, function(err, res) {
           if (err) return cb(err);
           console.log(res);
-          cb(null, res.sha);
+          cb(null, res.commit.sha);
         });
       };
 
@@ -614,7 +618,7 @@
           that.getSha(branch, path, function(err, sha) {
             if (!sha) return cb("not found", null);
             that.updateBlob(branch, path, content, sha, message, function(err, commit) {
-              if (err) return cb(err);
+              if(err) cb(err);
               that.updateHead(branch, commit, cb);
             });
           });
