@@ -10,8 +10,8 @@
         var d = new Date(uid ? uid : Date.now()),
             components = [
               d.getFullYear(),
-              d.getMonth(),
-              d.getDay(),
+              d.getMonth() + 1,
+              d.getDate(),
               d.getHours(),
               d.getMinutes(),
               d.getSeconds()
@@ -139,7 +139,7 @@
     var errors = false;
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
-    var filename = cfnGenerator();
+    var filename = cfnGenerator(uid);
     repo.write('gh-pages', 'content/' + filename, entryString + '\n', 'weblog entry '+filename, function(err) {
       if(err) {
         return console.error("error while writing entry to github: ", err);
