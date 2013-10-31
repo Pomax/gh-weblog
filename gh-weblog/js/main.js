@@ -1,5 +1,6 @@
 (function(){
-  var weblogContent = false;
+  var weblogContent = false,
+      weblogPath = "gh-weblog/";
 
   /**
    * Calling requestAnimationFrame, even though it does
@@ -14,36 +15,37 @@
    * Content building
    */
   function buildPage() {
-    weblogContent = window["gh-weblog"];
-    weblogContent.entries = {};
-    weblogContent.content.forEach(function(resource) {
+    context = window["gh-weblog"];
+    context.entries = {};
+    context.content.forEach(function(resource) {
       try {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "content/"+resource+".json", false);
+        xhr.open("GET", weblogPath + "content/"+resource+".json", false);
         xhr.send(null);
         var data = xhr.responseText;
         try {
           data = JSON.parse(data);
-          weblogContent.entries[""+data.published] = data;
-          cue(function() { window["gh-weblog"].addEntry(data.published, data); });
+          context.entries[""+data.published] = data;
+          cue(function() { context.addEntry(data.published, data); });
         }
         catch (e) { console.error("JSON parse error", e); }
       } catch (e) { console.error("XHR error for "+resource+".json", e); }
     });
-    weblogContent.setCredentials(true);
+    context.setCredentials(true);
   }
 
   /**
    * Let's do this thing.
    */
   function setup() {
-    window.nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader('views'));
+    window.nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader(weblogPath + 'views'));
     nunjucksEnv.addFilter("readableDate", function(data) {
       return (new Date(data)).toLocaleString();
     });
     nunjucksEnv.addFilter("shortDate", function(data) {
       return (new Date(data)).toLocaleDateString();
     });
+    window["gh-weblog"].path = weblogPath;
     cue(buildPage);
   }
 
@@ -53,7 +55,7 @@
   var done = 0;
   function load(libraries) {
     done = libraries.length;
-    libraries.forEach(function(lib) {
+    libraries.forEach(function(src) {
       var s = document.createElement("script");
       s.onload = function() {
       	done--;
@@ -61,11 +63,11 @@
           cue(setup);
         }
       };
-      s.src = "js/" + lib;
+      s.src = src;
       document.head.appendChild(s);
     });
   }
 
-  load(["markdown.min.js", "github.js", "nunjucks.js", "administration.js", "content.js"]);
+  load(["js/markdown.min.js", "js/github.js", "js/nunjucks.js", weblogPath + "js/administration.js", weblogPath + "js/content.js"]);
 
 }());

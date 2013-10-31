@@ -119,7 +119,7 @@
       var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
-      repo.update('gh-pages', 'content/'+filename, entryString, 'new content for entry '+filename, function(err) {
+      repo.update('gh-pages', context.path + 'content/' + filename, entryString, 'new content for entry '+filename, function(err) {
         if(err) {
           return console.error("error while writing updating entry (content/"+filename+") on github: ", err);
         }
@@ -140,7 +140,7 @@
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
     var filename = cfnGenerator(uid);
-    repo.write('gh-pages', 'content/' + filename, entryString + '\n', 'weblog entry '+filename, function(err) {
+    repo.write('gh-pages', context.path + 'content/' + filename, entryString + '\n', 'weblog entry '+filename, function(err) {
       if(err) {
         return console.error("error while writing entry to github: ", err);
       }
@@ -155,7 +155,7 @@
   context.saveContentJS = function saveContentJS(filename) {
     context.content.push(filename.replace(".json",''));
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-    repo.update('gh-pages', 'js/content.js', contentString, 'content entry for '+filename, function(err) {
+    repo.update('gh-pages', context.path + 'js/content.js', contentString, 'content entry for '+filename, function(err) {
       if(err) {
         return console.error("error while writing new entry log (js/content.js) to github: ", err);
       }
