@@ -141,7 +141,7 @@
       // also send up an updated js/content.js
       context.content.push(filename.replace(".json",''));
       var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-      repo.update('gh-pages', 'js/content.js', JSON.stringify() + '\n', 'content entry for '+filename, function(err) {
+      repo.update('gh-pages', 'js/content.js', contentString, 'content entry for '+filename, function(err) {
         if(err) {
           return console.error("error while writing new entry log (js/content.js) to github: ", err);
         }

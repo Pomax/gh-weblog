@@ -369,15 +369,20 @@
       // -------
 
       this.updateBlob = function(branch, path, content, originalSHA, message, cb) {
+        console.log(content);
+
         data = {
           "branch": branch,
           "message": message,
-          "content": content,
-          "sha": originalSHA
+          "content": btoa(content),
+          sha: originalSHA
         };
+
+        console.log(data.content);
 
         _request("PUT", repoPath + "/contents/" + path, data, function(err, res) {
           if (err) return cb(err);
+          console.log(res);
           cb(null, res.sha);
         });
       };
