@@ -563,7 +563,7 @@
       this.remove = function(branch, path, message, cb) {
         that.getSha(branch, path, function(err, sha) {
           if(err) cb(err);
-          that.removeBlob(branch, path, sha, message, function(err, sha) {
+          that.removeBlob(branch, path, sha, message, function(err, commit) {
             if(err) cb(err);
             // invalidate the tree
             currentTree.sha = false;
