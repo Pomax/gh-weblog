@@ -183,7 +183,7 @@
         return console.error("error while removing entry (content/"+filename+") from github: ", err);
       }
       var removeFile = true;
-      context.saveContentJS(filename. removeFile);
+      context.saveContentJS(filename, removeFile);
       cue(afterSaving);
     });
   };
