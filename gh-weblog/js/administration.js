@@ -153,11 +153,12 @@
    *
    */
   context.saveContentJS = function saveContentJS(filename, removeFile) {
+    var shortString = filename.replace(".json",'');
     if(removeFile) {
-      var pos = context.content.indexOf(filename);
+      var pos = context.content.indexOf(shortString);
       if (pos > -1) { context.content.splice(pos, 1); }
     }
-    else { context.content.push(filename.replace(".json",'')); }
+    else { context.content.push(shortString); }
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
     repo.update('gh-pages', context.path + 'js/content.js', contentString, 'content entry for '+filename, function(err) {
       if(err) {
@@ -184,7 +185,6 @@
       }
       var removeFile = true;
       context.saveContentJS(filename, removeFile);
-      cue(afterSaving);
     });
   };
 
