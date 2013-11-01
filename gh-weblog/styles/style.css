@@ -1,39 +1,39 @@
-#entries {
+#gh-weblog-container .entries {
   padding: 1em;
 }
 
-#entries .entry {
+#gh-weblog-container .entries .entry {
   padding: 1em;
 }
 
-#entries .entry.pending {
+#gh-weblog-container .entries .entry.pending {
   background: rgba(255,255,0,0.3);
 }
 
-#entries .info {
+#gh-weblog-container .entries .info {
 	background: rgb(165, 185, 192);
   color: white;
   padding: 0 1em;
 }
 
-#entries .info span {
+#gh-weblog-container .entries .info span {
   margin-right: 2em;
 }
 
-#entries .content:before {
+#gh-weblog-container .entries .content:before {
   float: right;
   content: "published on " attr(data-prefix);
   font-style: italic;
   margin: 0 0 0.5em 0.5em;
 }
 
-#entries .original.content {
+#gh-weblog-container .entries .original.content {
   display: block;
   width: 100%;
   min-height: 200px;
 }
 
-#entries .hidden {
+#gh-weblog-container .entries .hidden {
   display: none!important;
 }
 

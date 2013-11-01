@@ -1,5 +1,4 @@
 <!doctype html><html>
-
 <head>
 <meta charset="utf-8">
 <title>A GitHub weblog</title>
@@ -9,14 +8,5 @@
 <link rel="stylesheet" href="gh-weblog/styles/style.css" media="screen">
 <script src="gh-weblog/js/main.js" onload="setupWebLog({username: 'Pomax', repo: 'gh-blog'})" async></script>
 </head>
-
-<body class="default">
-<h1>A GitHub weblog
- <button class="needstoken" onclick="window['gh-weblog'].addEntry()">new Entry</button>
- <button class="credentials" onclick="window['gh-weblog'].setCredentials()" title="Authenticate">Authenticate</button>
-</h1>
-<hr>
-<div id="entries"></div>
-</body>
-
+<body class="default"><div id="gh-weblog-container"></div></body>
 </html>

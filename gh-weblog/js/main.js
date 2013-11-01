@@ -14,6 +14,7 @@ function setupWebLog(options) {
    * Content building
    */
   function buildPage() {
+    setupPostHandling();
     context.entries = {};
     context.content.forEach(function(resource) {
       try {
@@ -36,6 +37,12 @@ function setupWebLog(options) {
    * Let's do this thing.
    */
   function setup() {
+    Object.keys(options).forEach(function(key) {
+      context[key] = options[key];
+    });
+    if(!context.username || !context.repo) {
+      return console.error("No username/repo provided for gh-weblog.");
+    }
     window.nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader(context.path + 'views'));
     nunjucksEnv.addFilter("readableDate", function(data) {
       return (new Date(data)).toLocaleString();
@@ -43,13 +50,12 @@ function setupWebLog(options) {
     nunjucksEnv.addFilter("shortDate", function(data) {
       return (new Date(data)).toLocaleDateString();
     });
-    Object.keys(options).forEach(function(key) {
-      context[key] = options[key];
+    nunjucksEnv.render("container.html", {}, function(err, result) {
+      if(err) { return console.error("Nunjucks render error", err); }
+      var container = document.querySelector("#gh-weblog-container");
+      container.innerHTML = result;
+      cue(buildPage);
     });
-    if(!context.username || !context.repo) {
-      return console.error("No username/repo provided for gh-weblog.");
-    }
-    cue(buildPage);
   }
 
   /**

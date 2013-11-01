@@ -1,6 +1,6 @@
-(function() {
+function setupPostHandling() {
   var context = window["gh-weblog"],
-      entriesDiv = document.getElementById("entries"),
+      entriesDiv = document.querySelector("#gh-weblog-container .entries"),
       github,
       repo,
       cfnGenerator = function(uid) {
@@ -203,5 +203,4 @@
       repo = github.getRepo(context.username, context.repo);
     }
   };
-
-}());
+}
