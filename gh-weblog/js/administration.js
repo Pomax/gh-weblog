@@ -1,7 +1,4 @@
 (function() {
-
-  if(!window["gh-weblog"]) { window["gh-weblog"] = {}; }
-
   var context = window["gh-weblog"],
       entriesDiv = document.getElementById("entries"),
       github,
@@ -55,7 +52,7 @@
     // set up entry object
     var entryObject = entryObject || {
       title: "",
-      author: "",
+      author: context.username,
       content: "#New Entry\nclick the entry to start typing",
       published: uid,
       updated: uid,
@@ -110,12 +107,15 @@
     ocontent.hide();
     content.innerHTML = markdown.toHTML(newContent);
     content.show();
-    // send a github "create" commit up to github for this entry's file
+    // send a github "create" commit to github for this entry's file
     if (entry.classList.contains("pending")) {
+      console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
       context.saveEntry(uid, function afterSaving(err) {
         entry.classList.remove("pending");
       });
-    } else {
+    }
+    // send a github "update" commit to github for this entry's file
+    else {
       var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
@@ -152,8 +152,12 @@
   /**
    *
    */
-  context.saveContentJS = function saveContentJS(filename) {
-    context.content.push(filename.replace(".json",''));
+  context.saveContentJS = function saveContentJS(filename, removeFile) {
+    if(removeFile) {
+      var pos = context.content.indexOf(filename);
+      if (pos > -1) { context.content.splice(pos, 1); }
+    }
+    else { context.content.push(filename.replace(".json",'')); }
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
     repo.update('gh-pages', context.path + 'js/content.js', contentString, 'content entry for '+filename, function(err) {
       if(err) {
@@ -173,7 +177,15 @@
     if(confirmation) entry.remove();
 
     // send a github "removal" commit up to github for the old file and removal from content.js
-    // ...
+    var filename = cfnGenerator(uid);
+    repo.remove('gh-pages', context.path + 'content/' + filename, "removing entry " + filename, function(err) {
+      if(err) {
+        return console.error("error while removing entry (content/"+filename+") from github: ", err);
+      }
+      var removeFile = true;
+      context.saveContentJS(filename. removeFile);
+      cue(afterSaving);
+    });
   };
 
   /**
@@ -188,8 +200,7 @@
     else {
       document.body.classList.remove("default");
       github = new Github({ token: newcreds });
-      repo = github.getRepo("Pomax", "weblog");
-      console.log(repo);
+      repo = github.getRepo(context.username, context.repo);
     }
   };
 

@@ -369,8 +369,6 @@
       // -------
 
       this.updateBlob = function(branch, path, content, originalSHA, message, cb) {
-        console.log(content);
-
         data = {
           "branch": branch,
           "message": message,
@@ -378,11 +376,25 @@
           sha: originalSHA
         };
 
-        console.log(data.content);
-
         _request("PUT", repoPath + "/contents/" + path, data, function(err, res) {
           if (err) return cb(err);
-          console.log(res);
+          cb(null, res.commit.sha);
+        });
+      };
+
+      // Remove a file (As blob), getting its SHA back
+      // -------
+
+      this.removeBlob = function(branch, path, blobSha, message, cb) {
+        data = {
+          "branch": branch,
+          "path": path,
+          "message": message,
+          sha: blobSha
+        };
+
+        _request("DELETE", repoPath + "/contents/" + path, data, function(err, res) {
+          if (err) return cb(err);
           cb(null, res.commit.sha);
         });
       };
@@ -447,6 +459,7 @@
 
       this.updateHead = function(head, commit, cb) {
         _request("PATCH", repoPath + "/git/refs/heads/" + head, { "sha": commit }, function(err, res) {
+          console.log("update head response: ", res);
           cb(err);
         });
       };
@@ -547,22 +560,14 @@
       // Remove a file from the tree
       // -------
 
-      this.remove = function(branch, path, cb) {
-        updateTree(branch, function(err, latestCommit) {
-          that.getTree(latestCommit+"?recursive=true", function(err, tree) {
-            // Update Tree
-            var newTree = _.reject(tree, function(ref) { return ref.path === path; });
-            _.each(newTree, function(ref) {
-              if (ref.type === "tree") delete ref.sha;
-            });
-
-            that.postTree(newTree, function(err, rootTree) {
-              that.commit(latestCommit, rootTree, 'Deleted '+path , function(err, commit) {
-                that.updateHead(branch, commit, function(err) {
-                  cb(err);
-                });
-              });
-            });
+      this.remove = function(branch, path, message, cb) {
+        that.getSha(branch, path, function(err, sha) {
+          if(err) cb(err);
+          that.removeBlob(branch, path, sha, message, function(err, sha) {
+            if(err) cb(err);
+            // invalidate the tree
+            currentTree.sha = false;
+            that.updateHead(branch, commit, cb);
           });
         });
       };
@@ -596,12 +601,16 @@
       this.write = function(branch, path, content, message, cb) {
         updateTree(branch, function(err, latestCommit) {
           if (err) return cb(err);
+          console.log("found latestCommit:", latestCommit);
           that.postBlob(content, function(err, blob) {
             if (err) return cb(err);
+            console.log("wrote postblob:", blob);
             that.updateTree(latestCommit, path, blob, function(err, tree) {
               if (err) return cb(err);
+              console.log("update tree:", tree);
               that.commit(latestCommit, tree, message, function(err, commit) {
                 if (err) return cb(err);
+                console.log("updated commit:", commit, " updating head...");
                 that.updateHead(branch, commit, cb);
               });
             });
@@ -619,6 +628,8 @@
             if (!sha) return cb("not found", null);
             that.updateBlob(branch, path, content, sha, message, function(err, commit) {
               if(err) cb(err);
+              // invalidate the tree
+              currentTree.sha = false;
               that.updateHead(branch, commit, cb);
             });
           });

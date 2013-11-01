@@ -1,6 +1,6 @@
-(function(){
-  var weblogContent = false,
-      weblogPath = "gh-weblog/";
+function setupWebLog(options) {
+  var context = window["gh-weblog"] = {};
+  context.path = "gh-weblog/";
 
   /**
    * Calling requestAnimationFrame, even though it does
@@ -10,17 +10,15 @@
     requestAnimationFrame(fn);
   };
 
-
   /**
    * Content building
    */
   function buildPage() {
-    context = window["gh-weblog"];
     context.entries = {};
     context.content.forEach(function(resource) {
       try {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", weblogPath + "content/"+resource+".json", false);
+        xhr.open("GET", context.path + "content/"+resource+".json", false);
         xhr.send(null);
         var data = xhr.responseText;
         try {
@@ -38,14 +36,19 @@
    * Let's do this thing.
    */
   function setup() {
-    window.nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader(weblogPath + 'views'));
+    window.nunjucksEnv = new nunjucks.Environment(new nunjucks.WebLoader(context.path + 'views'));
     nunjucksEnv.addFilter("readableDate", function(data) {
       return (new Date(data)).toLocaleString();
     });
     nunjucksEnv.addFilter("shortDate", function(data) {
       return (new Date(data)).toLocaleDateString();
     });
-    window["gh-weblog"].path = weblogPath;
+    Object.keys(options).forEach(function(key) {
+      context[key] = options[key];
+    });
+    if(!context.username || !context.repo) {
+      return console.error("No username/repo provided for gh-weblog.");
+    }
     cue(buildPage);
   }
 
@@ -58,8 +61,8 @@
     libraries.forEach(function(src) {
       var s = document.createElement("script");
       s.onload = function() {
-      	done--;
-      	if(done === 0) {
+        done--;
+        if(done === 0) {
           cue(setup);
         }
       };
@@ -68,6 +71,5 @@
     });
   }
 
-  load(["js/markdown.min.js", "js/github.js", "js/nunjucks.js", weblogPath + "js/administration.js", weblogPath + "js/content.js"]);
-
-}());
+  load(["js/markdown.min.js", "js/github.js", "js/nunjucks.js", context.path + "js/administration.js", context.path + "js/content.js"]);
+}
