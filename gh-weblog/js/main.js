@@ -6,9 +6,11 @@ function setupWebLog(options) {
    * Calling requestAnimationFrame, even though it does
    * exactly what we want, is weird. So we alias it to "cue".
    */
-  window.cue = function(fn) {
-    requestAnimationFrame(fn);
-  };
+  window.cue = (window.requestAnimationFrame ?
+    function(fn) { requestAnimationFrame(fn); }
+    :
+    function(fn) { setTimeout(fn, 0); }
+  );
 
   /**
    * Content building
