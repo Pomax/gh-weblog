@@ -74,10 +74,10 @@ function setupWebLog(options) {
           cue(setup);
         }
       };
-      s.src = src;
+      s.src = context.path + "js/" + src;
       document.head.appendChild(s);
     });
   }
 
-  load(["js/markdown.min.js", "js/github.js", "js/nunjucks.js", context.path + "js/administration.js", context.path + "js/content.js"]);
+  load(["markdown.min.js", "github.js", "nunjucks.js", "administration.js", "content.js"]);
 }

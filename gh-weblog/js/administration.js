@@ -101,12 +101,17 @@ function setupPostHandling() {
     var newContent = ocontent.value;
     // record the change to the entry
     var entryObject = context.entries[""+uid];
-    entryObject.content = newContent;
-    entryObject.updated = Date.now();
+    var updated = false;
+    if (entryObject.content.trim() != newContent.trim()) {
+      entryObject.content = newContent;
+      entryObject.updated = Date.now();
+      updated = true;
+    }
     // reswitcharoo
     ocontent.hide();
     content.innerHTML = markdown.toHTML(newContent);
     content.show();
+    if(!updated) return;
     // send a github "create" commit to github for this entry's file
     if (entry.classList.contains("pending")) {
       console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
@@ -200,7 +205,7 @@ function setupPostHandling() {
     else {
       document.body.classList.remove("default");
       github = new Github({ token: newcreds });
-      repo = github.getRepo(context.username, context.repo);
+      window.repo = repo = github.getRepo(context.username, context.repo);
     }
   };
 }
