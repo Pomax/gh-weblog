@@ -2,8 +2,8 @@ Github Weblog
 =============
 
 A simple weblog that runs entirely off of a gh-pages site,
-with content using Markdown syntax (although not github's
-extended flavour, just plain Markdown).
+with content using Markdown syntax (using the most excellent
+https://github.com/chjj/marked for github flavoured md).
 
 All the meaningful content is contained in the `gh-weblog`
 dir, which means you can submodule, or just copy, this code
@@ -13,7 +13,9 @@ add this snippet:
 ```
 <!-- weblog data -->
 <link rel="stylesheet" href="gh-weblog/styles/style.css" media="screen">
-<script src="gh-weblog/js/main.js" onload="setupWebLog({username: 'YourNameHere', repo: 'YourProjectRepoName'})" async></script>
+<script src="gh-weblog/js/main.js"
+        onload="setupWebLog({username: 'YourNameHere', repo: 'YourProjectRepoName', path: 'gh-weblog', order: 'newest'})"
+        async></script>
 ```
 
 Set the obvious replacements for `YourNameHere` and
