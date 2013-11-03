@@ -31,7 +31,7 @@ function setupPostHandling() {
    *
    */
   context.parseEntry = function parseEntry(entry) {
-    console.log("parse entry " + entry.id);
+//  console.log("parse entry " + entry.id);
     var content = entry.querySelector(".content"),
         ocontent = entry.querySelector(".original.content");
     content.innerHTML = markdown.toHTML(content.textContent);
@@ -47,7 +47,7 @@ function setupPostHandling() {
    */
   context.addEntry = function newEntry(uid, entryObject) {
     uid = uid || Date.now();
-    console.log("new entry " + uid);
+//  console.log("new entry " + uid);
 
     // set up entry object
     var entryObject = entryObject || {
@@ -77,7 +77,7 @@ function setupPostHandling() {
    *
    */
   context.editEntry = function editEntry(uid) {
-    console.log("edit entry " + uid);
+//  console.log("edit entry " + uid);
     if(!uid) return;
     var entry = document.getElementById("gh-weblog-"+uid),
         content = entry.querySelector(".content"),
@@ -94,7 +94,7 @@ function setupPostHandling() {
    *
    */
   context.updateEntry = function updateEntry(uid, ocontent) {
-    console.log("update entry " + uid);
+//  console.log("update entry " + uid);
     if(!uid) return;
     var entry = document.getElementById("gh-weblog-"+uid);
     var content = entry.querySelector(".content");
@@ -136,7 +136,7 @@ function setupPostHandling() {
    *
    */
   context.saveEntry = function saveEntry(uid, afterSaving) {
-    console.log("save entry " + uid);
+//  console.log("save entry " + uid);
     if(!uid) return;
     var entryObject = context.entries[""+uid];
     delete entryObject.pending;
@@ -176,7 +176,7 @@ function setupPostHandling() {
    *
    */
   context.removeEntry = function removeEntry(uid) {
-    console.log("remove entry " + uid);
+//  console.log("remove entry " + uid);
     if(!uid) return;
     var entry = document.getElementById("gh-weblog-"+uid);
     var confirmation = confirm("Are you sure you want to remove this entry?");

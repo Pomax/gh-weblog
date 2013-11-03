@@ -18,9 +18,21 @@
       var filters = this.filters;
       var data = this.loader.load(template, function(err, data) {
         if(err) return (callback ? callback(err) : err);
+        var match, re;
+        // conditional filtering
+        match = "({%\\s*if\\s+(\\w+)\\s*%}(.*){%\\s*endif\\s*%})";
+        re = new RegExp(match, 'g');
+        data = data.replace(re, function() {
+          var macro = arguments[2];
+          if(!options[macro]) {
+            return '';
+          }
+          return arguments[3];
+        });
+        // macro replacements
         Object.keys(options).forEach(function(key) {
-          var match = "{{\\s*("+key+")\\s*(\\|\\s*((\\w+)\\s*)+)?}}",
-              re = new RegExp(match,'g');
+          match = "{{\\s*("+key+")\\s*(\\|\\s*((\\w+)\\s*)+)?}}";
+          re = new RegExp(match,'g');
           data = data.replace(re, function() {
             var fn = arguments[4];
             fn = (fn ? filters[fn] : passthrough);

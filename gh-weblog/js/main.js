@@ -3,6 +3,16 @@ function setupWebLog(options) {
   context.path = "gh-weblog/";
 
   /**
+   * Goddamnit, IE
+   */
+  if(!window.console) {
+    window.console = {
+      error: function() {},
+      log: function() {}
+    };
+  }
+
+  /**
    * Calling requestAnimationFrame, even though it does
    * exactly what we want, is weird. So we alias it to "cue".
    */
@@ -79,5 +89,5 @@ function setupWebLog(options) {
     });
   }
 
-  load(["markdown.min.js", "github.js", "nunjucks.js", "administration.js", "content.js"]);
+  load(["github.js", "nunjucks.js", "administration.js", "content.js", "markdown.min.js"]);
 }
