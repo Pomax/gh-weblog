@@ -109,7 +109,7 @@ function setupPostHandling() {
     }
     // reswitcharoo
     ocontent.hide();
-    content.innerHTML = markdown.toHTML(newContent);
+    content.innerHTML = marked(newContent);
     content.show();
     if(!updated) return;
     // send a github "create" commit to github for this entry's file
