@@ -1,6 +1,9 @@
 function setupWebLog(options) {
   var context = window["gh-weblog"] = {};
-  context.path = "gh-weblog/";
+  if(options.path.lastIndexOf("/") !== options.path.length - 1) {
+    options.path += "/";
+  }
+  context.path = options.path;
 
   /**
    * Goddamnit, IE
@@ -28,20 +31,32 @@ function setupWebLog(options) {
   function buildPage() {
     setupPostHandling();
     context.entries = {};
-    context.content.forEach(function(resource) {
+    var list = context.content.slice();
+    (function loadEntry() {
+      if(list.length === 0) return;
+      resource = list.splice(0,1)[0];
       try {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", context.path + "content/"+resource+".json", false);
+        xhr.open("GET", context.path + "content/"+resource+".json", true);
+        xhr.onreadystatechange  = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 0 || xhr.status === 200) {
+              var data = xhr.responseText;
+              try {
+                data = JSON.parse(data);
+                context.entries[""+data.published] = data;
+                cue(function() {
+                  context.addEntry(data.published, data);
+                  loadEntry();
+                });
+              }
+              catch (e) { console.error("JSON parse error", e); }
+            }
+          }
+        };
         xhr.send(null);
-        var data = xhr.responseText;
-        try {
-          data = JSON.parse(data);
-          context.entries[""+data.published] = data;
-          cue(function() { context.addEntry(data.published, data); });
-        }
-        catch (e) { console.error("JSON parse error", e); }
       } catch (e) { console.error("XHR error for "+resource+".json", e); }
-    });
+    }());
     context.setCredentials(true);
   }
 
