@@ -108,5 +108,5 @@ function setupWebLog(options) {
     });
   }
 
-  load(["github.js", "nunjucks.js", "administration.js", "content.js", "markdown.min.js"]);
+  load(["github.js", "nunjucks.js", "administration.js", "content.js", "marked.js"]);
 }

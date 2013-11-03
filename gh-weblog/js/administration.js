@@ -34,7 +34,7 @@ function setupPostHandling() {
 //  console.log("parse entry " + entry.id);
     var content = entry.querySelector(".content"),
         ocontent = entry.querySelector(".original.content");
-    content.innerHTML = markdown.toHTML(content.textContent);
+    content.innerHTML = marked(content.textContent);
     [content, ocontent].forEach(function(e) {
       e.show = function() { e.classList.remove("hidden"); }
       e.hide = function() { e.classList.add("hidden"); }
