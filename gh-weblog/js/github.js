@@ -9,7 +9,7 @@
       token;
 
   var request = function(method, target, options, callback) {
-    var path = "/repos/"+username+"/"+repo+"/contents/"+target;
+    var path = "/repos/"+username+"/"+repo+"/contents/"+target + "?access_token=" + token;
     var xhr = new XMLHttpRequest();
     xhr.open(method, "https://api.github.com" + path, true);
     xhr.onreadystatechange  = function() {
@@ -18,8 +18,10 @@
           var data = xhr.responseText;
           try {
             data = JSON.parse(data);
-            callback(null, data);
-          } catch(e) { callback("json parse error"); }
+            callback(undefined, data);
+          } catch(e) {
+            callback("json parse error on "+data);
+          }
         } else { callback(xhr.status); }
       }
     }
@@ -29,8 +31,8 @@
     else {
       options.username     = username;
       options.branch       = branch;
-      options.access_token = token;
-      xhr.send(options);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(options));
     }
   };
 
@@ -39,14 +41,43 @@
     repo = _repo;
   };
 
+  function prepForCommit(content) {
+    if (content.lastIndexOf("\n") !== content.length-1) {
+      content += "\n";
+    }
+    return btoa(content);
+  }
+
   Repo.prototype = {
     read: function(_, target, callback) {
-      request("GET", target, {}, callback);
+      request("GET", target, {
+        ref: branch
+      }, callback);
     },
-    write: function(_, target, content, message, callback) {},
-    update: function(_, target, content, message, callback) {},
+    write: function(_, target, content, message, callback) {
+      content = prepForCommit(content);
+      request("PUT", target, {
+        content: content,
+        message: message
+      }, callback);
+    },
+    update: function(_, target, content, message, callback) {
+      this.read(_, target, function(err, fileInfo) {
+        content = prepForCommit(content);
+        request("PUT", target, {
+          content: content,
+          message: message,
+          sha: fileInfo.sha
+        }, callback);
+      });
+    },
     remove: function(_, target, message, callback) {
-      request("DELETE", target, { message: message }, callback);
+      this.read(_, target, function(err, fileInfo) {
+        request("DELETE", target, {
+          message: message,
+          sha: fileInfo.sha
+        }, callback);
+      });
     },
     getLatestCommit: function() {}
   }
