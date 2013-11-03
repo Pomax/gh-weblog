@@ -14,7 +14,7 @@
     xhr.open(method, "https://api.github.com" + path, true);
     xhr.onreadystatechange  = function() {
       if (xhr.readyState === 4) {
-        if (xhr.status === 0 || xhr.status === 200) {
+        if (xhr.status === 0 || xhr.status === 200 || (xhr.status === 201 && method === "PUT")) {
           var data = xhr.responseText;
           try {
             data = JSON.parse(data);

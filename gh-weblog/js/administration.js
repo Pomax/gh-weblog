@@ -114,7 +114,7 @@ function setupPostHandling() {
     if(!updated) return;
     // send a github "create" commit to github for this entry's file
     if (entry.classList.contains("pending")) {
-      console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
+//    console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
       context.saveEntry(uid, function afterSaving(err) {
         entry.classList.remove("pending");
       });

@@ -4,6 +4,7 @@ function setupWebLog(options) {
     options.path += "/";
   }
   context.path = options.path;
+  context.newestFirst = options.order ? options.order=="newest" : false;
 
   /**
    * Goddamnit, IE
@@ -32,6 +33,9 @@ function setupWebLog(options) {
     setupPostHandling();
     context.entries = {};
     var list = context.content.slice();
+    if(!context.newestFirst) {
+      list = list.reverse();
+    }
     (function loadEntry() {
       if(list.length === 0) return;
       resource = list.splice(0,1)[0];
