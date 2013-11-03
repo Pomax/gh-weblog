@@ -11,16 +11,10 @@ into your gh-pages-using-project and in your index.html
 add this snippet:
 
 ```
-<!-- github.js requirement -->
-<script src="http://underscorejs.org/underscore-min.js"></script>
 <!-- weblog data -->
 <link rel="stylesheet" href="gh-weblog/styles/style.css" media="screen">
 <script src="gh-weblog/js/main.js" onload="setupWebLog({username: 'YourNameHere', repo: 'YourProjectRepoName'})" async></script>
 ```
-
-The dependency on underscore is unfortunate, and frankly a
-little unnecessary, but github.js (which I hope to replace)
-currently needs it.
 
 Set the obvious replacements for `YourNameHere` and
 `YourProjectRepoName`, and you're good to go. The scripts
@@ -51,12 +45,8 @@ but it won't do anything. The github API commands will
 fail because the token is invalid.
 
 To remove the administration buttons again, simply
-authenticate with the empty string.
+authenticate with an empty string.
 
 I guess that's it. Suggestions and pull requests are
-always welcome, and I'll probably be writing a much
-thinner wrapper for the github API than github.js
-because I'm only using a handful of functions in
-this project.
-
-My personal version: http://pomax.github.io/gh-blog
+always welcome, and you can find my personal version
+over at http://pomax.github.io/gh-blog
