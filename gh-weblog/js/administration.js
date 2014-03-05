@@ -124,7 +124,7 @@ function setupPostHandling() {
       var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
-      repo.update('gh-pages', context.path + 'content/' + filename, entryString, 'new content for entry '+filename, function(err) {
+      repo.write('gh-pages', context.path + 'content/' + filename, entryString, 'new content for entry '+filename, function(err) {
         if(err) {
           return console.error("error while writing updating entry (content/"+filename+") on github: ", err);
         }
@@ -165,7 +165,7 @@ function setupPostHandling() {
     }
     else { context.content.push(shortString); }
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-    repo.update('gh-pages', context.path + 'js/content.js', contentString, 'content entry for '+filename, function(err) {
+    repo.write('gh-pages', context.path + 'js/content.js', contentString, 'content entry for '+filename, function(err) {
       if(err) {
         return console.error("error while writing new entry log (js/content.js) to github: ", err);
       }
