@@ -10,11 +10,12 @@
   // -------------
 
   var XMLHttpRequest, Base64, _;
+
   if (typeof exports !== 'undefined') {
       XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
       _ = require('underscore');
       Base64 = require('./lib/base64.js');
-  }else{
+  } else {
       _ = window._;
       Base64 = window.Base64;
   }
