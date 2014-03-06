@@ -82,13 +82,21 @@
     getLatestCommit: function() {}
   }
 
-  window.Github = function(options) {
-    token = options.token;
-    this.authenticate();
+  window.Github = function(token) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.github.com/user", false);
+    var options = {
+      username: token,
+      password: "x-oauth-basic"
+    }
+    xhr.onreadystatechange = function() {
+      console.log(xhr.readyState, xhr.status);
+    }
+    xhr.send(JSON.stringify(options));
+    console.log(xhr.responseText);
   };
 
   window.Github.prototype = {
-    authenticate: function() {},
     getRepo: function(username, repo) {
       return new Repo(username, repo);
     }
