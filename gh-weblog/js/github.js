@@ -525,7 +525,7 @@
             // Update Tree
             var newTree = _.reject(tree, function(ref) { return ref.path === path; });
             _.each(newTree, function(ref) {
-              if (ref.type === "tree") delete ref.sha;
+              //if (ref.type === "tree") delete ref.sha;
             });
 
             that.postTree(newTree, function(err, rootTree) {
