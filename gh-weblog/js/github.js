@@ -9,8 +9,6 @@
   // Initial Setup
   // -------------
 
-  var XMLHttpRequest;
-
   var API_URL = 'https://api.github.com';
 
   var Github = function(options) {
