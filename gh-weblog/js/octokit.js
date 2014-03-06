@@ -63,9 +63,6 @@
           headers = {
             'Accept': 'application/vnd.github.raw'
           };
-          if (userAgent) {
-            headers['User-Agent'] = userAgent;
-          }
           if (path in _cachedETags) {
             headers['If-None-Match'] = _cachedETags[path].eTag;
           } else {
@@ -1176,7 +1173,7 @@
     exports["new"] = function(options) {
       return new Octokit(options);
     };
-  } else if (this.define != null) {
+  } else if (this.define != null) {User-Agent
     _ref = ['github', 'octokit'];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       moduleName = _ref[_i];
