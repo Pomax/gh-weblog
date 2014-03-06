@@ -400,7 +400,7 @@
           "parents": [
             parent
           ],
-          "tree": tree
+          "sha": tree
         };
 
         _request("POST", repoPath + "/git/commits", data, function(err, res) {
