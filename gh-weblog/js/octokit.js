@@ -4,7 +4,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  makeOctokit = function(_, jQuery, base64encode, userAgent) {
+  makeOctokit = function(_, jQuery, userAgent) {
     var Octokit;
     Octokit = (function() {
       function Octokit(clientOptions) {
@@ -75,7 +75,7 @@
             if (clientOptions.token) {
               auth = "token " + clientOptions.token;
             } else {
-              auth = 'Basic ' + atob("" + clientOptions.username + ":" + clientOptions.password);
+              auth = 'Basic ' + btoa("" + clientOptions.username + ":" + clientOptions.password);
             }
             headers['Authorization'] = auth;
           }
@@ -578,7 +578,7 @@
               var _this = this;
               if (typeof content === 'string') {
                 if (isBase64) {
-                  content = atob(content);
+                  content = btoa(content);
                 }
                 content = {
                   content: content,
@@ -1172,12 +1172,7 @@
     jQuery = require('jquery-deferred');
     najax = require('najax');
     jQuery.ajax = najax;
-    encode = function(str) {
-      var buffer;
-      buffer = new Buffer(str, 'binary');
-      return buffer.toString('base64');
-    };
-    Octokit = makeOctokit(_, jQuery, encode, 'octokit');
+    Octokit = makeOctokit(_, jQuery, 'octokit');
     exports["new"] = function(options) {
       return new Octokit(options);
     };
