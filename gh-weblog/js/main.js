@@ -108,5 +108,5 @@ function setupWebLog(options) {
     });
   }
 
-  load(["underscore.js", "github.js", "nunjucks.js", "administration.js", "content.js", "marked.js"]);
+  load(["underscore.js", "octokit.js", "nunjucks.js", "administration.js", "content.js", "marked.js"]);
 }
