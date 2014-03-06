@@ -518,6 +518,10 @@
       this.remove = function(branch, path, cb) {
         updateTree(branch, function(err, latestCommit) {
           that.getTree(latestCommit+"?recursive=true", function(err, tree) {
+            if(err) {
+              console.log(err);
+            }
+
             // Update Tree
             var newTree = _.reject(tree, function(ref) { return ref.path === path; });
             _.each(newTree, function(ref) {
