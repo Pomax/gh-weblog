@@ -84,7 +84,7 @@
 
   window.Github = function(token) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.github.com/user", false);
+    xhr.open("POST", "https://api.github.com/user", false);
     var options = {
       username: token,
       password: "x-oauth-basic"
