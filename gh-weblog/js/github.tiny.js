@@ -82,17 +82,16 @@
     getLatestCommit: function() {}
   }
 
-  window.Github = function(token) {
+  window.Github = function(username, password) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://api.github.com/user", false);
 
     xhr.setRequestHeader('Accept','application/vnd.github.raw+json');
     xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
-    xhr.setRequestHeader('Authorization', 'token ' + token);
 
     xhr.send(JSON.stringify({
-      username: token,
-      password: "x-oauth-basic"
+      username: username,
+      password: password || "x-oauth-basic"
     }));
 
     console.log(xhr.responseText);
