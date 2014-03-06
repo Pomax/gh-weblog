@@ -75,7 +75,7 @@
             if (clientOptions.token) {
               auth = "token " + clientOptions.token;
             } else {
-              auth = 'Basic ' + base64encode("" + clientOptions.username + ":" + clientOptions.password);
+              auth = 'Basic ' + atob("" + clientOptions.username + ":" + clientOptions.password);
             }
             headers['Authorization'] = auth;
           }
@@ -578,7 +578,7 @@
               var _this = this;
               if (typeof content === 'string') {
                 if (isBase64) {
-                  content = base64encode(content);
+                  content = atob(content);
                 }
                 content = {
                   content: content,
