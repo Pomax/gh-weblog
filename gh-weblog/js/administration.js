@@ -166,7 +166,7 @@ function setupPostHandling() {
       if (pos > -1) { context.content.splice(pos, 1); }
     }
     else { context.content.push(shortString); }
-    var contentString = ['window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+    var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
     var path = context.path + 'js/content.js';
     console.log("saveContentJS", path);
     branch.write(path, contentString, 'content entry for '+filename);
