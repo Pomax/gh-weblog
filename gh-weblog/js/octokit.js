@@ -4,7 +4,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  makeOctokit = function(_, jQuery, userAgent) {
+  makeOctokit = function(_, jQuery, base64encode, userAgent) {
     var Octokit;
     Octokit = (function() {
       function Octokit(clientOptions) {
@@ -63,6 +63,9 @@
           headers = {
             'Accept': 'application/vnd.github.raw'
           };
+          if (userAgent) {
+            headers['User-Agent'] = userAgent;
+          }
           if (path in _cachedETags) {
             headers['If-None-Match'] = _cachedETags[path].eTag;
           } else {
@@ -72,7 +75,7 @@
             if (clientOptions.token) {
               auth = "token " + clientOptions.token;
             } else {
-              auth = 'Basic ' + btoa("" + clientOptions.username + ":" + clientOptions.password);
+              auth = 'Basic ' + base64encode("" + clientOptions.username + ":" + clientOptions.password);
             }
             headers['Authorization'] = auth;
           }
@@ -560,6 +563,15 @@
                 return contents;
               }).promise();
             };
+            this.removeFile = function(path, message, sha, branch) {
+              var params;
+              params = {
+                message: message,
+                sha: sha,
+                branch: branch
+              };
+              return _request('DELETE', "" + _repoPath + "/contents/" + path, params, null);
+            };
             this.getTree = function(tree, options) {
               var queryString,
                 _this = this;
@@ -575,7 +587,7 @@
               var _this = this;
               if (typeof content === 'string') {
                 if (isBase64) {
-                  content = btoa(content);
+                  content = base64encode(content);
                 }
                 content = {
                   content: content,
@@ -718,34 +730,22 @@
                 });
               }).promise();
             };
-            this.remove = function(path, message) {
+            this.remove = function(path, message, sha) {
               var _this = this;
               if (message == null) {
                 message = "Removed " + path;
               }
+              if (sha == null) {
+                sha = null;
+              }
               return _getRef().then(function(branch) {
-                return _git._updateTree(branch).then(function(latestCommit) {
-                  return _git.getTree(latestCommit, {
-                    recursive: true
-                  }).then(function(tree) {
-                    var newTree;
-                    newTree = _.reject(tree, function(ref) {
-                      return ref.path === path;
-                    });
-                    _.each(newTree, function(ref) {
-                      if (ref.type === 'tree') {
-                        return delete ref.sha;
-                      }
-                    });
-                    return _git.postTree(newTree).then(function(rootTree) {
-                      return _git.commit(latestCommit, rootTree, message).then(function(commit) {
-                        return _git.updateHead(branch, commit).then(function(res) {
-                          return res;
-                        });
-                      });
-                    });
+                if (sha) {
+                  return _git.removeFile(path, message, sha, branch);
+                } else {
+                  return _git.getSha(branch, path).then(function(sha) {
+                    return _git.removeFile(path, message, sha, branch);
                   });
-                });
+                }
               }).promise();
             };
             this.move = function(path, newPath, message) {
@@ -1169,11 +1169,16 @@
     jQuery = require('jquery-deferred');
     najax = require('najax');
     jQuery.ajax = najax;
-    Octokit = makeOctokit(_, jQuery, 'octokit');
+    encode = function(str) {
+      var buffer;
+      buffer = new Buffer(str, 'binary');
+      return buffer.toString('base64');
+    };
+    Octokit = makeOctokit(_, jQuery, encode, 'octokit');
     exports["new"] = function(options) {
       return new Octokit(options);
     };
-  } else if (this.define != null) {User-Agent
+  } else if (this.define != null) {
     _ref = ['github', 'octokit'];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       moduleName = _ref[_i];
@@ -1199,7 +1204,7 @@
           console.error(msg);
         }
       }
-      throw msg;
+      throw new Error(msg);
     };
     if (!this._) {
       err('Underscore not included');
@@ -1207,7 +1212,7 @@
     if (!this.jQuery) {
       err('jQuery not included');
     }
-    if (!this.Base64 && !this.btoa) {
+    if (!(this.btoa || this.Base64)) {
       err('Base64 not included');
     }
   }
