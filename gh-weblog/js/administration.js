@@ -125,7 +125,7 @@ function setupPostHandling() {
       var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
-      var path = context.path + 'content/' + filename;
+      var path = context.path + '/content/' + filename;
       console.log(path);
       branch.write(path, entryString, 'new content for entry '+filename);
     }
@@ -144,8 +144,10 @@ function setupPostHandling() {
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
     var filename = cfnGenerator(uid);
-    branch.write(context.path + 'content/' + filename, entryString + '\n', 'weblog entry '+filename)
+    var path = context.path + '/content/' + filename;
+    branch.write(path, entryString + '\n', 'weblog entry '+filename)
           .done(function() {
+            console.log("post save hook");
             context.saveContentJS(filename);
             cue(afterSaving);
           });
@@ -162,7 +164,8 @@ function setupPostHandling() {
     }
     else { context.content.push(shortString); }
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-    branch.write(context.path + 'js/content.js', contentString, 'content entry for '+filename);
+    var path = context.path + '/js/content.js';
+    branch.write(path, contentString, 'content entry for '+filename);
   };
 
   /**
@@ -177,7 +180,7 @@ function setupPostHandling() {
 
     // send a github "removal" commit up to github for the old file and removal from content.js
     var filename = cfnGenerator(uid);
-    branch.remove(context.path + 'content/' + filename, "removing entry " + filename)
+    branch.remove(context.path + '/content/' + filename, "removing entry " + filename)
           .done(function() {
             var removeFile = true;
             context.saveContentJS(filename, removeFile);
