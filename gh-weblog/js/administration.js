@@ -147,10 +147,12 @@ function setupPostHandling() {
     var path = context.path + 'content/' + filename;
     console.log("saveEntry", path);
     branch.write(path, entryString + '\n', 'weblog entry '+filename)
-          .then(function() {
+          .done(function() {
             console.log("post save hook");
-            context.saveContentJS(filename);
-            cue(afterSaving);
+            setTimeout(function(){
+              context.saveContentJS(filename);
+              cue(afterSaving);
+            }, 2000);
           });
   };
 
@@ -185,10 +187,12 @@ function setupPostHandling() {
     var path = context.path + 'content/' + filename;
     console.log("removeEntry", path);
     branch.remove(path, "removing entry " + filename)
-          .then(function() {
+          .done(function() {
             console.log("post remove hook");
-            var removeFile = true;
-            context.saveContentJS(filename, removeFile);
+            setTimeout(function() {
+              var removeFile = true;
+              context.saveContentJS(filename, removeFile);
+            }, 2000);
           });
   };
 
