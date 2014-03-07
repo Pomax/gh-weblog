@@ -3,6 +3,7 @@ function setupPostHandling() {
       entriesDiv = document.querySelector("#gh-weblog-container .entries"),
       github,
       repo,
+      branch,
       cfnGenerator = function(uid) {
         var d = new Date(uid ? uid : Date.now()),
             components = [
@@ -124,11 +125,7 @@ function setupPostHandling() {
       var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
-      repo.write('gh-pages', context.path + 'content/' + filename, entryString, 'new content for entry '+filename, function(err) {
-        if(err) {
-          return console.error("error while writing updating entry (content/"+filename+") on github: ", err);
-        }
-      });
+      branch.write(context.path + 'content/' + filename, entryString, 'new content for entry '+filename);
     }
   };
 
@@ -145,13 +142,11 @@ function setupPostHandling() {
 
     // send a github "addition" commit up to github with the new file and an addition to content.js
     var filename = cfnGenerator(uid);
-    repo.write('gh-pages', context.path + 'content/' + filename, entryString + '\n', 'weblog entry '+filename, function(err) {
-      if(err) {
-        return console.error("error while writing entry to github: ", err);
-      }
-      context.saveContentJS(filename);
-      cue(afterSaving);
-    });
+    branch.write(context.path + 'content/' + filename, entryString + '\n', 'weblog entry '+filename)
+          .done(function() {
+            context.saveContentJS(filename);
+            cue(afterSaving);
+          });
   };
 
   /**
@@ -165,11 +160,7 @@ function setupPostHandling() {
     }
     else { context.content.push(shortString); }
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-    repo.write('gh-pages', context.path + 'js/content.js', contentString, 'content entry for '+filename, function(err) {
-      if(err) {
-        return console.error("error while writing new entry log (js/content.js) to github: ", err);
-      }
-    });
+    branch.write(context.path + 'js/content.js', contentString, 'content entry for '+filename);
   };
 
   /**
@@ -184,13 +175,11 @@ function setupPostHandling() {
 
     // send a github "removal" commit up to github for the old file and removal from content.js
     var filename = cfnGenerator(uid);
-    repo.remove('gh-pages', context.path + 'content/' + filename, "removing entry " + filename, function(err) {
-      if(err) {
-        return console.error("error while removing entry (content/"+filename+") from github: ", err);
-      }
-      var removeFile = true;
-      context.saveContentJS(filename, removeFile);
-    });
+    branch.remove(context.path + 'content/' + filename, "removing entry " + filename)
+          .done(function() {
+            var removeFile = true;
+            context.saveContentJS(filename, removeFile);
+          });
   };
 
   /**
@@ -208,7 +197,8 @@ function setupPostHandling() {
         username: context.username,
         password: newcreds
       });
-      window.repo = repo = github.getRepo(context.username, context.repo);
+      repo = github.getRepo(context.username, context.repo);
+      branch = repo.getBranch(context.branch);
     }
   };
 }
