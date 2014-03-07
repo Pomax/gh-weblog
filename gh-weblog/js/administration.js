@@ -125,7 +125,9 @@ function setupPostHandling() {
       var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
-      branch.write(context.path + 'content/' + filename, entryString, 'new content for entry '+filename);
+      var path = context.path + 'content/' + filename;
+      console.log(path);
+      branch.write(path, entryString, 'new content for entry '+filename);
     }
   };
 
