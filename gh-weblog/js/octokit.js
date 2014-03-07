@@ -636,9 +636,12 @@
             };
             this.updateHead = function(head, commit, force) {
               var options;
-              if (force == null) {
-                force = false;
-              }
+              // HACK!
+              force = true;
+              // END HACK!
+//              if (force == null) {
+//                force = false;
+//              }
               options = {
                 sha: commit
               };
