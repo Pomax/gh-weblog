@@ -207,10 +207,7 @@ function setupPostHandling() {
     if(newcreds == "undefined") { document.body.classList.add("default"); }
     else {
       document.body.classList.remove("default");
-      github = new Octokit({
-        username: context.username,
-        password: newcreds
-      });
+      github = new Octokit({ token: newcreds });
       window.repo = repo = github.getRepo(context.username, context.repo);
       window.branch = branch = repo.getBranch(context.branch);
     }
