@@ -149,8 +149,10 @@ function setupPostHandling() {
     branch.write(path, entryString + '\n', 'weblog entry '+filename)
           .done(function() {
             console.log("post save hook");
-            context.saveContentJS(filename);
-            cue(afterSaving);
+            setTimeout(function() {
+              context.saveContentJS(filename);
+              cue(afterSaving);
+            }, 50);
           });
   };
 
@@ -164,7 +166,7 @@ function setupPostHandling() {
       if (pos > -1) { context.content.splice(pos, 1); }
     }
     else { context.content.push(shortString); }
-    var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+    var contentString = ['window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
     var path = context.path + 'js/content.js';
     console.log("saveContentJS", path);
     branch.write(path, contentString, 'content entry for '+filename);
