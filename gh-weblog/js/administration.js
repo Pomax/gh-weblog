@@ -197,8 +197,8 @@ function setupPostHandling() {
         username: context.username,
         password: newcreds
       });
-      repo = github.getRepo(context.username, context.repo);
-      branch = repo.getBranch(context.branch);
+      window.repo = repo = github.getRepo(context.username, context.repo);
+      window.branch = branch = repo.getBranch(context.branch);
     }
   };
 }
