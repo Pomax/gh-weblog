@@ -149,10 +149,9 @@ function setupPostHandling() {
     branch.write(path, entryString + '\n', 'weblog entry '+filename)
           .done(function() {
             console.log("post save hook");
-            setTimeout(function() {
-              context.saveContentJS(filename);
-              cue(afterSaving);
-            }, 50);
+            branch = repo.getBranch(context.branch);
+            context.saveContentJS(filename);
+            cue(afterSaving);
           });
   };
 
