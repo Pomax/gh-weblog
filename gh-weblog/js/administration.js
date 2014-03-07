@@ -147,9 +147,8 @@ function setupPostHandling() {
     var path = context.path + 'content/' + filename;
     console.log("saveEntry", path);
     branch.write(path, entryString + '\n', 'weblog entry '+filename)
-          .done(function() {
+          .then(function() {
             console.log("post save hook");
-            branch = repo.getBranch(context.branch);
             context.saveContentJS(filename);
             cue(afterSaving);
           });
@@ -186,7 +185,8 @@ function setupPostHandling() {
     var path = context.path + 'content/' + filename;
     console.log("removeEntry", path);
     branch.remove(path, "removing entry " + filename)
-          .done(function() {
+          .then(function() {
+            console.log("post remove hook");
             var removeFile = true;
             context.saveContentJS(filename, removeFile);
           });
