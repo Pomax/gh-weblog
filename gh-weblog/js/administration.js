@@ -179,7 +179,7 @@ function setupPostHandling() {
         , '<description>' + (function() {
              return e.content.split("\n")[0];
           }())+ '</description>'
-        , '<link>' + window.location.toString() + '/#gh-weblog-' + e.published + '</link>'
+        , '<link>' + window.location.toString() + '#gh-weblog-' + e.published + '</link>'
         , '<guid>' + e.published + '</guid>'
         , '<pubDate>' + (new Date(e.published)).toString() + '</pubDate>'
         , '</item>'
