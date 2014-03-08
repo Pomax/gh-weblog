@@ -37,7 +37,19 @@ function setupWebLog(options) {
       list = list.reverse();
     }
     (function loadEntry() {
-      if(list.length === 0) return;
+      if(list.length === 0) {
+        // done building the page. Do we need to scrollTo?
+        var l = window.location.toString(),
+            pos = l.lastIndexOf("#");
+        if(pos > -1) {
+          var fragment = l.substring(pos);
+          if (fragment.length > 2) {
+            var e = document.querySelector(fragment);
+            window.scrollTo(0, e.offsetTop);
+          }
+        }
+        return;
+      }
       resource = list.splice(0,1)[0];
       try {
         var xhr = new XMLHttpRequest();
