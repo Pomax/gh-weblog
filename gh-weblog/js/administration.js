@@ -127,7 +127,12 @@ function setupPostHandling() {
       var filename = cfnGenerator(uid);
       var path = context.path + 'content/' + filename;
       //console.log("updateEntry", path);
-      branch.write(path, entryString, 'new content for entry '+filename);
+      branch.write(path, entryString, 'new content for entry '+filename)
+          .then(function() {
+            setTimeout(function() {
+              context.saveContentJS(filename);
+            }, 2000);
+          });
     }
   };
 
@@ -147,7 +152,7 @@ function setupPostHandling() {
     var path = context.path + 'content/' + filename;
     //console.log("saveEntry", path);
     branch.write(path, entryString + '\n', 'weblog entry '+filename)
-          .done(function() {
+          .then(function() {
             //console.log("post save hook");
             setTimeout(function(){
               context.saveContentJS(filename);
@@ -170,12 +175,14 @@ function setupPostHandling() {
     ].join("\n") + "\n";
 
     var content = '';
-    Object.keys(entries).forEach(function(key) {
+    Object.keys(entries).reverse().forEach(function(key) {
       var e = entries[key];
       var entryString = [
           '<item>'
         , '<title>' + e.title + '</title>'
-        , '<description>' + e.content + '</description>'
+        , '<description>' + (function() {
+             return e.content.split("\n")[0];
+          }())+ '</description>'
         , '<link>' + window.location.toString() + '#</link>'
         , '<guid>' + e.published + '</guid>'
         , '<pubDate>' + (new Date(e.published)).toString() + '</pubDate>'
@@ -206,8 +213,9 @@ function setupPostHandling() {
 
     var path = context.path + 'js/content.js';
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+
     branch.write(path, contentString, 'content entry update for ' + filename)
-          .done(function() {
+          .then(function() {
             setTimeout(function() {
               var rssPath = context.path + 'rss.xml';
               var rssContentString = formRSS(context.entries);
@@ -231,7 +239,7 @@ function setupPostHandling() {
     var path = context.path + 'content/' + filename;
     //console.log("removeEntry", path);
     branch.remove(path, "removing entry " + filename)
-          .done(function() {
+          .then(function() {
             //console.log("post remove hook");
             setTimeout(function() {
               var removeFile = true;
