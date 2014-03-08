@@ -167,7 +167,7 @@ function setupPostHandling() {
       , '<lastBuildDate>' + (new Date()).toString() + '</lastBuildDate>'
       , '<pubDate>' + (new Date()).toString() + '</pubDate>'
       , '<ttl>1440</ttl>'
-    ].join("\n");
+    ].join("\n") + "\n";
 
     var content = '';
     Object.keys(entries).forEach(function(key) {
@@ -183,11 +183,12 @@ function setupPostHandling() {
       ];
       content += entryString.join("\n");
     });
+    content += "\n";
 
     var tail = [
-      '</channel>'
-    , '</rss>'
-    ].join("\n");
+        '</channel>'
+      , '</rss>'
+    ].join("\n") + "\n";
 
     return head + content + tail;
   }
@@ -209,12 +210,10 @@ function setupPostHandling() {
     var rssPath = context.path + 'rss.xml';
     var rssContentString = formRSS(context.entries);
 
-    console.log("test:", rssPath, rssContentString);
-
     //console.log("saveContentJS", path);
     var contents = {
         path: contentString
-//      , rssPath: rssContentString
+      , rssPath: rssContentString
     };
     branch.write(contents, 'content entry + RSS update for '+filename);
   };
