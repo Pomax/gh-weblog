@@ -32,7 +32,7 @@ function setupPostHandling() {
    *
    */
   context.parseEntry = function parseEntry(entry) {
-//  console.log("parse entry " + entry.id);
+    //console.log("parse entry " + entry.id);
     var content = entry.querySelector(".content"),
         ocontent = entry.querySelector(".original.content");
     content.innerHTML = marked(ocontent.textContent);
@@ -48,7 +48,7 @@ function setupPostHandling() {
    */
   context.addEntry = function newEntry(uid, entryObject) {
     uid = uid || Date.now();
-//  console.log("new entry " + uid);
+    //console.log("new entry " + uid);
 
     // set up entry object
     var entryObject = entryObject || {
@@ -78,7 +78,7 @@ function setupPostHandling() {
    *
    */
   context.editEntry = function editEntry(uid) {
-//  console.log("edit entry " + uid);
+    //console.log("edit entry " + uid);
     if(!uid) return;
     var entry = document.getElementById("gh-weblog-"+uid),
         content = entry.querySelector(".content"),
@@ -95,7 +95,7 @@ function setupPostHandling() {
    *
    */
   context.updateEntry = function updateEntry(uid, ocontent) {
-//  console.log("update entry " + uid);
+    //console.log("update entry " + uid);
     if(!uid) return;
     var entry = document.getElementById("gh-weblog-"+uid);
     var content = entry.querySelector(".content");
@@ -115,7 +115,7 @@ function setupPostHandling() {
     if(!updated) return;
     // send a github "create" commit to github for this entry's file
     if (entry.classList.contains("pending")) {
-//    console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
+    //console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
       context.saveEntry(uid, function afterSaving(err) {
         entry.classList.remove("pending");
       });
@@ -126,7 +126,7 @@ function setupPostHandling() {
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
       var path = context.path + 'content/' + filename;
-      console.log("updateEntry", path);
+      //console.log("updateEntry", path);
       branch.write(path, entryString, 'new content for entry '+filename);
     }
   };
@@ -135,7 +135,7 @@ function setupPostHandling() {
    *
    */
   context.saveEntry = function saveEntry(uid, afterSaving) {
-//  console.log("save entry " + uid);
+    //console.log("save entry " + uid);
     if(!uid) return;
     var entryObject = context.entries[""+uid];
     delete entryObject.pending;
@@ -145,10 +145,10 @@ function setupPostHandling() {
     // send a github "addition" commit up to github with the new file and an addition to content.js
     var filename = cfnGenerator(uid);
     var path = context.path + 'content/' + filename;
-    console.log("saveEntry", path);
+    //console.log("saveEntry", path);
     branch.write(path, entryString + '\n', 'weblog entry '+filename)
           .done(function() {
-            console.log("post save hook");
+            //console.log("post save hook");
             setTimeout(function(){
               context.saveContentJS(filename);
               cue(afterSaving);
@@ -156,8 +156,43 @@ function setupPostHandling() {
           });
   };
 
+  function formRSS(entries) {
+    var head = [
+        '<?xml version="1.0" encoding="UTF-8" ?>'
+      , '<rss version="2.0">'
+      , '<channel>'
+      , '<title>Pomax.github.io</title>'
+      , '<description>' + document.querySelector("title").innerHTML + '</description>'
+      , '<link>' +  window.location.toString() + '</link>'
+      , '<lastBuildDate>' + (new Date()).toString() + '</lastBuildDate>'
+      , '<pubDate>' + (new Date()).toString() + '</pubDate>'
+      , '<ttl>1440</ttl>'
+    ].join("\n");
+
+    var content = '';
+    entries.forEach(function(e) {
+      var entryString = [
+          '<item>'
+        , '<title>' + e.title + '</title>'
+        , '<description>' + e.content + '</description>'
+        , '<link>' + window.location.toString() + '#</link>'
+        , '<guid>' + e.published + '</guid>'
+        , '<pubDate>' + (new Date(e.published)).toString() + '</pubDate>'
+        , '</item>'
+      ];
+      content += entryString.join("\n");
+    });
+
+    var tail = [
+      '</channel>'
+    , '</rss>'
+    ].join("\n");
+
+    return head + content + tail;
+  }
+
   /**
-   *
+   * Save the update to the content.js file, and regenerate the RSS
    */
   context.saveContentJS = function saveContentJS(filename, removeFile) {
     var shortString = filename.replace(".json",'');
@@ -166,17 +201,28 @@ function setupPostHandling() {
       if (pos > -1) { context.content.splice(pos, 1); }
     }
     else { context.content.push(shortString); }
-    var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+
     var path = context.path + 'js/content.js';
-    console.log("saveContentJS", path);
-    branch.write(path, contentString, 'content entry for '+filename);
+    var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+
+    var rssPath = context.path + 'rss.xml';
+    var rssContentString = formRSS(context.content);
+
+    console.log("test:", rssPath, rssContentString);
+
+    //console.log("saveContentJS", path);
+    var contents = {
+        path: contentString
+//      , rssPath: rssContentString
+    };
+    branch.write(contents, 'content entry + RSS update for '+filename);
   };
 
   /**
    *
    */
   context.removeEntry = function removeEntry(uid) {
-//  console.log("remove entry " + uid);
+    //console.log("remove entry " + uid);
     if(!uid) return;
     var entry = document.getElementById("gh-weblog-"+uid);
     var confirmation = confirm("Are you sure you want to remove this entry?");
@@ -185,10 +231,10 @@ function setupPostHandling() {
     // send a github "removal" commit up to github for the old file and removal from content.js
     var filename = cfnGenerator(uid);
     var path = context.path + 'content/' + filename;
-    console.log("removeEntry", path);
+    //console.log("removeEntry", path);
     branch.remove(path, "removing entry " + filename)
           .done(function() {
-            console.log("post remove hook");
+            //console.log("post remove hook");
             setTimeout(function() {
               var removeFile = true;
               context.saveContentJS(filename, removeFile);
