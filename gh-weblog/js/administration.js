@@ -206,16 +206,13 @@ function setupPostHandling() {
 
     var path = context.path + 'js/content.js';
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
+    branch.write(path, contentString, 'content entry update for '+filename);
 
-    var rssPath = context.path + 'rss.xml';
-    var rssContentString = formRSS(context.entries);
-
-    //console.log("saveContentJS", path);
-    var contents = {
-        path: contentString
-      , rssPath: rssContentString
-    };
-    branch.write(contents, 'content entry + RSS update for '+filename);
+    setTimeout(function() {
+      var rssPath = context.path + 'rss.xml';
+      var rssContentString = formRSS(context.entries);
+      branch.write(rssPath, rssContentString, 'content entry RSS update for '+filename);
+    },2000);
   };
 
   /**
