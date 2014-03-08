@@ -115,7 +115,7 @@ function setupPostHandling() {
     if(!updated) return;
     // send a github "create" commit to github for this entry's file
     if (entry.classList.contains("pending")) {
-    //console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
+      //console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
       context.saveEntry(uid, function afterSaving(err) {
         entry.classList.remove("pending");
       });
@@ -127,12 +127,7 @@ function setupPostHandling() {
       var filename = cfnGenerator(uid);
       var path = context.path + 'content/' + filename;
       //console.log("updateEntry", path);
-      branch.write(path, entryString, 'new content for entry '+filename)
-          .then(function() {
-            setTimeout(function() {
-              context.saveContentJS(filename);
-            }, 2000);
-          });
+      branch.write(path, entryString, 'new content for entry '+filename);
     }
   };
 
@@ -177,6 +172,7 @@ function setupPostHandling() {
     var content = '';
     Object.keys(entries).reverse().forEach(function(key) {
       var e = entries[key];
+      if (!e) return;
       var entryString = [
           '<item>'
         , '<title>' + e.title + '</title>'
@@ -203,7 +199,7 @@ function setupPostHandling() {
   /**
    * Save the update to the content.js file, and regenerate the RSS
    */
-  context.saveContentJS = function saveContentJS(filename, removeFile) {
+  context.saveContentJS = function saveContentJS(filename, removeFile, uid) {
     var shortString = filename.replace(".json",'');
     if(removeFile) {
       var pos = context.content.indexOf(shortString);
@@ -214,12 +210,15 @@ function setupPostHandling() {
     var path = context.path + 'js/content.js';
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
 
-    branch.write(path, contentString, 'content entry update for ' + filename)
+    branch.write(path, contentString, 'content entry update (' + (removeFile ? 'entry deleted' : 'new entry') + ') for ' + filename)
           .then(function() {
             setTimeout(function() {
+              if(removeFile) {
+                context.entries[""+uid] = false;
+              }
               var rssPath = context.path + 'rss.xml';
               var rssContentString = formRSS(context.entries);
-              branch.write(rssPath, rssContentString, 'content entry RSS update for ' + filename);
+              branch.write(rssPath, rssContentString, 'content entry RSS update (' + (removeFile ? 'entry deleted' : 'new entry') + ') for ' + filename);
             }, 2000);
           });
   };
@@ -243,7 +242,7 @@ function setupPostHandling() {
             //console.log("post remove hook");
             setTimeout(function() {
               var removeFile = true;
-              context.saveContentJS(filename, removeFile);
+              context.saveContentJS(filename, removeFile, uid);
             }, 2000);
           });
   };
