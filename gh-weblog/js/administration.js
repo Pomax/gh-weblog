@@ -170,7 +170,7 @@ function setupPostHandling() {
     ].join("\n") + "\n";
 
     var content = '';
-    Object.keys(entries).reverse().forEach(function(key) {
+    Object.keys(entries).reverse().slice(0,20).forEach(function(key) {
       var e = entries[key];
       if (!e) return;
       var entryString = [
@@ -179,7 +179,7 @@ function setupPostHandling() {
         , '<description>' + (function() {
              return e.content.split("\n")[0];
           }())+ '</description>'
-        , '<link>' + window.location.toString() + '#</link>'
+        , '<link>' + window.location.toString() + '/#gh-weblog-' + e.published + '</link>'
         , '<guid>' + e.published + '</guid>'
         , '<pubDate>' + (new Date(e.published)).toString() + '</pubDate>'
         , '</item>'
