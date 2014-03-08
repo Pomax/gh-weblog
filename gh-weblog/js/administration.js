@@ -206,13 +206,14 @@ function setupPostHandling() {
 
     var path = context.path + 'js/content.js';
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
-    branch.write(path, contentString, 'content entry update for '+filename);
-
-    setTimeout(function() {
-      var rssPath = context.path + 'rss.xml';
-      var rssContentString = formRSS(context.entries);
-      branch.write(rssPath, rssContentString, 'content entry RSS update for '+filename);
-    },2000);
+    branch.write(path, contentString, 'content entry update for ' + filename)
+          .done(function() {
+            setTimeout(function() {
+              var rssPath = context.path + 'rss.xml';
+              var rssContentString = formRSS(context.entries);
+              branch.write(rssPath, rssContentString, 'content entry RSS update for ' + filename);
+            }, 2000);
+          });
   };
 
   /**
