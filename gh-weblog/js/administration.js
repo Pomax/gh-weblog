@@ -170,7 +170,8 @@ function setupPostHandling() {
     ].join("\n");
 
     var content = '';
-    entries.forEach(function(e) {
+    Object.keys(entries).forEach(function(key) {
+      var e = entries[key];
       var entryString = [
           '<item>'
         , '<title>' + e.title + '</title>'
@@ -206,7 +207,7 @@ function setupPostHandling() {
     var contentString = 'window["gh-weblog"].content = [\n  "' + context.content.join('",\n  "') + '"\n];\n';
 
     var rssPath = context.path + 'rss.xml';
-    var rssContentString = formRSS(context.content);
+    var rssContentString = formRSS(context.entries);
 
     console.log("test:", rssPath, rssContentString);
 
