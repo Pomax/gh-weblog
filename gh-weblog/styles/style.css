@@ -6,6 +6,11 @@
   padding: 1em;
 }
 
+#gh-weblog-container .entries .entry .tags {
+  float: right;
+  font-size: 80%;
+}
+
 #gh-weblog-container .entries .entry.pending {
   background: rgba(255,255,0,0.3);
 }
