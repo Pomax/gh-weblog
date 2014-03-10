@@ -4,6 +4,7 @@ function setupPostHandling() {
       github,
       repo,
       branch,
+      cacheDelay = 5000,
       cfnGenerator = function(uid) {
         var d = new Date(uid ? uid : Date.now()),
             components = [
@@ -46,7 +47,7 @@ function setupPostHandling() {
   /**
    *
    */
-  context.addEntry = function newEntry(uid, entryObject) {
+  context.addEntry = function addEntry(uid, entryObject) {
     uid = uid || Date.now();
     //console.log("new entry " + uid);
 
@@ -55,6 +56,7 @@ function setupPostHandling() {
       title: "",
       author: context.username,
       content: "#New Entry\nclick the entry to start typing",
+      tags: [],
       published: uid,
       updated: uid,
       pending: true
@@ -64,12 +66,34 @@ function setupPostHandling() {
     // add to page
     try {
       nunjucksEnv.render("entry.html", entryObject, function(err, result) {
+
         if(err) { return console.error("Nunjucks render error", err); }
         var _ = document.createElement("div");
         _.innerHTML = result;
         var element = _.children[0];
         entriesDiv.prependChild(element);
         context.parseEntry(element);
+
+        // Do we need to scrollTo?
+        var l = window.location.toString(),
+            pos = l.lastIndexOf("#");
+        if(pos > -1) {
+          var fragment = l.substring(pos);
+          if (fragment.length > 2) {
+            window.location = fragment;
+          }
+        }
+
+        // can we bind tag-editing?
+        var tagsdiv = element.querySelector(".tags")
+        tagsdiv.addEventListener("click", function(evt) {
+          var input = prompt("Specify tags (comma separated):", entryObject.tags.join(", "));
+          if(!input) return;
+          entryObject.tags = input.split(",").map(function(v) { return v.trim(); });
+          context.updateEntry(uid);
+          tagsdiv.innerHTML = entryObject.tags.join(",");
+        });
+
       });
     } catch (e) { return console.error("Nunjucks error", e); }
   };
@@ -97,37 +121,37 @@ function setupPostHandling() {
   context.updateEntry = function updateEntry(uid, ocontent) {
     //console.log("update entry " + uid);
     if(!uid) return;
-    var entry = document.getElementById("gh-weblog-"+uid);
-    var content = entry.querySelector(".content");
-    var newContent = ocontent.value;
-    // record the change to the entry
     var entryObject = context.entries[""+uid];
-    var updated = false;
-    if (entryObject.content.trim() != newContent.trim()) {
-      entryObject.content = newContent;
-      entryObject.updated = Date.now();
-      updated = true;
+    var entry = document.getElementById("gh-weblog-"+uid);
+    // content change?
+    if (ocontent) {
+      var content = entry.querySelector(".content");
+      var newContent = ocontent.value;
+      // record the change to the entry
+      var updated = false;
+      if (entryObject.content.trim() != newContent.trim()) {
+        entryObject.content = newContent;
+        entryObject.updated = Date.now();
+        updated = true;
+      }
+      // reswitcharoo
+      ocontent.hide();
+      content.innerHTML = marked(newContent);
+      content.show();
+      if(!updated) return;
     }
-    // reswitcharoo
-    ocontent.hide();
-    content.innerHTML = marked(newContent);
-    content.show();
-    if(!updated) return;
     // send a github "create" commit to github for this entry's file
     if (entry.classList.contains("pending")) {
-      //console.log("NEW ENTRY - SAVING RATHER THAN UPDATING");
       context.saveEntry(uid, function afterSaving(err) {
         entry.classList.remove("pending");
       });
     }
     // send a github "update" commit to github for this entry's file
     else {
-      var entryObject = context.entries[""+uid];
       var entryString = JSON.stringify(entryObject);
       var filename = cfnGenerator(uid);
       var path = context.path + 'content/' + filename;
-      //console.log("updateEntry", path);
-      branch.write(path, entryString, 'new content for entry '+filename);
+      branch.write(path, entryString, 'update for entry '+filename);
     }
   };
 
@@ -152,7 +176,7 @@ function setupPostHandling() {
             setTimeout(function(){
               context.saveContentJS(filename);
               cue(afterSaving);
-            }, 2000);
+            }, cacheDelay);
           });
   };
 
@@ -179,6 +203,13 @@ function setupPostHandling() {
         , '<description>' + (function() {
              return e.content.split("\n")[0];
           }())+ '</description>'
+        , (function(tags) {
+          var s = [];
+          tags.forEach(function(tag) {
+            s.push('<category>' + tag + '</category>');
+          });
+          return s.join("\n");
+        }(e.tags))
         , '<link>' + window.location.toString() + '#gh-weblog-' + e.published + '</link>'
         , '<guid>' + e.published + '</guid>'
         , '<pubDate>' + (new Date(e.published)).toString() + '</pubDate>'
