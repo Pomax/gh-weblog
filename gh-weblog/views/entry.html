@@ -1,4 +1,4 @@
-<div class="weblog entry{% if pending %} pending{% endif %} needstoken" id="gh-weblog-{{ published}}">
+<div class="weblog entry{% if pending %} pending{% endif %} needstoken" id="gh-weblog-{{ published }}">
 	<div class="info">
     <a href="#gh-weblog-{{ published}}">
       <span>originally published: {{ published | readableDate }}</span>
@@ -8,9 +8,7 @@
   </div>
   <div>
     <div class="content" data-prefix="{{ published | shortDate }}" onclick="window['gh-weblog'].editEntry({{ published }})">{{ content }}</div>
-    <div class="tags">{% if tags %}
-      {{ tags | join(", ") }}
-    {% endif %}</div>
+    <div class="tags">{{ tags }}</div>
     <textarea class="hidden original content" onblur="window['gh-weblog'].updateEntry({{ published }}, this)">{{ content }}</textarea>
   </div>
 </div>
