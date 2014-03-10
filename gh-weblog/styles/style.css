@@ -42,6 +42,18 @@
   display: none!important;
 }
 
+#gh-weblog-container .entries .info a,
+#gh-weblog-container .entries .info a:active,
+#gh-weblog-container .entries .info a:hover,
+#gh-weblog-container .entries .info a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+#gh-weblog-container .entries .info a:hover {
+  color: rgb(80, 109, 137);
+}
+
 .default button.needstoken {
   display: none!important;
 }
