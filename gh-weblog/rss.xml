@@ -3,28 +3,34 @@
 <channel>
 <title>Pomax.github.io</title>
 <description>A GitHub weblog</description>
-<link>http://pomax.github.io/gh-blog/</link>
-<lastBuildDate>Sun Mar 09 2014 22:17:10 GMT-0700 (PDT)</lastBuildDate>
-<pubDate>Sun Mar 09 2014 22:17:10 GMT-0700 (PDT)</pubDate>
+<link>http://localhost:8080/</link>
+<lastBuildDate>Mon Mar 24 2014 11:52:38 GMT-0700 (PDT)</lastBuildDate>
+<pubDate>Mon Mar 24 2014 11:52:38 GMT-0700 (PDT)</pubDate>
 <ttl>1440</ttl>
 <item>
-<title></title>
-<description>#So what's all this then?</description>
-<link>http://pomax.github.io/gh-blog/#gh-weblog-1383350214096</link>
-<guid>1383350214096</guid>
-<pubDate>Fri Nov 01 2013 16:56:54 GMT-0700 (PDT)</pubDate>
+<title>Testing underscore</title>
+<category>no tags yet</category>
+<link>http://localhost:8080/#gh-weblog-1395687147370</link>
+<guid>1395687147370</guid>
+<pubDate>Mon Mar 24 2014 11:52:27 GMT-0700 (PDT)</pubDate>
 </item><item>
-<title></title>
-<description>#Where do I get the code?</description>
-<link>http://pomax.github.io/gh-blog/#gh-weblog-1383322474743</link>
+<title> Authentication</title>
+<category>details</category>
+<link>http://localhost:8080/#gh-weblog-1383243996314</link>
+<guid>1383243996314</guid>
+<pubDate>Thu Oct 31 2013 11:26:36 GMT-0700 (PDT)</pubDate>
+</item><item>
+<title>Where do I get the code?</title>
+<category>download</category>
+<link>http://localhost:8080/#gh-weblog-1383322474743</link>
 <guid>1383322474743</guid>
 <pubDate>Fri Nov 01 2013 09:14:34 GMT-0700 (PDT)</pubDate>
 </item><item>
-<title></title>
-<description># Authentication</description>
-<link>http://pomax.github.io/gh-blog/#gh-weblog-1383243996314</link>
-<guid>1383243996314</guid>
-<pubDate>Thu Oct 31 2013 11:26:36 GMT-0700 (PDT)</pubDate>
+<title>So what's all this then?</title>
+<category>intro</category>
+<link>http://localhost:8080/#gh-weblog-1383350214096</link>
+<guid>1383350214096</guid>
+<pubDate>Fri Nov 01 2013 16:56:54 GMT-0700 (PDT)</pubDate>
 </item>
 </channel>
 </rss>
