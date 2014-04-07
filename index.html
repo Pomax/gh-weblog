@@ -4,12 +4,26 @@
     <meta charset="utf-8">
     <title>A GitHub weblog</title>
     <link rel="stylesheet" href="gh-weblog/styles/style.css" media="screen">
-    <script src="gh-weblog/js/underscore.min.js"></script>
-    <script src="gh-weblog/js/jquery.2.js"></script>
-    <script src="gh-weblog/js/octokit.js"></script>
-    <script src="gh-weblog/js/main.js"
-            onload="setupWebLog({username: 'Pomax', repo: 'gh-blog', branch: 'gh-pages', path: 'gh-weblog', order: 'newest'})"
-            async></script>
+    <script src="require.js"></script>
+    <script>
+		require.config({
+			paths: {
+				'jquery' : 'gh-weblog/js/jquery',
+				'octokit': 'gh-weblog/js/octokit',
+				'weblog' : 'gh-weblog/js/weblog'
+			}
+		});
+
+    require(["weblog"], function(WebLog) {
+      window['gh-weblog'] = new WebLog({
+        username: 'Pomax'
+      , repo:     'gh-blog'
+      , branch:   'gh-pages'
+      , order:    'newest'
+      });
+    });
+
+    </script>
   </head>
   <body class="default">
   	<div id="gh-weblog-container"></div>

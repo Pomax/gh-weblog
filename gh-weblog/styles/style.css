@@ -76,5 +76,5 @@ button.credentials:hover {
   color: black;
   border-radius: 3px;
   cursor: pointer;
-  margin-top: -1px;
+  margin: 0;
 }
