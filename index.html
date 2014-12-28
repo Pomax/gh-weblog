@@ -2,30 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>A GitHub weblog</title>
-    <link rel="stylesheet" href="gh-weblog/styles/style.css" media="screen">
-    <script src="require.js"></script>
-    <script>
-		require.config({
-			paths: {
-				'jquery' : 'gh-weblog/js/jquery',
-				'octokit': 'gh-weblog/js/octokit',
-				'weblog' : 'gh-weblog/js/weblog'
-			}
-		});
-
-    require(["weblog"], function(WebLog) {
-      window['gh-weblog'] = new WebLog({
-        username: 'Pomax'
-      , repo:     'gh-blog'
-      , branch:   'gh-pages'
-      , order:    'newest'
-      });
-    });
-
-    </script>
+    <title>Github weblogging</title>
   </head>
-  <body class="default">
-  	<div id="gh-weblog-container"></div>
+  <body>
+    <div id="gh-weblog"></div>
+    <script src='bower_components/react/react.js'></script>
+    <script src='bower_components/react/JSXTransformer.js'></script>
+    <script src='components/MarkDown.jsx' type='text/jsx'></script>
+    <script src='components/Entry.jsx' type='text/jsx'></script>
+    <script src='components/WebLog.jsx' type='text/jsx'></script>
+    <script src='connector.js'></script>
+    <script type='text/jsx'>React.render(<WebLog/>, document.getElementById('gh-weblog'));</script>
   </body>
 </html>

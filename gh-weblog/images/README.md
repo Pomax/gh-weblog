@@ -1,1 +1,0 @@
-This directory stores images that are dropped into blog entries
