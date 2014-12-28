@@ -1,32 +1,39 @@
-var Connector = function(api_key) {
-  this.github = new Octokit({
-    token: api_key
-  });
-};
+var Connector = function() {};
 
 Connector.prototype = {
 
-  loadIndex: function(process) {
-    setTimeout( function() { process([ 1, 2, 3]); }, 100);
+  get: function(url, options, processData) {
+    var xhr = new XMLHTTPRequest();
+    xhr.open("GET", url, true);
+    Object.keys(options).forEach(function(key) { xhr[key] = options[key]; });
+    xhr.onloaded = function(data) {
+      try { processData(false, JSON.parse(data)); }
+      catch(e) { processData(new Error("couldn't load data from "+url)); }
+    };
+    xhr.send(null);
   },
 
-  loadEntry: function(item, process) {
-    setTimeout( function() {
-      process({
-        meta: {
-          created: Date.now(),
-          lastedit: Date.now(),
-          draft: false,
-          deleted: false,
-          title: "entry "+item,
-          tags: ['test','item'],
-          published: item
-        },
-        text: "This is test data for entry "+item
-      });
-    }, 100);
+  json: function(url, processData) {
+    this.get(url, { responseType: "json" }, processData);
   },
 
+  loadIndex: function(handleIndex) {
+    this.json("content/posts/index.json", function(err, result) {
+      handleIndex(err, result);
+    });
+  },
+
+  loadMetadata: function(id, handleMetadata) {
+    this.json("content/posts/metadata/"+id+".json", function(err, result) {
+      handleMetadata(err, result);
+    });
+  },
+
+  loadEntry: function(id, handleEntry) {
+    this.get("content/posts/markdown/"+id+".md", function(err, result) {
+      handleEntry(err, result);
+    });
+  },
 
   saveEntry: function(entry) {
     // ... code goes here...
@@ -34,4 +41,4 @@ Connector.prototype = {
 
 };
 
-var connector = new Connector(localStorage["gh-weblog-api-key"]);
+var connector = new Connector();
