@@ -55,25 +55,20 @@ Connector.prototype = {
     var id = entry.state.id;
     console.log("Saving " + id);
 
-    var metadata = JSON.stringify(entry.getMetaData(), false, 2);
-    var metadataFilename = this.options.path + "/content/posts/metadata/" + id + ".json";
-
-    console.log(metadataFilename, ":", metadata)
-
-    var postdata = entry.getPostData();
-    var postdataFilename = this.options.path + "/content/posts/markdown/" + id + ".md";
-
-    console.log(postdataFilename + ":", postdata);
-
     var index = JSON.stringify({index:index},false,2);
     var indexFilename = this.options.path + "/content/index.json";
-
-    console.log(indexFilename, index);
+    //console.log(indexFilename, index);
+    var metadata = JSON.stringify(entry.getMetaData(), false, 2);
+    var metadataFilename = this.options.path + "/content/posts/metadata/" + id + ".json";
+    //console.log(metadataFilename, ":", metadata)
+    var postdata = entry.getPostData();
+    var postdataFilename = this.options.path + "/content/posts/markdown/" + id + ".md";
+    //console.log(postdataFilename + ":", postdata);
 
     var contents = {};
     content[indexFilename] = index;
     content[metadataFilename] = metadata;
-    content[postdataFilename] = postdat;
+    content[postdataFilename] = postdata;
 
     this.branch.writeMany(contents, "Saving new entry " + id + " remotely").then(function() {
       console.log("finished saving files");
