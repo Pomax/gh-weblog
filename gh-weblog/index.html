@@ -6,6 +6,9 @@
   </head>
   <body>
     <div id="gh-weblog"></div>
+
+    <link rel="stylesheet" href="style.css">
+
     <script src='bower_components/react/react.js'></script>
     <script src='bower_components/react/JSXTransformer.js'></script>
 
@@ -20,5 +23,10 @@
     <script src='components/WebLog.jsx' type='text/jsx'></script>
 
     <script type='text/jsx'>React.render(<WebLog/>, document.getElementById('gh-weblog'));</script>
+
+    <!-- load remote content last -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lustria">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eagle+Lake">
   </body>
 </html>

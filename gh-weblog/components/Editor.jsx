@@ -5,7 +5,7 @@ var Editor = React.createClass({
   },
 
   componentDidMount: function() {
-    this.setState({ text: this.props.value });
+    this.setState({ text: this.props.text });
   },
 
   render: function() {
