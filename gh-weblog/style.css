@@ -1,8 +1,3 @@
-html {
-  background: url('image/dimension.png');
-  height: 100%;
-}
-
 body {
   width: 960px;
   margin: 0 auto;
@@ -15,95 +10,29 @@ body {
   box-shadow: 0 0 50px 5px gray;
 }
 
-.gh-weblog-header h1 {
-  display: none;
-}
-
-.gh-weblog-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-}
-
-.gh-weblog-header button.credentials {
-  border: none;
-}
-
 h1,h2,h3,h4,h5,h6 {
   font-family: Lustria;
-}
-
-header h1 {
-  font-family: 'Eagle Lake';
-  font-size: 250%;
-  margin-bottom: -0.3em;
-}
-header h3 {
-  margin-left: 1em;
-}
-header h1, h3 {
-  text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
-}
-
-.gh-weblog .entries .content:before {
-  display: none;
-}
-
-.gh-weblog .entry .content {
-  text-align: justify;
-}
-
-.gh-weblog .entry  + .entry {
-  margin-top: 2em;
-}
-
-.gh-weblog .entry img {
-  max-width: 99%;
-}
-
-.gh-weblog .entry img.border {
-  border: 1px solid grey;
-}
-
-.gh-weblog .entry div.tags,
-.gh-weblog .entry div.comments {
-  font-size: 80%;
-  margin: 1.25em 0 0 0;
-}
-
-.gh-weblog .entry div.tags {
-  float: right;
-  color: rgb(116, 144, 154);
 }
 
 a, a:active, a:hover, a:visited {
   text-decoration: none;
   color: rgb(100,180,230);
 }
+
 a:hover {
   color: rgb(80,140,200);
 }
+
+
+/* ============================== */
+
 
 .gh-weblog textarea {
   clear: both;
   font-family: Lato;
   font-size: 1em;
-}
-
-.gh-weblog .entries .info a,
-.gh-weblog .entries .info a:active,
-.gh-weblog .entries .info a:hover,
-.gh-weblog .entries .info a:visited {
-  text-decoration: none;
-  color: white;
-}
-
-.gh-weblog .entries .info a:hover {
-  color: rgb(80, 109, 137);
-}
-
-.suppressed {
-  display: none!important;
+  width: 100%;
+  min-height: 20em;
 }
 
 .gh-weblog code {

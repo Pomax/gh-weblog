@@ -10,7 +10,7 @@ var MarkDownMixin = {
   markdown: function(string) {
     return {
       dangerouslySetInnerHTML: {
-        __html : markdown.toHTML(string)
+        __html : marked(string)
       }
     };
   }
