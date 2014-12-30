@@ -75,7 +75,9 @@ var WebLog = React.createClass({
 
   addEntry: function(id, metadata, postdata) {
     metadata.id = id;
-    this.index.push(id);
+    if(this.index.indexOf(id)===-1) {
+      this.index.push(id);
+    }
     this.list[id] = {
       metadata: metadata,
       postdata: postdata
