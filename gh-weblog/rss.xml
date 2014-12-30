@@ -5,8 +5,8 @@
 <title>A Github Weblog</title>
 <description>A simple github blog using markdown and octokit</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Tue, 30 Dec 2014 22:30:03 GMT</lastBuildDate>
-<pubDate>Tue, 30 Dec 2014 22:30:03 GMT</pubDate>
+<lastBuildDate>Tue, 30 Dec 2014 22:30:20 GMT</lastBuildDate>
+<pubDate>Tue, 30 Dec 2014 22:30:20 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>#New Entry</title>
@@ -14,9 +14,9 @@
 &lt;p&gt;...wefwefw&lt;/p&gt;
 </description>
 
-<link>http://pomax.github.io/gh-blog/#gh-weblog-1419978600947</link>
-<guid>http://pomax.github.io/gh-blog/#gh-weblog-1419978600947</guid>
-<pubDate>Tue, 30 Dec 2014 22:30:00 GMT</pubDate>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1419978617146</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1419978617146</guid>
+<pubDate>Tue, 30 Dec 2014 22:30:17 GMT</pubDate>
 </item>
 <item>
 <title>A client-side Mahjong scoring app, using React</title>
