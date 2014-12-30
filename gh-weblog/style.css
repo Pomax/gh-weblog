@@ -67,3 +67,7 @@ a:hover {
 .gh-weblog .entry {
   border-bottom: 1px solid black;
 }
+
+.gh-weblog .delete.button {
+  float:right;
+}

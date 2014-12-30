@@ -33,6 +33,7 @@ var WebLog = React.createClass({
 
     var entries = this.getSlice().map(function(entry) {
       return <Entry key={entry.metadata.created}
+                    ref={entry.metadata.id}
                     metadata={entry.metadata}
                     postdata={entry.postdata}
                     onSave={self.save}
@@ -41,6 +42,7 @@ var WebLog = React.createClass({
 
     return (
       <div ref="weblog" className="gh-weblog">
+        <button onClick={this.toRSS}>RSS</button>
         <button onClick={this.create}>new entry</button>
         {entries}
       </div>
@@ -63,7 +65,7 @@ var WebLog = React.createClass({
 
   loadEntries: function() {
     var connector = this.connector;
-    var addEntry = this.addEntry;
+    var setEntry = this.setEntry;
     // find load slice
     var start = this.state.slice.start;
     var end = this.state.slice.end;
@@ -76,14 +78,14 @@ var WebLog = React.createClass({
       if(cache[id]) return next(list);
       connector.loadMetadata(id, function(err, metadata) {
         connector.loadEntry(id, function(err, postdata) {
-          addEntry(id, metadata, postdata);
+          setEntry(id, metadata, postdata);
           next(list);
         });
       });
     }(slice));
   },
 
-  addEntry: function(id, metadata, postdata) {
+  setEntry: function(id, metadata, postdata) {
     metadata.id = id;
     if(this.index.indexOf(id)===-1) {
       this.index.push(id);
@@ -107,16 +109,24 @@ var WebLog = React.createClass({
     };
     var postdata = "...";
     var id = date.toISOString().replace('T','-').replace(/\..*/,'').replace(/\:/g,'-');
-    this.addEntry(id, metadata, postdata);
+    this.setEntry(id, metadata, postdata);
   },
 
   save: function(entry) {
-    this.connector.saveEntry(entry, this.index);
+    var self = this;
+    var connector = this.connector;
+    this.setEntry(entry.id, entry.getMetaData(), entry.postdata);
+    connector.saveEntry(entry, this.index, function saved() {
+      console.log("save handled - updating RSS");
+      connector.saveRSS(self.toRSS());
+    });
   },
 
   delete: function(entry) {
     var confirmed = confirm("really delete post?");
     if(confirmed) {
+      var self = this;
+      var connector = this.connector;
       var id = entry.state.id;
       // remove from index:
       var pos = this.index.indexOf(id);
@@ -125,12 +135,59 @@ var WebLog = React.createClass({
       delete this.list[id];
       this.setState({ entries: this.list });
       // delete entry remotely
-      this.connector.deleteEntry(entry, this.index);
+      connector.deleteEntry(entry, this.index, function deleted() {
+        console.log("delete handled - updating RSS");
+        connector.saveRSS(self.toRSS());
+      });
     }
   },
 
+  /**
+   * So, this is weird given that
+   */
   toRSS: function() {
-    // code goes here
+    var self = this;
+    var base = this.props.base;
+
+    var rssHeading = [
+        '<?xml version="1.0" encoding="UTF-8" ?>'
+      , '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">'
+      , '<channel>'
+      , '<atom:link href="' + this.props.base + '/' + this.props.path + '/rss.xml" rel="self" type="application/rss+xml" />'
+      , '<title>' + this.props.title + '</title>'
+      , '<description>' + this.props.description + '</description>'
+      , '<link>' +  base + '</link>'
+      , '<lastBuildDate>' + (new Date()).toUTCString() + '</lastBuildDate>'
+      , '<pubDate>' + (new Date()).toUTCString() + '</pubDate>'
+      , '<ttl>1440</ttl>'
+    ].join("\n") + "\n";
+
+    // only RSS-o-late the last 10 entries
+    var entryIds = Object.keys(this.list).sort().reverse().slice(0,10);
+    console.log(entryIds);
+    var entriesRSS = entryIds.map(function(id) {
+      console.log(id);
+      var entry = self.refs[id];
+      var rssForm = [
+          '<item>'
+        , '<title>' + entry.state.title + '</title>'
+        , '<description>' + entry.getHTMLData() + '</description>'
+        , entry.state.tags.map(function(tag) { return '<category>' + tag + '</category>'; }).join("\n")
+        , '<link>' + base + '/#gh-weblog-' + entry.state.published + '</link>'
+        , '<guid>' + base + '/#gh-weblog-' + entry.state.published + '</guid>'
+        , '<pubDate>' + (new Date(entry.state.published)).toUTCString() + '</pubDate>'
+        , '</item>'
+      ];
+      return rssForm.join('\n');
+    }).join('\n');
+
+    var rssTail = [
+        '</channel>'
+      , '</rss>'
+    ].join("\n") + "\n";
+
+    var rss = rssHeading + entriesRSS + rssTail;
+    console.log(rss);
   }
 
 });

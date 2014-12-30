@@ -1,11 +1,13 @@
 var Entry = React.createClass({
 
+  mixins: [OnClickOutside],
+
   getInitialState: function() {
     return {
       id: -1,
       title: "",
       created: Date.now(),
-      published: -1,
+      published: Date.now(),
       updated: Date.now(),
       tags: [],
       editing: false,
@@ -17,26 +19,27 @@ var Entry = React.createClass({
     var state = this.props.metadata;
     state.postdata = this.props.postdata;
     this.setState(state);
+    this.registerOutsideClickListener(this.view);
   },
 
   render: function() {
     var text = this.getText();
-    var id = "entry-" + this.state.created;
+    var id = "gh-weblog-" + this.state.created;
     return (
       <div className="entry" id={id}>
-        <MarkDown ref="markdown" hidden={this.state.editing}  title={this.state.title} text={text} onClick={this.edit} />
-        <Editor ref="editor" hidden={!this.state.editing} text={text} onChange={this.update} onDone={this.view} onDelete={this.delete}/>
+        <button className="delete button" onClick={this.delete}>delete</button>
+        <MarkDown ref="markdown" hidden={this.state.editing} title={this.state.title} text={text} onClick={this.edit} />
+        <Editor ref="editor" hidden={!this.state.editing} text={text} update={this.update} view={this.view} delete={this.delete} />
       </div>
     );
   },
 
   getText: function() {
-    return '#' + this.state.title + '\n' + this.state.postdata;
+    return '#' + this.state.title + "\n\n" + this.state.postdata;
   },
 
   getMetaData: function() {
     var md = JSON.parse(JSON.stringify(this.state));
-    delete md.id;
     delete md.editing;
     delete md.postdata;
     return md;
@@ -46,27 +49,34 @@ var Entry = React.createClass({
     return this.state.postdata;
   },
 
+  getHTMLData: function() {
+    return this.refs.markdown.getHTML();
+  },
+
   edit: function() {
     this.refs.editor.setText(this.getText());
     this.setState({ editing: true });
   },
 
   update: function(evt) {
-    // extract title
-    var md = evt.target.value;
-    var lines = md.split("\n");
+    var lines = evt.target.value.split("\n");
     var title = lines.splice(0,1)[0];
-    var postdata = lines.join("\n");
-    // do something with title and metadata here...
-    this.setState({ postdata: postdata });
+    var postdata = lines.join("\n").trim();
+    this.setState({
+      title: title,
+      postdata: postdata,
+      updated: Date.now()
+    });
   },
 
-  view: function(evt) {
-    this.setState({ editing: false });
-    this.props.onSave(this);
+  view: function() {
+    if(this.state.editing) {
+      this.setState({ editing: false });
+      this.props.onSave(this);
+    }
   },
 
-  delete: function(evt) {
+  delete: function() {
     this.props.onDelete(this);
   },
 

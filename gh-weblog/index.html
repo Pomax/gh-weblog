@@ -12,11 +12,16 @@
     <script src='bower_components/react/react.js'></script>
     <script src='bower_components/react/JSXTransformer.js'></script>
 
+    <!-- for converting Markdown syntax to HTML -->
     <script src='bower_components/marked/lib/marked.js'></script>
     <script src='mixins/markdown.js'></script>
 
+    <!-- for interfacing with Github.com -->
     <script src='bower_components/octokit/octokit.js'></script>
     <script src='mixins/connector.js'></script>
+
+    <!-- for sensible "onclick out of this element" handling -->
+    <script src='mixins/onclickoutside.js'></script>
 
     <script src='components/Editor.jsx' type='text/jsx'></script>
     <script src='components/MarkDown.jsx' type='text/jsx'></script>
@@ -24,10 +29,17 @@
     <script src='components/WebLog.jsx' type='text/jsx'></script>
 
     <script type='text/jsx'>
-      React.render(<WebLog user="Pomax" repo="gh-blog" branch="gh-pages" path="gh-weblog" />, document.getElementById('gh-weblog'));
+      React.render(<WebLog title="A Github Weblog"
+                           description="A simple github blog using markdown and octokit"
+                           base="http://pomax.github.io/gh-blog"
+                           user="Pomax"
+                           repo="gh-blog"
+                           branch="gh-pages"
+                           path="gh-weblog"
+                    />, document.getElementById('gh-weblog'));
     </script>
 
-    <!-- load remote content last -->
+    <!-- load remote fonts last, in case they don't -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lustria">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eagle+Lake">

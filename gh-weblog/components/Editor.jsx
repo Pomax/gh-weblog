@@ -10,15 +10,10 @@ var Editor = React.createClass({
 
   render: function() {
     return (
-      <div className="edits">
-        <textarea hidden={this.props.hidden}
-                  value={this.state.text}
-                  onChange={this.record} />
-        <button hidden={this.props.hidden}
-                onClick={this.props.onDelete}>delete</button>
-        <button hidden={this.props.hidden}
-                onClick={this.finish}>done</button>
-      </div>
+      <textarea className="editor"
+                hidden={this.props.hidden}
+                value={this.state.text}
+                onChange={this.record} />
     );
   },
 
@@ -28,11 +23,11 @@ var Editor = React.createClass({
 
   record: function(evt) {
     this.setState({ text: evt.target.value });
-    this.props.onChange(evt);
+    this.props.update(evt);
   },
 
   finish: function(evt) {
-    this.props.onDone(evt);
+    this.props.view();
   }
 
 });

@@ -51,11 +51,6 @@ var ConnectorMixin = {
         });
       },
 
-      saveIndex: function(index) {
-        index.sort();
-        console.log("saving index");
-      },
-
       saveEntry: function(entry, index, saved) {
         var id = entry.state.id;
         console.log("Saving " + id);
@@ -133,6 +128,21 @@ var ConnectorMixin = {
           });
         } catch(e) {
           console.error("deleting went horribly wrong");
+          throw e;
+        }
+      },
+
+      saveRSS: function(rss, saved) {
+        var rssFilename = this.options.path + "/rss.xml";
+        var commitMessage = "Update to RSS XML";
+        try {
+          this.branch.write(rssFilename, rss, commitMessage)
+          .then(function() {
+            console.log("Removed entry " + id + " from github.");
+            if(saved) saved();
+          });
+        } catch(e) {
+          console.error("updating RSS went horribly wrong");
           throw e;
         }
       }

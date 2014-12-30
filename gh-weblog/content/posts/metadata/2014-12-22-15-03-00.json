@@ -1,1 +1,13 @@
-{"title":"So you're thinking about using React","author":"Pomax","tags":["Mozilla","React","HTML","OOP"],"created":1419289380022,"published":1394168624375,"updated":1419665661449}
+{
+  "title":"So you're thinking about using React",
+  "author":"Pomax",
+  "tags":[
+    "Mozilla",
+    "React",
+    "HTML",
+    "OOP"
+  ],
+  "created":1419289380022,
+  "published":1419289380022,
+  "updated":1419665661449
+}
