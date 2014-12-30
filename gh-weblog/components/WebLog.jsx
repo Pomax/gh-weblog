@@ -1,5 +1,7 @@
 var WebLog = React.createClass({
 
+  mixins: [ConnectorMixin],
+
   // local cache, because we don't want to load the entire
   // index at once, and we don't want to requery for it.
   index: [],
@@ -16,7 +18,14 @@ var WebLog = React.createClass({
   },
 
   componentDidMount: function() {
-    connector.loadIndex(this.loadIndex);
+    this.connector = new this.Connector({
+      token: localStorage["gh-weblog-token"],
+      user: this.props.user,
+      repo: this.props.repo,
+      branch: this.props.branch,
+      path: this.props.path
+    });
+    this.connector.loadIndex(this.loadIndex);
   },
 
   render: function() {
@@ -53,6 +62,7 @@ var WebLog = React.createClass({
   },
 
   loadEntries: function() {
+    var connector = this.connector;
     var addEntry = this.addEntry;
     // find load slice
     var start = this.state.slice.start;
@@ -101,7 +111,7 @@ var WebLog = React.createClass({
   },
 
   save: function(entry) {
-    connector.saveEntry(entry, this.index);
+    this.connector.saveEntry(entry, this.index);
   },
 
   delete: function(entry) {
@@ -115,7 +125,7 @@ var WebLog = React.createClass({
       delete this.list[id];
       this.setState({ entries: this.list });
       // delete entry remotely
-      connector.deleteEntry(entry, this.index);
+      this.connector.deleteEntry(entry, this.index);
     }
   },
 
