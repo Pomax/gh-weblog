@@ -14,7 +14,8 @@ Connector.prototype = {
       options = {};
     }
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
+    var cachebuster = "?cb="+Date.now();
+    xhr.open("GET", url + cachebuster, true);
     Object.keys(options).forEach(function(key) { xhr[key] = options[key]; });
     xhr.onload = function(evt) {
       var obj = evt.target.response;
@@ -30,7 +31,7 @@ Connector.prototype = {
 
   loadIndex: function(handleIndex) {
     this.json("content/posts/index.json", function(err, result) {
-      handleIndex(err, result ? result.index : false);
+      handleIndex(err, result ? result.index.sort() : false);
     });
   },
 
@@ -54,50 +55,82 @@ Connector.prototype = {
   saveEntry: function(entry, index, saved) {
     var id = entry.state.id;
     console.log("Saving " + id);
-
-    var path = this.options.path + "/content/posts/";
-
-    var index = JSON.stringify({index:index},false,2);
-    var indexFilename = path + "index.json";
-
-    var metadata = JSON.stringify(entry.getMetaData(), false, 2);
-    var metadataFilename = path + "metadata/" + id + ".json";
-
-    var postdata = entry.getPostData();
-    var postdataFilename = path + "markdown/" + id + ".md";
-
-    var contents = {};
+    var path = this.options.path + "/content/posts/",
+        index = JSON.stringify({index:index.sort()},false,2),
+        indexFilename = path + "index.json",
+        metadata = JSON.stringify(entry.getMetaData(), false, 2),
+        metadataFilename = path + "metadata/" + id + ".json",
+        postdata = entry.getPostData(),
+        postdataFilename = path + "markdown/" + id + ".md",
+        commitMessage = "Saving new entry " + id,
+        content = {};
     content[indexFilename] = index;
     content[metadataFilename] = metadata;
     content[postdataFilename] = postdata;
-
-    var branch = this.branch;
-    var commitMessage = "Saving new entry " + id + " remotely";
-
-    branch.write(indexFilename, index, commitMessage)
-          .then(function() {
-            return branch.write(metadataFilename, metadata, commitMessage);
-          })
-          .then(function() {
-            return branch.write(postdataFilename, postdata, commitMessage);
-          })
-          .then(function() {
-            console.log("Saved entry " + id + " to github.");
-          });
+    try {
+      this.branch.writeMany(content, commitMessage).then(function() {
+        console.log("Saved entry " + id + " to github.");
+        if(saved) saved(entry);
+      });
+    } catch(e) {
+      console.error("saving went horribly wrong");
+      throw e;
+    }
   },
 
-  updateEntry: function(entry) {
-    console.log("updating entry "+entry.state.created);
-    // ... code goes here ...
-  },
-
-  deleteEntry: function(entry, index) {
+  updateEntry: function(entry, updated) {
     var id = entry.state.id;
-    console.log("Deleting " + id + " remotely");
-    console.log(this.options.path + "/content/posts/metadata/" + id + ".json")
-    console.log(this.options.path + "/content/posts/markdown/" + id + ".md");
-    var index = JSON.stringify({index:index},false,2);
-    console.log(this.options.path + "/content/index.json", index);
+    console.log("Updating " + id);
+    var path = this.options.path + "/content/posts/",
+        metadata = JSON.stringify(entry.getMetaData(), false, 2),
+        metadataFilename = path + "metadata/" + id + ".json",
+        postdata = entry.getPostData(),
+        postdataFilename = path + "markdown/" + id + ".md",
+        commitMessage = "Updating entry " + id,
+        content = {};
+    content[metadataFilename] = metadata;
+    content[postdataFilename] = postdata;
+    try {
+      this.branch.writeMany(content, commitMessage).then(function() {
+        console.log("Updated entry " + id + " on github.");
+        if(updated) updated(entry);
+      });
+    } catch(e) {
+      console.error("updating went horribly wrong");
+      throw e;
+    }
+  },
+
+  deleteEntry: function(entry, index, deleted) {
+    var id = entry.state.id;
+    console.log("Deleting " + id);
+
+    var path = this.options.path + "/content/posts/";
+    var indexFilename = path + "index.json";
+    var index = JSON.stringify({index:index.sort()},false,2);
+    var metadataFilename = path + "metadata/" + id + ".json";
+    var postdataFilename = path + "markdown/" + id + ".md";
+    var commitMessage = "Removing entry " + id;
+    var branch = this.branch;
+
+    try {
+      // update index
+      branch.write(indexFilename, index, commitMessage)
+      // then remove posts
+      .then(function() {
+        return branch.remove(metadataFilename, commitMessage);
+      })
+      .then(function() {
+        return branch.remove(postdataFilename, commitMessage);
+      })
+      .then(function() {
+        console.log("Removed entry " + id + " from github.");
+        if(deleted) deleted(entry);
+      });
+    } catch(e) {
+      console.error("deleting went horribly wrong");
+      throw e;
+    }
   }
 
 };
