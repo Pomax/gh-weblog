@@ -115,7 +115,7 @@ var WebLog = React.createClass({
   save: function(entry) {
     var self = this;
     var connector = this.connector;
-    this.setEntry(entry.id, entry.getMetaData(), entry.postdata);
+    this.setEntry(entry.state.id, entry.getMetaData(), entry.postdata);
     connector.saveEntry(entry, this.index, function saved() {
       console.log("save handled - updating RSS");
       connector.saveRSS(self.toRSS());
@@ -165,6 +165,9 @@ var WebLog = React.createClass({
     // only RSS-o-late the last 10 entries
     var entryIds = Object.keys(this.list).sort().reverse().slice(0,10);
     console.log(entryIds);
+
+    return;
+
     var entriesRSS = entryIds.map(function(id) {
       console.log(id);
       var entry = self.refs[id];
