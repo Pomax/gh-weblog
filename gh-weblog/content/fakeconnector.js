@@ -55,25 +55,35 @@ Connector.prototype = {
     var id = entry.state.id;
     console.log("Saving " + id);
 
+    var path = this.options.path + "/content/posts/";
+
     var index = JSON.stringify({index:index},false,2);
-    var indexFilename = this.options.path + "/content/index.json";
-    //console.log(indexFilename, index);
+    var indexFilename = path + "index.json";
+
     var metadata = JSON.stringify(entry.getMetaData(), false, 2);
-    var metadataFilename = this.options.path + "/content/posts/metadata/" + id + ".json";
-    //console.log(metadataFilename, ":", metadata)
+    var metadataFilename = path + "metadata/" + id + ".json";
+
     var postdata = entry.getPostData();
-    var postdataFilename = this.options.path + "/content/posts/markdown/" + id + ".md";
-    //console.log(postdataFilename + ":", postdata);
+    var postdataFilename = path + "markdown/" + id + ".md";
 
     var contents = {};
     content[indexFilename] = index;
     content[metadataFilename] = metadata;
     content[postdataFilename] = postdata;
 
-    this.branch.writeMany(contents, "Saving new entry " + id + " remotely").then(function() {
-      console.log("finished saving files");
-      if(saved) saved();
-    });
+    var branch = this.branch;
+    var commitMessage = "Saving new entry " + id + " remotely";
+
+    branch.write(indexFilename, index, commitMessage)
+          .then(function() {
+            return branch.write(metadataFilename, metadata, commitMessage);
+          })
+          .then(function() {
+            return branch.write(postdataFilename, postdata, commitMessage);
+          })
+          .then(function() {
+            console.log("Saved entry " + id + " to github.");
+          });
   },
 
   updateEntry: function(entry) {
