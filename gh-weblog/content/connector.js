@@ -132,13 +132,4 @@ Connector.prototype = {
       throw e;
     }
   }
-
 };
-
-var connector = new Connector({
-  token: localStorage["gh-weblog-token"],
-  user: "Pomax",
-  repo: "gh-blog",
-  branch: "react",
-  path: "gh-weblog"
-});

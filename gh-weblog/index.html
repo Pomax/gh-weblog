@@ -15,14 +15,24 @@
     <script src='bower_components/markdown/lib/markdown.js'></script>
     <script src='mixins/markdown.js'></script>
     <script src='bower_components/octokit/octokit.js'></script>
-    <script src='content/fakeconnector.js'></script>
+    <script src='content/connector.js'></script>
 
     <script src='components/Editor.jsx' type='text/jsx'></script>
     <script src='components/MarkDown.jsx' type='text/jsx'></script>
     <script src='components/Entry.jsx' type='text/jsx'></script>
     <script src='components/WebLog.jsx' type='text/jsx'></script>
 
-    <script type='text/jsx'>React.render(<WebLog/>, document.getElementById('gh-weblog'));</script>
+    <script type='text/jsx'>
+      var connector = new Connector({
+        token: localStorage["gh-weblog-token"],
+        user: "Pomax",
+        repo: "gh-blog",
+        branch: "gh-pages",
+        path: "gh-weblog"
+      });
+
+      React.render(<WebLog/>, document.getElementById('gh-weblog'));
+    </script>
 
     <!-- load remote content last -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lustria">
