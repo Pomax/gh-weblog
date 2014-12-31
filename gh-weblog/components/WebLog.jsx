@@ -1,6 +1,10 @@
 var WebLog = React.createClass({
 
-  mixins: [ConnectorMixin],
+  mixins: [
+    ConnectorMixin,
+    TimeToId,
+    RSSGenerator
+  ],
 
   // local cache, because we don't want to load the entire
   // index at once, and we don't want to requery for it.
@@ -12,6 +16,7 @@ var WebLog = React.createClass({
 
   getInitialState: function() {
     return {
+      singleton: false,
       entries: this.list,
       slice: { start: 0, end: 10 }
     };
@@ -25,28 +30,43 @@ var WebLog = React.createClass({
       branch: this.props.branch,
       path: this.props.path
     });
-    this.connector.loadIndex(this.loadIndex);
+    var id = this.timeToId(this.props.entryid);
+    if(id) { this.setState({ singleton: true }); }
+    this.connector.loadIndex(this.loadIndex, id);
   },
 
   render: function() {
     var self = this;
-
     var entries = this.getSlice().map(function(entry) {
       return <Entry key={entry.metadata.created}
                     ref={entry.metadata.id}
                     metadata={entry.metadata}
                     postdata={entry.postdata}
+                    editable={!self.state.singleton}
                     onSave={self.save}
                     onDelete={self.delete}/>;
     });
-
+    var postbutton, morebutton;
+    if(!this.state.singleton) {
+      postbutton = <button className="admin post button" onClick={this.create}>new entry</button>;
+      morebutton = <button onClick={this.more}>Load more posts</button>;
+    }
     return (
       <div ref="weblog" className="gh-weblog">
-        <button onClick={this.toRSS}>RSS</button>
-        <button onClick={this.create}>new entry</button>
+        {postbutton}
         {entries}
+        {morebutton}
       </div>
     );
+  },
+
+  more: function() {
+    this.setState({
+      slice: {
+        start: this.state.slice.start,
+        end: this.state.slice.end + 10
+      }
+    }, this.loadEntries);
   },
 
   getSlice: function() {
@@ -77,7 +97,17 @@ var WebLog = React.createClass({
       var id = list.splice(0,1)[0];
       if(cache[id]) return next(list);
       connector.loadMetadata(id, function(err, metadata) {
+        if(err) {
+          console.error("no metadata found for id: "+id+" ("+err+")");
+          next(list);
+          return;
+        }
         connector.loadEntry(id, function(err, postdata) {
+          if(err) {
+            console.error("no post data found for id: "+id+" ("+err+")");
+            next(list);
+            return;
+          }
           setEntry(id, metadata, postdata);
           next(list);
         });
@@ -108,7 +138,7 @@ var WebLog = React.createClass({
       tags: []
     };
     var postdata = "...";
-    var id = date.toISOString().replace('T','-').replace(/\..*/,'').replace(/\:/g,'-');
+    var id = this.timeToId(timestamp);
     this.setEntry(id, metadata, postdata);
   },
 
@@ -140,57 +170,6 @@ var WebLog = React.createClass({
         connector.saveRSS(self.toRSS());
       });
     }
-  },
-
-  /**
-   * So, this is weird given that
-   */
-  toRSS: function() {
-    var self = this;
-    var base = this.props.base;
-
-    var rssHeading = [
-        '<?xml version="1.0" encoding="UTF-8" ?>'
-      , '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">'
-      , '<channel>'
-      , '<atom:link href="' + this.props.base + '/' + this.props.path + '/rss.xml" rel="self" type="application/rss+xml" />'
-      , '<title>' + this.props.title + '</title>'
-      , '<description>' + this.props.description + '</description>'
-      , '<link>' +  base + '</link>'
-      , '<lastBuildDate>' + (new Date()).toUTCString() + '</lastBuildDate>'
-      , '<pubDate>' + (new Date()).toUTCString() + '</pubDate>'
-      , '<ttl>1440</ttl>'
-    ].join("\n") + "\n";
-
-    // only RSS-o-late the last 10 entries
-    var entryIds = Object.keys(this.list).sort().reverse().slice(0,10);
-    console.log(entryIds);
-
-    return;
-
-    var entriesRSS = entryIds.map(function(id) {
-      console.log(id);
-      var entry = self.refs[id];
-      var rssForm = [
-          '<item>'
-        , '<title>' + entry.state.title + '</title>'
-        , '<description>' + entry.getHTMLData() + '</description>'
-        , entry.state.tags.map(function(tag) { return '<category>' + tag + '</category>'; }).join("\n")
-        , '<link>' + base + '/#gh-weblog-' + entry.state.published + '</link>'
-        , '<guid>' + base + '/#gh-weblog-' + entry.state.published + '</guid>'
-        , '<pubDate>' + (new Date(entry.state.published)).toUTCString() + '</pubDate>'
-        , '</item>'
-      ];
-      return rssForm.join('\n');
-    }).join('\n');
-
-    var rssTail = [
-        '</channel>'
-      , '</rss>'
-    ].join("\n") + "\n";
-
-    var rss = rssHeading + entriesRSS + rssTail;
-    console.log(rss);
   }
 
 });

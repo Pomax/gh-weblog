@@ -21,10 +21,18 @@ var ConnectorMixin = {
         var cachebuster = "?cb="+Date.now();
         xhr.open("GET", url + cachebuster, true);
         Object.keys(options).forEach(function(key) { xhr[key] = options[key]; });
-        xhr.onload = function(evt) {
-          var obj = evt.target.response;
-          processData(!obj, obj);
+        xhr.onreadystatechange = function(evt) {
+          if(xhr.status === 0 || xhr.status===200) {
+            if(xhr.readyState === 4) {
+              var obj = evt.target.response;
+              processData(!obj, obj);
+            }
+          } else {
+            processData("xhr error " + xhr.status + " for "+url, false);
+          }
         };
+        xhr.onerror = function(evt) {
+        }
         xhr.send(null);
       },
 
@@ -33,8 +41,11 @@ var ConnectorMixin = {
         this.get(url, { responseType: "json" }, processData);
       },
 
-      loadIndex: function(handleIndex) {
+      loadIndex: function(handleIndex, entryId) {
         this.json("content/posts/index.json", function(err, result) {
+          if (entryId) {
+            return handleIndex(err, result ? [entryId] : false);
+          }
           handleIndex(err, result ? result.index.sort() : false);
         });
       },

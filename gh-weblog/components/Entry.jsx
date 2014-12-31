@@ -25,10 +25,16 @@ var Entry = React.createClass({
   render: function() {
     var text = this.getText();
     var id = "gh-weblog-" + this.state.created;
+    var idLink = "#" + id;
+    var deletebutton;
+    if(this.props.editable) {
+      deletebutton = <button className="admin delete button" onClick={this.delete}>delete</button>;
+    }
     return (
       <div className="entry" id={id}>
-        <button className="delete button" onClick={this.delete}>delete</button>
-        <MarkDown ref="markdown" hidden={this.state.editing} title={this.state.title} text={text} onClick={this.edit} />
+        {deletebutton}
+        <h1><a href={idLink}>{this.state.title}</a></h1>
+        <MarkDown ref="markdown" hidden={this.state.editing} text={this.state.postdata} onClick={this.edit} />
         <Editor ref="editor" hidden={!this.state.editing} text={text} update={this.update} view={this.view} delete={this.delete} />
       </div>
     );
@@ -54,13 +60,15 @@ var Entry = React.createClass({
   },
 
   edit: function() {
-    this.refs.editor.setText(this.getText());
-    this.setState({ editing: true });
+    if(this.props.editable) {
+      this.refs.editor.setText(this.getText());
+      this.setState({ editing: true });
+    }
   },
 
   update: function(evt) {
     var lines = evt.target.value.split("\n");
-    var title = lines.splice(0,1)[0];
+    var title = lines.splice(0,1)[0].replace(/^#*/,'');
     var postdata = lines.join("\n").trim();
     this.setState({
       title: title,

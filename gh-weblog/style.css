@@ -71,3 +71,7 @@ a:hover {
 .gh-weblog .delete.button {
   float:right;
 }
+
+.gh-weblog .admin {
+  box-shadow: 0 0 1px 1px red;
+}
