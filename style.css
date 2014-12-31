@@ -23,6 +23,17 @@ body > header h1 {
   font-size: 250%;
 }
 
+body > header h1 span.deved {
+  font-family: Verdana;
+  color: #CBCBCB;
+  font-size: 65%;
+  font-weight: normal;
+  display: inline-block;
+  height: 0.5em;
+  vertical-align: 0.25em;
+  margin-left: 1em;  
+}
+
 body > header h2 {
   font-size: 110%;
   text-indent: 2em;
