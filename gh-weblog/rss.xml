@@ -5,18 +5,9 @@
 <title>A Github Weblog</title>
 <description>A simple github blog using markdown and octokit</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Wed, 31 Dec 2014 19:35:56 GMT</lastBuildDate>
-<pubDate>Wed, 31 Dec 2014 19:35:56 GMT</pubDate>
+<lastBuildDate>Wed, 31 Dec 2014 19:36:24 GMT</lastBuildDate>
+<pubDate>Wed, 31 Dec 2014 19:36:24 GMT</pubDate>
 <ttl>1440</ttl>
-<item>
-<title>New Entry</title>
-<description>&lt;p&gt;...click here to start editing your post...&lt;/p&gt;
-</description>
-
-<link>http://pomax.github.io/gh-blog/#gh-weblog-1420054552718</link>
-<guid>http://pomax.github.io/gh-blog/#gh-weblog-1420054552718</guid>
-<pubDate>Wed, 31 Dec 2014 19:35:52 GMT</pubDate>
-</item>
 <item>
 <title>A client-side Mahjong scoring app, using React</title>
 <description>&lt;p&gt;2 weeks ago, on a Saturday, I thought I&amp;#39;d revisit my old &lt;a href="http://pomax.nihongoresources.com/downloads/mjscoring"&gt;PHP-based&lt;/a&gt; &lt;a href="http://en.wikipedia.org/wiki/Mahjong"&gt;mahjong&lt;/a&gt; scoring application. We like playing Chinese Classical rules, which are a little more &amp;quot;fun&amp;quot; and a little less &amp;quot;optimised for gambling&amp;quot; that the usual rules, and one aspect of that is that it&amp;#39;s much harder to track scores: everyone pays the winner, but the losers settle score differences amongst themselves in addition to paying the winner, too, and there&amp;#39;s a fair number of different things to score. Plus, you can get both points and &amp;quot;doubles&amp;quot;, the latter of which doubles (surprise!) your total point score. Only 28 tile points but 5 doubles? That&amp;#39;s 896 points total.&lt;/p&gt;
