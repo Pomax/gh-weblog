@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Github weblogging</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lustria">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eagle+Lake">
   </head>
   <body>
 
@@ -12,10 +16,10 @@
         (Also available in <a href="gh-weblog/rss.xml">RSS</a>).</h2>
     </header>
 
+    <!-- Github gh-pages weblog code: -->
     <section id="gh-weblog"></section>
-
     <div class="page-requirements">
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="gh-weblog/style.css">
       <!-- react in development mode -->
       <script src='gh-weblog/bower_components/react/react.js'></script>
       <script src='gh-weblog/bower_components/react/JSXTransformer.js'></script>
@@ -51,10 +55,8 @@
                              entryid={fragmentId}
                       />, document.getElementById('gh-weblog'));
       </script>
-      <!-- remote fonts are loaded last, in case they don't actually load: they'd block loading. -->
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lustria">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eagle+Lake">
     </div>
+    <!-- End of Github gh-pages weblog code -->
+
   </body>
 </html>
