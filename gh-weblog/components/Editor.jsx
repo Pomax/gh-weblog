@@ -10,7 +10,8 @@ var Editor = React.createClass({
 
   render: function() {
     return (
-      <textarea className="editor"
+      <textarea ref="textarea"
+                className="editor"
                 hidden={this.props.hidden}
                 value={this.state.text}
                 onChange={this.record} />
@@ -18,7 +19,10 @@ var Editor = React.createClass({
   },
 
   setText: function(text) {
-    this.setState({ text: text });
+    var textarea = this.refs.textarea.getDOMNode();
+    this.setState({ text: text }, function() {
+      textarea.focus();
+    });
   },
 
   record: function(evt) {

@@ -4,9 +4,11 @@ var ConnectorMixin = {
 
     var Connector = function(options) {
       this.options = options;
-      var octokit = new Octokit({ token: options.token });
-      this.repo = octokit.getRepo(options.user, options.repo);
-      this.branch = this.repo.getBranch(options.branch);
+      if(options.token) {
+        var octokit = new Octokit({ token: options.token });
+        this.repo = octokit.getRepo(options.user, options.repo);
+        this.branch = this.repo.getBranch(options.branch);
+      }
     };
 
     Connector.prototype = {
@@ -42,7 +44,7 @@ var ConnectorMixin = {
       },
 
       loadIndex: function(handleIndex, entryId) {
-        this.json("content/posts/index.json", function(err, result) {
+        this.json(this.options.path + "/content/posts/index.json", function(err, result) {
           if (entryId) {
             return handleIndex(err, result ? [entryId] : false);
           }
@@ -51,13 +53,13 @@ var ConnectorMixin = {
       },
 
       loadMetadata: function(id, handleMetadata) {
-        this.json("content/posts/metadata/"+id+".json", function(err, result) {
+        this.json(this.options.path + "/content/posts/metadata/"+id+".json", function(err, result) {
           handleMetadata(err, result);
         });
       },
 
       loadEntry: function(id, handleEntry) {
-        this.get("content/posts/markdown/"+id+".md", function(err, result) {
+        this.get(this.options.path + "/content/posts/markdown/"+id+".md", function(err, result) {
           handleEntry(err, result);
         });
       },
@@ -143,14 +145,14 @@ var ConnectorMixin = {
         }
       },
 
-      saveRSS: function(rss, saved) {
+      saveRSS: function(rss, updated) {
         var rssFilename = this.options.path + "/rss.xml";
         var commitMessage = "Update to RSS XML";
         try {
           this.branch.write(rssFilename, rss, commitMessage)
           .then(function() {
-            console.log("Removed entry " + id + " from github.");
-            if(saved) saved();
+            console.log("Updated RSS on github.");
+            if(updated) updated();
           });
         } catch(e) {
           console.error("updating RSS went horribly wrong");

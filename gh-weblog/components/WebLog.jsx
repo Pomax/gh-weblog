@@ -18,18 +18,24 @@ var WebLog = React.createClass({
     return {
       singleton: false,
       entries: this.list,
-      slice: { start: 0, end: 10 }
+      slice: { start: 0, end: 10 },
+      authenticated: false
     };
   },
 
   componentDidMount: function() {
+    // are we authenticataed?
+    var token = localStorage["gh-weblog-token"];
     this.connector = new this.Connector({
-      token: localStorage["gh-weblog-token"],
+      token: token,
       user: this.props.user,
       repo: this.props.repo,
       branch: this.props.branch,
       path: this.props.path
     });
+    this.setState({ authenticated: !!token });
+
+    // are we loading one entry, or "all" entries?
     var id = this.timeToId(this.props.entryid);
     if(id) { this.setState({ singleton: true }); }
     this.connector.loadIndex(this.loadIndex, id);
@@ -42,22 +48,32 @@ var WebLog = React.createClass({
                     ref={entry.metadata.id}
                     metadata={entry.metadata}
                     postdata={entry.postdata}
-                    editable={!self.state.singleton}
+                    editable={!self.state.singleton && self.state.authenticated}
                     onSave={self.save}
                     onDelete={self.delete}/>;
     });
     var postbutton, morebutton;
-    if(!this.state.singleton) {
+    if(!this.state.singleton && this.state.authenticated) {
       postbutton = <button className="admin post button" onClick={this.create}>new entry</button>;
       morebutton = <button onClick={this.more}>Load more posts</button>;
     }
     return (
       <div ref="weblog" className="gh-weblog">
+        <button className="authenticate" onClick={this.authenticate}>admin</button>
         {postbutton}
         {entries}
         {morebutton}
       </div>
     );
+  },
+
+  authenticate: function() {
+    var token = localStorage["gh-weblog-token"] || '';
+    token = prompt("Your github repo API key (only use a key with public repo access, no other permissions are required):", token);
+    if(token===null) return;
+    token = token.trim();
+    localStorage["gh-weblog-token"] = token;
+    this.setState({ authenticated: !!token });
   },
 
   more: function() {
@@ -137,7 +153,7 @@ var WebLog = React.createClass({
       updated: timestamp,
       tags: []
     };
-    var postdata = "...";
+    var postdata = "...click here to start editing your post...";
     var id = this.timeToId(timestamp);
     this.setEntry(id, metadata, postdata);
   },

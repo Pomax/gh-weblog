@@ -30,14 +30,27 @@ var Entry = React.createClass({
     if(this.props.editable) {
       deletebutton = <button className="admin delete button" onClick={this.delete}>delete</button>;
     }
+    var posted = (new Date(this.state.published)).toLocaleString();
+    var updated = (new Date(this.state.updated)).toLocaleString();
     return (
       <div className="entry" id={id}>
         {deletebutton}
-        <h1><a href={idLink}>{this.state.title}</a></h1>
+        <header>
+          <h1><a href={idLink}>{this.state.title}</a></h1>
+          <h2>Originally posted on {posted}, last updated on {updated}</h2>
+        </header>
         <MarkDown ref="markdown" hidden={this.state.editing} text={this.state.postdata} onClick={this.edit} />
         <Editor ref="editor" hidden={!this.state.editing} text={text} update={this.update} view={this.view} delete={this.delete} />
+        <Tags disabled={!this.props.editable} tags={this.state.tags} onChange={this.updateTags}/>
       </div>
     );
+  },
+
+  updateTags: function(tags) {
+    var self = this;
+    this.setState({ tags: tags }, function() {
+      this.props.onSave(self);
+    });
   },
 
   getText: function() {

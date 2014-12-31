@@ -31,12 +31,15 @@ var RSSGenerator = {
     // generate the RSS for the latest 10 entries only.
     var entryIds = Object.keys(this.list).sort().reverse().slice(0,10);
     var entriesRSS = entryIds.map(function(id) {
-      console.log(id);
       var entry = self.refs[id];
+      var html = entry.getHTMLData();
+      var safifier = document.createElement("div");
+      safifier.textContent = html;
+      var rsshtml = safifier.innerHTML;
       var rssForm = [
           '<item>'
         , '<title>' + entry.state.title + '</title>'
-        , '<description>' + entry.getHTMLData() + '</description>'
+        , '<description>' + rsshtml + '</description>'
         , entry.state.tags.map(function(tag) { return '<category>' + tag + '</category>'; }).join("\n")
         , '<link>' + base + '/#gh-weblog-' + entry.state.published + '</link>'
         , '<guid>' + base + '/#gh-weblog-' + entry.state.published + '</guid>'
@@ -52,6 +55,10 @@ var RSSGenerator = {
       , '</rss>'
     ].join("\n") + "\n";
 
-    return rssHeading + entriesRSS + rssTail;
+    // concatenated
+    var rss = rssHeading + entriesRSS + rssTail;
+
+    // we're done here.
+    return rss;
   }
 };

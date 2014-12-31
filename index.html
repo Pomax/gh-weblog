@@ -5,33 +5,38 @@
     <title>Github weblogging</title>
   </head>
   <body>
-    <section>
-      <h1><a href=".">My Blog</a></h1>
-      <section id="gh-weblog"></section>
-    </section>
+
+    <header>
+      <h1><a href=".">Pomax.github.io</a></h1>
+      <h2>Because chronicling the past using technology is kind of cool
+        (Also available in <a href="gh-weblog/rss.xml">RSS</a>).</h2>
+    </header>
+
+    <section id="gh-weblog"></section>
 
     <div class="page-requirements">
       <link rel="stylesheet" href="style.css">
       <!-- react in development mode -->
-      <script src='bower_components/react/react.js'></script>
-      <script src='bower_components/react/JSXTransformer.js'></script>
+      <script src='gh-weblog/bower_components/react/react.js'></script>
+      <script src='gh-weblog/bower_components/react/JSXTransformer.js'></script>
       <!-- for converting Markdown syntax to HTML -->
-      <script src='bower_components/marked/lib/marked.js'></script>
-      <script src='mixins/markdown.js'></script>
+      <script src='gh-weblog/bower_components/marked/lib/marked.js'></script>
+      <script src='gh-weblog/mixins/markdown.js'></script>
       <!-- for interfacing with Github.com -->
-      <script src='bower_components/octokit/octokit.js'></script>
-      <script src='mixins/connector.js'></script>
+      <script src='gh-weblog/bower_components/octokit/octokit.js'></script>
+      <script src='gh-weblog/mixins/connector.js'></script>
       <!-- for sensible "onclick out of this element" handling -->
-      <script src='mixins/onclickoutside.js'></script>
+      <script src='gh-weblog/mixins/onclickoutside.js'></script>
       <!-- for turning seconds-since-epoch timestamps into yyyy-mm-dd-hh-mm-ss ids -->
-      <script src='mixins/timetoid.js'></script>
+      <script src='gh-weblog/mixins/timetoid.js'></script>
       <!-- RSS generator, because it's a blog -->
-      <script src='mixins/rssgenerator.js'></script>
+      <script src='gh-weblog/mixins/rssgenerator.js'></script>
       <!-- app components -->
-      <script src='components/Editor.jsx' type='text/jsx'></script>
-      <script src='components/MarkDown.jsx' type='text/jsx'></script>
-      <script src='components/Entry.jsx' type='text/jsx'></script>
-      <script src='components/WebLog.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/Editor.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/MarkDown.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/Tags.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/Entry.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/WebLog.jsx' type='text/jsx'></script>
       <!-- app kickoff -->
       <script type='text/jsx'>
         var fragmentId = window.location.hash || false;
