@@ -94,6 +94,15 @@
   color: lightgrey;
 }
 
+.gh-weblog button {
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+.gh-weblog button:hover {
+  box-shadow: 0px 0px 3px 0px #9193B6;
+}
+
 .gh-weblog button.authenticate {
   border: none;
   background: inherit;
@@ -101,5 +110,9 @@
   font-size: 50;
   float: right;
   cursor: pointer;
-  margin-top: -2em;
+  margin-top: -1em;
+}
+
+.gh-weblog button.authenticate:hover {
+  box-shadow: none;
 }

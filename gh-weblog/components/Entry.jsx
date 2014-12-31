@@ -28,7 +28,7 @@ var Entry = React.createClass({
     var idLink = "#" + id;
     var deletebutton;
     if(this.props.editable) {
-      deletebutton = <button className="admin delete button" onClick={this.delete}>delete</button>;
+      deletebutton = <button className="admin delete button" onClick={this.delete}>remove entry</button>;
     }
     var posted = (new Date(this.state.published)).toLocaleString();
     var updated = (new Date(this.state.updated)).toLocaleString();
