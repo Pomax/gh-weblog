@@ -1,11 +1,13 @@
 {
+  "id": "2014-12-24-06-49-19",
   "title": "A client-side Mahjong scoring app, using React",
   "created": 1419403759737,
   "published": 1419403759737,
   "updated": 1419405232235,
   "tags": [
     "React",
-    "Mahjong"
+    "Mahjong",
+    "Games"
   ],
   "author": "Pomax"
 }
