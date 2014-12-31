@@ -5,8 +5,8 @@
 <title>A Github Weblog</title>
 <description>A simple github blog using markdown and octokit</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Wed, 31 Dec 2014 19:36:24 GMT</lastBuildDate>
-<pubDate>Wed, 31 Dec 2014 19:36:24 GMT</pubDate>
+<lastBuildDate>Wed, 31 Dec 2014 19:57:32 GMT</lastBuildDate>
+<pubDate>Wed, 31 Dec 2014 19:57:32 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>A client-side Mahjong scoring app, using React</title>
@@ -19,6 +19,7 @@
 </description>
 <category>React</category>
 <category>Mahjong</category>
+<category>Games</category>
 <link>http://pomax.github.io/gh-blog/#gh-weblog-1419403759737</link>
 <guid>http://pomax.github.io/gh-blog/#gh-weblog-1419403759737</guid>
 <pubDate>Wed, 24 Dec 2014 06:49:19 GMT</pubDate>
@@ -535,5 +536,23 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <link>http://pomax.github.io/gh-blog/#gh-weblog-1411176119356</link>
 <guid>http://pomax.github.io/gh-blog/#gh-weblog-1411176119356</guid>
 <pubDate>Sat, 20 Sep 2014 01:21:59 GMT</pubDate>
+</item>
+<item>
+<title>A follow up to all those sheets of ink</title>
+<description>&lt;p&gt;As a small follow-up to my &lt;a href="#gh-weblog-1407948773020"&gt;previous post&lt;/a&gt; with all the ink sheets, I&amp;#39;ve compiled them into a few &lt;a href="http://imgur.com"&gt;imgur&lt;/a&gt; albums.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://imgur.com/gallery/5TGYc"&gt;http://imgur.com/gallery/5TGYc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://imgur.com/gallery/4sVTk"&gt;http://imgur.com/gallery/4sVTk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://imgur.com/gallery/3JWW4"&gt;http://imgur.com/gallery/3JWW4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://imgur.com/gallery/V9K1j"&gt;http://imgur.com/gallery/V9K1j&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So that&amp;#39;s it for now... until I get more inks to play with of course!&lt;/p&gt;
+</description>
+<category>Fountain Pen</category>
+<category>Ink</category>
+<category>Imgur</category>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1410137953315</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1410137953315</guid>
+<pubDate>Mon, 08 Sep 2014 00:59:13 GMT</pubDate>
 </item></channel>
 </rss>
