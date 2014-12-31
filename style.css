@@ -91,6 +91,10 @@ a:hover {
   background: white;
 }
 
+.gh-weblog .entry img {
+  max-width: 98%;
+}
+
 .gh-weblog .delete.button {
   float:right;
 }
