@@ -5,8 +5,8 @@
 <title>A Github Weblog</title>
 <description>A simple github blog using markdown and octokit</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Wed, 31 Dec 2014 19:57:32 GMT</lastBuildDate>
-<pubDate>Wed, 31 Dec 2014 19:57:32 GMT</pubDate>
+<lastBuildDate>Wed, 31 Dec 2014 20:30:25 GMT</lastBuildDate>
+<pubDate>Wed, 31 Dec 2014 20:30:25 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>A client-side Mahjong scoring app, using React</title>
@@ -498,16 +498,16 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <pubDate>Mon, 06 Oct 2014 05:06:55 GMT</pubDate>
 </item>
 <item>
-<title>#Let's simplify installations.</title>
+<title>Let's simplify installations.</title>
 <description>&lt;p&gt;&lt;a href="https://webmaker.org"&gt;Webmaker&lt;/a&gt; is a collection of tools that are awesome. Getting them all up and running at the same time, however, is somewhat the opposite of that qualifier, so in order to make the process easier, about a year ago, I wrote the &amp;quot;webmaker suite&amp;quot; - a set of scripts that could do things like install all our apps, update them, and run them.&lt;/p&gt;
 &lt;p&gt;That sounds pretty useful, and it was, but it was also a lot of &amp;quot;scripts&amp;quot;. It was certainly friendlier than telling someone to clone ten apps themselves and do the whole npm install thing, but it was a lot of runtime flags to make sure only the right things would start up or install or update, and I finally had enough.&lt;/p&gt;
 &lt;p&gt;Programmers do their best work on things that scratch an itch, and I just got a new work laptop, which needed webmaker-suite installed. I was not happy. Why didn&amp;#39;t we just have a package manager, really, so I could just say &amp;quot;grab me X, Y, and Z, and let me run them&amp;quot;? Well, pretty much because I never wrote it. How dare I be so lazy!&lt;/p&gt;
 &lt;p&gt;So I took a day to just implement a package manager for webmaker and in the process ended up writing a pretty sweet retro menu system program package .. thing... for node.js that you can find &lt;a href="http://github.com/Pomax/terminal-menu-program"&gt;here&lt;/a&gt; (based on the already existing &lt;a href="https://www.npmjs.org/package/terminal-menu"&gt;terminal-menu&lt;/a&gt; package).&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://cloud.githubusercontent.com/assets/177243/4414059/0e4e9a00-4510-11e4-924e-59db1c523557.png"&gt;&lt;/p&gt;
 &lt;p&gt;With that in place, it was suddenly possible to write an app manager for webmaker, and I&amp;#39;m pretty sure I can make it slightly more generic so that you, too, can use it for managing your multi-app setup without having to write all the scripts yourself. But that&amp;#39;ll be for another post. For now, I&amp;#39;m working on making sure that you can simple-navigate your way through our installer and be up and running in the time it takes to automatically run some installers, and not really much more:&lt;/p&gt;
-&lt;p&gt;&lt;img src="images/webmaker-menu-01.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/webmaker-menu-01.jpg"&gt;&lt;/p&gt;
 &lt;p&gt;And you&amp;#39;ll have the freedom to set up multiple run profiles so that you can run exactly what you want to run, when you need it:&lt;/p&gt;
-&lt;p&gt;&lt;img src="images/webmaker-menu-02.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/webmaker-menu-02.jpg"&gt;&lt;/p&gt;
 &lt;p&gt;Right now external dependencies like &lt;a href="https://www.java.com/en/download/index.jsp"&gt;Java&lt;/a&gt;, &lt;a href="www.elasticsearch.org/overview/elkdownloads"&gt;ElasticSearch&lt;/a&gt;, and &lt;a href="www.mongodb.org/downloads"&gt;MongoDB&lt;/a&gt; are still up to you, but hopefully I can somehow cleverly work that in, too, and then everything will be fantastic.&lt;/p&gt;
 </description>
 <category>Mozilla</category>
