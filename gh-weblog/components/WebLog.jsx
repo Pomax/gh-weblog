@@ -52,14 +52,15 @@ var WebLog = React.createClass({
                     onSave={self.save}
                     onDelete={self.delete}/>;
     });
-    var postbutton, morebutton;
-    if(!this.state.singleton && this.state.authenticated) {
-      postbutton = <button className="admin post button" onClick={this.create}>new entry</button>;
+    var postbutton, morebutton, adminbutton;
+    if(!this.state.singleton) {
+      adminbutton = <button className="authenticate" onClick={this.authenticate}>admin</button>
+      if(this.state.authenticated) { postbutton = <button className="admin post button" onClick={this.create}>new entry</button>; }
       morebutton = <button onClick={this.more}>Load more posts</button>;
     }
     return (
       <div ref="weblog" className="gh-weblog">
-        <button className="authenticate" onClick={this.authenticate}>admin</button>
+        {adminbutton}
         {postbutton}
         {entries}
         {morebutton}
