@@ -26,9 +26,11 @@ var WebLog = React.createClass({
   componentDidMount: function() {
     // are we authenticataed?
     var settings = localStorage["gh-weblog-settings"];
-    if(settings) { settings = JSON.parse(settings); }
-    this.connector = new this.Connector(settings);
-    this.setState({ authenticated: !!settings.token });
+    if(settings) {
+      settings = JSON.parse(settings);
+      this.connector = new this.Connector(settings);
+      this.setState({ authenticated: !!settings.token });
+    }
 
     // are we loading one entry, or "all" entries?
     var id = this.timeToId(this.props.entryid);
