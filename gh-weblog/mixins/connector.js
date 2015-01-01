@@ -3,7 +3,7 @@ var ConnectorMixin = {
   Connector: (function() {
 
     var Connector = function(options) {
-      if(options.token && options.token.trim()) {
+      if(options && options.token && options.token.trim()) {
         this.options = options;
         this.setProperties(options);
       }
