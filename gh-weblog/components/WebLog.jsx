@@ -33,8 +33,16 @@ var WebLog = React.createClass({
     } else { this.connector = new this.Connector(); }
 
     // are we loading one entry, or "all" entries?
-    var id = this.timeToId(this.props.entryid);
+    var fragmentId = window.location.hash || false;
+    if(fragmentId) {
+      if(fragmentId.indexOf("#gh-weblog")>-1) {
+        fragmentId = fragmentId.replace("#gh-weblog-",'');
+      } else { fragmentId = false; }
+    }
+    var id = this.timeToId(fragmentId);
     if(id) { this.setState({ singleton: true }); }
+
+    // load the necessary index information
     this.connector.loadIndex(this.loadIndex, id);
   },
 

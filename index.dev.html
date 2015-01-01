@@ -74,19 +74,12 @@
 
       <!-- app kickoff -->
       <script type='text/jsx'>
-        var fragmentId = window.location.hash || false;
-        if(fragmentId) { fragmentId = fragmentId.replace("#gh-weblog-",''); }
-
-        // load the mathjax processor for my blog content
         var processors = [ MathJaxProcessor ];
-
-
-        React.render(<WebLog title="Pomax.github.io [dev version]"
+        React.render(<WebLog base="http://pomax.github.io/gh-blog"
+                             title="Pomax.github.io [dev version]"
                              description="The dev version of my blog over at pomax.github.io"
                              rssfeeds="Mozilla"
-                             processors={processors}
-                             base="http://pomax.github.io/gh-blog"
-                             entryid={fragmentId} />, document.getElementById('gh-weblog'));
+                             processors={processors} />, document.getElementById('gh-weblog'));
       </script>
     </div>
     <!-- End of Github gh-pages weblog code -->
