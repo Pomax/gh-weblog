@@ -2,7 +2,7 @@ var RSSGenerator = {
   /**
    * So, this is weird given that
    */
-  toRSS: function() {
+  toRSS: function(category) {
     var self = this;
     var base = this.props.base;
 
@@ -21,7 +21,7 @@ var RSSGenerator = {
       , '<channel>'
       , '<atom:link href="' + this.props.base + '/' + this.props.path + '/rss.xml" rel="self" type="application/rss+xml" />'
       , '<title>' + this.props.title + '</title>'
-      , '<description>' + this.props.description + '</description>'
+      , '<description>' + this.props.description + (category ? " ["+category+" posts only]":'') + '</description>'
       , '<link>' +  base + '</link>'
       , '<lastBuildDate>' + (new Date()).toUTCString() + '</lastBuildDate>'
       , '<pubDate>' + (new Date()).toUTCString() + '</pubDate>'
@@ -32,6 +32,10 @@ var RSSGenerator = {
     var entryIds = Object.keys(this.list).sort().reverse().slice(0,10);
     var entriesRSS = entryIds.map(function(id) {
       var entry = self.refs[id];
+      // If we need to filter for categories, entries that do not match
+      // that category contribute an empty string.
+      if(category && entry.state.tags.indexOf(category)===-1) return "";
+      // Everything else contributes genuine RSS code
       var html = entry.getHTMLData();
       var safifier = document.createElement("div");
       safifier.textContent = html;
@@ -47,7 +51,7 @@ var RSSGenerator = {
         , '</item>'
       ];
       return rssForm.join('\n');
-    }).join('\n');
+    }).filter(function(v) { return !!v }).join('\n');
 
     // Boilerplate tail bit for the RSS feed
     var rssTail = [

@@ -164,8 +164,8 @@ var WebLog = React.createClass({
     var connector = this.connector;
     this.setEntry(entry.state.id, entry.getMetaData(), entry.postdata);
     connector.saveEntry(entry, this.index, function saved() {
-      console.log("save handled - updating RSS");
-      connector.saveRSS(self.toRSS());
+      console.log("save handled");
+      self.saveRSS();
     });
   },
 
@@ -173,7 +173,6 @@ var WebLog = React.createClass({
     var confirmed = confirm("really delete post?");
     if(confirmed) {
       var self = this;
-      var connector = this.connector;
       var id = entry.state.id;
       // remove from index:
       var pos = this.index.indexOf(id);
@@ -183,10 +182,31 @@ var WebLog = React.createClass({
       this.setState({ entries: this.list });
       // delete entry remotely
       connector.deleteEntry(entry, this.index, function deleted() {
-        console.log("delete handled - updating RSS");
-        connector.saveRSS(self.toRSS());
+        console.log("delete handled");
+        self.saveRSS();
       });
     }
+  },
+
+  saveRSS: function() {
+    var self = this;
+    var connector = this.connector;
+    console.log("Updating RSS...");
+    connector.saveRSS(self.toRSS(), function() {
+      console.log("updated.");
+      if(self.props.rssfeeds) {
+        console.log("Updating category-specific RSS...");
+        var feeds = self.props.rssfeeds.split(",")
+                                       .map(function(v) { return v.trim(); })
+                                       .filter(function(v) { return !!v; });
+        (function nextCategory() {
+          if(feeds.length===0) return console.log("All RSS feeds updated");
+          var category = feeds.splice(0,1)[0];
+          console.log("Updating category "+category);
+          connector.saveRSS(self.toRSS(category), category.toLowerCase(), nextCategory);
+        }());
+      }
+    });
   }
 
 });

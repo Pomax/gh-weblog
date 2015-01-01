@@ -152,8 +152,12 @@ var ConnectorMixin = {
         }
       },
 
-      saveRSS: function(rss, updated) {
-        var rssFilename = this.options.path + "/rss.xml";
+      saveRSS: function(rss, category, updated) {
+        if(typeof category === "function") {
+          updated = category;
+          category = false;
+        }
+        var rssFilename = this.options.path + "/" + (category?category+"-":'') + "rss.xml";
         var commitMessage = "Update to RSS XML";
         try {
           this.branch.write(rssFilename, rss, commitMessage)

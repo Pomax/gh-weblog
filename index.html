@@ -48,6 +48,8 @@
         if(fragmentId) { fragmentId = fragmentId.replace("#gh-weblog-",''); }
         React.render(<WebLog title="Pomax.github.io [dev version]"
                              description="The dev version of my blog over at pomax.github.io"
+                             rssfeeds="Mozilla"         // : generate mozilla-rss.xml file, in addition to rss.xml
+                             processors="js/mathjax.js"  // : load the mathjax processor for my blog content
                              base="http://pomax.github.io/gh-blog"
                              entryid={fragmentId} />, document.getElementById('gh-weblog'));
       </script>
