@@ -26,6 +26,7 @@ var Admin = React.createClass({
     return (
       <div className="underlay" hidden={this.state.hidden} onClick={this.close}>
         <div className="overlay" onClick={this.stopPropagation}>
+          <button className="logout" onClick={this.reset}>Log out</button>
           <h1>Weblog administration settings</h1>
           <table>
             <tr>
@@ -51,6 +52,19 @@ var Admin = React.createClass({
         </div>
       </div>
     );
+  },
+
+  reset: function() {
+    localStorage.removeItem("gh-weblog-settings");
+    this.setState({
+      user: '',
+      repo: '',
+      branch: '',
+      path: 'gh-weblog',
+      token: '',
+      hidden: true
+    });
+    this.props.onLogout();
   },
 
   show: function() {

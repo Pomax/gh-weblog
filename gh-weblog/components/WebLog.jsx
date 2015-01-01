@@ -59,7 +59,7 @@ var WebLog = React.createClass({
 
     return (
       <div ref="weblog" className="gh-weblog">
-        <Admin ref="admin" hidden="true" onClose={this.bindSettings}/>
+        <Admin ref="admin" hidden="true" onClose={this.bindSettings} onLogout={this.onLogOut}/>
         {adminbutton}
         {postbutton}
         {this.generateEntries()}
@@ -97,6 +97,10 @@ var WebLog = React.createClass({
     if(settings.token.trim()) {
       this.setState({ authenticated: true });
     }
+  },
+
+  onLogOut: function() {
+    this.setState({ authenticated: false });
   },
 
   more: function() {
@@ -183,9 +187,8 @@ var WebLog = React.createClass({
 
   save: function(entry) {
     var self = this;
-    var connector = this.connector;
     this.setEntry(entry.state.id, entry.getMetaData(), entry.postdata);
-    connector.saveEntry(entry, this.index, function saved() {
+    this.connector.saveEntry(entry, this.index, function saved() {
       console.log("save handled");
       self.saveRSS();
     });
@@ -202,8 +205,7 @@ var WebLog = React.createClass({
       // remove from list of loaded entries:
       delete this.list[id];
       this.setState({ entries: this.list });
-      // delete entry remotely
-      connector.deleteEntry(entry, this.index, function deleted() {
+      this.connector.deleteEntry(entry, this.index, function deleted() {
         console.log("delete handled");
         self.saveRSS();
       });
