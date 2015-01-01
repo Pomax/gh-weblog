@@ -6,6 +6,10 @@ var ConnectorMixin = {
       if(options && options.token && options.token.trim()) {
         this.options = options;
         this.setProperties(options);
+      } else {
+        this.options = {
+          path: "gh-weblog"
+        };
       }
     };
 
