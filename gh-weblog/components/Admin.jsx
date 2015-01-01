@@ -45,7 +45,7 @@ var Admin = React.createClass({
               <td><input type="text" value={this.state.path} onChange={this.changePath} /></td>
             </tr>
           </table>
-          <h1>github access token</h1>
+          <h1>Github <a href="https://github.com/settings/applications">Personal Access Token</a></h1>
           <input type="text" className="token" value={this.state.token} onChange={this.changeToken} />
           <p>Don&#39;t give this token more permissions than necessary! gh-weblog only needs repo access!</p>
         </div>
