@@ -46,7 +46,10 @@
       <script type='text/jsx'>
         var fragmentId = window.location.hash || false;
         if(fragmentId) { fragmentId = fragmentId.replace("#gh-weblog-",''); }
-        React.render(<WebLog entryid={fragmentId} />, document.getElementById('gh-weblog'));
+        React.render(<WebLog title="Pomax.github.io [dev version]"
+                             description="The dev version of my blog over at pomax.github.io"
+                             base="http://pomax.github.io/gh-blog"
+                             entryid={fragmentId} />, document.getElementById('gh-weblog'));
       </script>
     </div>
     <!-- End of Github gh-pages weblog code -->
