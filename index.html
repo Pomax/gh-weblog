@@ -36,6 +36,7 @@
       <!-- RSS generator, because it's a blog -->
       <script src='gh-weblog/mixins/rssgenerator.js'></script>
       <!-- app components -->
+      <script src='gh-weblog/components/Admin.jsx' type='text/jsx'></script>
       <script src='gh-weblog/components/Editor.jsx' type='text/jsx'></script>
       <script src='gh-weblog/components/MarkDown.jsx' type='text/jsx'></script>
       <script src='gh-weblog/components/Tags.jsx' type='text/jsx'></script>
@@ -45,15 +46,7 @@
       <script type='text/jsx'>
         var fragmentId = window.location.hash || false;
         if(fragmentId) { fragmentId = fragmentId.replace("#gh-weblog-",''); }
-        React.render(<WebLog title="A Github Weblog"
-                             description="A simple github blog using markdown and octokit"
-                             base="http://pomax.github.io/gh-blog"
-                             user="Pomax"
-                             repo="gh-blog"
-                             branch="gh-pages"
-                             path="gh-weblog"
-                             entryid={fragmentId}
-                      />, document.getElementById('gh-weblog'));
+        React.render(<WebLog entryid={fragmentId} />, document.getElementById('gh-weblog'));
       </script>
     </div>
     <!-- End of Github gh-pages weblog code -->

@@ -3,15 +3,19 @@ var ConnectorMixin = {
   Connector: (function() {
 
     var Connector = function(options) {
-      this.options = options;
-      if(options.token) {
-        var octokit = new Octokit({ token: options.token });
-        this.repo = octokit.getRepo(options.user, options.repo);
-        this.branch = this.repo.getBranch(options.branch);
+      if(options.token && options.token.trim()) {
+        this.options = options;
+        this.setProperties(options);
       }
     };
 
     Connector.prototype = {
+      setProperties: function(options) {
+        this.path = options.path;
+        var octokit = new Octokit({ token: options.token });
+        this.repo = octokit.getRepo(options.user, options.repo);
+        this.branch = this.repo.getBranch(options.branch);
+      },
 
       // We don't need zepto or jquery for an xhr .get()
       get: function(url, options, processData) {
@@ -27,6 +31,17 @@ var ConnectorMixin = {
           if(xhr.status === 0 || xhr.status===200) {
             if(xhr.readyState === 4) {
               var obj = evt.target.response;
+              if (url.indexOf(".json") > -1) {
+                var mybj = JSON.parse(JSON.stringify(obj));
+                if(mybj.created) {
+                  var date = new Date(parseInt(mybj.created,10));
+                  var formatted = date.toISOString();
+                  formatted = formatted.replace('T','-');
+                  formatted = formatted.replace(/\..*/,'');
+                  formatted = formatted.replace(/\:/g,'-');
+                  console.log(mybj.created, formatted);
+                }
+              }
               processData(!obj, obj);
             }
           } else {
@@ -65,9 +80,8 @@ var ConnectorMixin = {
       },
 
       saveEntry: function(entry, index, saved) {
-        var id = entry.state.id;
-        console.log("Saving " + id);
-        var path = this.options.path + "/content/posts/",
+        var id = entry.state.id,
+            path = this.options.path + "/content/posts/",
             index = JSON.stringify({index:index.sort()},false,2),
             indexFilename = path + "index.json",
             metadata = JSON.stringify(entry.getMetaData(), false, 2),

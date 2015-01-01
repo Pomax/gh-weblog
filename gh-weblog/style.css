@@ -116,3 +116,30 @@
 .gh-weblog button.authenticate:hover {
   box-shadow: none;
 }
+
+.gh-weblog .underlay {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.gh-weblog .overlay {
+  position: fixed;
+  background: white;
+  z-index: 11;
+  top: calc(50% - 11em);
+  right: 10%;
+  top: calc(50% - 11em);
+  left: 10%;
+  padding: 1em;
+  border: 1px solid #333;
+  box-shadow: 0 0 45px 0 black;
+}
+
+.gh-weblog input.token {
+  width: 23em;
+}

@@ -25,15 +25,10 @@ var WebLog = React.createClass({
 
   componentDidMount: function() {
     // are we authenticataed?
-    var token = localStorage["gh-weblog-token"];
-    this.connector = new this.Connector({
-      token: token,
-      user: this.props.user,
-      repo: this.props.repo,
-      branch: this.props.branch,
-      path: this.props.path
-    });
-    this.setState({ authenticated: !!token });
+    var settings = localStorage["gh-weblog-settings"];
+    if(settings) { settings = JSON.parse(settings); }
+    this.connector = new this.Connector(settings);
+    this.setState({ authenticated: !!settings.token });
 
     // are we loading one entry, or "all" entries?
     var id = this.timeToId(this.props.entryid);
@@ -54,12 +49,13 @@ var WebLog = React.createClass({
     });
     var postbutton, morebutton, adminbutton;
     if(!this.state.singleton) {
-      adminbutton = <button className="authenticate" onClick={this.authenticate}>admin</button>
+      adminbutton = <button className="authenticate" onClick={this.showSettings} onClose={this.bindSettings}>admin</button>
       if(this.state.authenticated) { postbutton = <button className="admin post button" onClick={this.create}>new entry</button>; }
       morebutton = <button onClick={this.more}>Load more posts</button>;
     }
     return (
       <div ref="weblog" className="gh-weblog">
+        <Admin ref="admin" hidden="true" onClose={this.bindSettings}/>
         {adminbutton}
         {postbutton}
         {entries}
@@ -68,13 +64,15 @@ var WebLog = React.createClass({
     );
   },
 
-  authenticate: function() {
-    var token = localStorage["gh-weblog-token"] || '';
-    token = prompt("Your github repo API key (only use a key with public repo access, no other permissions are required):", token);
-    if(token===null) return;
-    token = token.trim();
-    localStorage["gh-weblog-token"] = token;
-    this.setState({ authenticated: !!token });
+  showSettings: function() {
+    this.refs.admin.show();
+  },
+
+  bindSettings: function(settings) {
+    this.connector.setProperties(settings);
+    if(settings.token.trim()) {
+      this.setState({ authenticated: true });
+    }
   },
 
   more: function() {
