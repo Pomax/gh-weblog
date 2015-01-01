@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<atom:link href="http://pomax.github.io/gh-blog/undefined/rss.xml" rel="self" type="application/rss+xml" />
+<title>Pomax.github.io [dev version]</title>
+<description>The dev version of my blog over at pomax.github.io [Mozilla posts only]</description>
+<link>http://pomax.github.io/gh-blog</link>
+<lastBuildDate>Thu, 01 Jan 2015 20:54:02 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 20:54:02 GMT</pubDate>
+<ttl>1440</ttl>
+<item>
+<title> So you're thinking about using React</title>
+<description>&lt;p&gt;I was in the same boat: at the Mozilla Foundation we&amp;#39;re considering using React for the next few months as client-side framework of choice for new apps, and that means learning a new technology, because you can&amp;#39;t make a decision on something you don&amp;#39;t understand. So I took an app I was unhappy with due to framework choice, and rewrote the whole thing in React, taking notes on everything that felt weird, or didn&amp;#39;t click.&lt;/p&gt;
+&lt;p&gt;I ended up writing about 6000 words worth of thoughts on React by the time I was done, and it took another 3000 or so to figure out what I had actually learned, and why React seemed so foreign at first, but so &lt;em&gt;right&lt;/em&gt; once I got familiar with it. It&amp;#39;s been great learning a new thing, and even better discovering that it&amp;#39;s a thing I can love, but there&amp;#39;s a reason for that, and I&amp;#39;d like to distill my close to 10k words into something that you can read, so that you might understand where React&amp;#39;s coming from.&lt;/p&gt;
+&lt;p&gt;So: if you&amp;#39;re used to other frameworks (whether they&amp;#39;re MVC, MVVM, some other paradigm or even just plain JS and HTML templating engines), and you feel like React is doing something very weird, don&amp;#39;t worry: if you treat it as HTML+JS, React is really, really weird. However, the reason for it is actually you: React is not about doing things as HTML+JS, it&amp;#39;s about writing applications using plain old object oriented programing... The objects just happen to be able to render themselves as UI elements, and the UI happens to be the browser. The logic behind what you&amp;#39;re programming, as such, depends on knowing that you&amp;#39;re doing OOP, and making sure you&amp;#39;re thinking about modelling your elements and interactions based on object interactions as you would in any other OOP design setting.&lt;/p&gt;
+&lt;p&gt;The bottom line: React has &lt;em&gt;almost&lt;/em&gt; nothing to do with HTML. And for a web framework, &lt;strong&gt;that&amp;#39;s&lt;/strong&gt; weird. Although only a little, as we&amp;#39;ll see in the rest of this post.&lt;/p&gt;
+&lt;p&gt;The best way I can think of to get to business is with a table that compares the various aspects of programming to how you express those things when you&amp;#39;re using HTML, versus how you express those things when you&amp;#39;re using React&amp;#39;s object model. I&amp;#39;m calling it JSX because that&amp;#39;s what React calls it, but really it&amp;#39;s &amp;quot;React&amp;#39;s object model&amp;quot;.&lt;/p&gt;
+&lt;p&gt;So, here goes:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align:left"&gt;concepts&lt;/th&gt;
+&lt;th style="text-align:center"&gt;HTML&lt;/th&gt;
+&lt;th style="text-align:center"&gt;JSX&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;&amp;quot;thing&amp;quot; to think in terms of&lt;/td&gt;
+&lt;td style="text-align:center"&gt;DOM elements&lt;/td&gt;
+&lt;td style="text-align:center"&gt;React components&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;Is this MVC?&lt;/td&gt;
+&lt;td style="text-align:center"&gt;there is no explicit model&lt;/td&gt;
+&lt;td style="text-align:center"&gt;components wrap MVC&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;internal structure&lt;/td&gt;
+&lt;td style="text-align:center"&gt;DOM tree&lt;/td&gt;
+&lt;td style="text-align:center"&gt;components tree&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;scope&lt;/td&gt;
+&lt;td style="text-align:center"&gt;global (&lt;code&gt;window&lt;/code&gt;)&lt;/td&gt;
+&lt;td style="text-align:center"&gt;local component and &lt;code&gt;this.refs&lt;/code&gt; only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;contextual id&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;code&gt;id&lt;/code&gt; attribute&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;code&gt;ref&lt;/code&gt; attribute&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;hashcode&lt;/td&gt;
+&lt;td style="text-align:center"&gt;n/a&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;code&gt;key&lt;/code&gt; attribute&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;mutable properties&lt;/td&gt;
+&lt;td style="text-align:center"&gt;HTML attributes&lt;/td&gt;
+&lt;td style="text-align:center"&gt;internal object properties&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;bootstrap properties&lt;/td&gt;
+&lt;td style="text-align:center"&gt;n/a&lt;/td&gt;
+&lt;td style="text-align:center"&gt;component &lt;code&gt;props&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;property types&lt;/td&gt;
+&lt;td style="text-align:center"&gt;strings&lt;/td&gt;
+&lt;td style="text-align:center"&gt;any legal JS construct&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;internal state&lt;/td&gt;
+&lt;td style="text-align:center"&gt;...&lt;/td&gt;
+&lt;td style="text-align:center"&gt;component &lt;code&gt;state&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;style assignment&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;code&gt;class&lt;/code&gt; attribute&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;code&gt;className&lt;/code&gt; attribute&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;hierarchy accessors&lt;/td&gt;
+&lt;td style="text-align:center"&gt;DOM child/parent access&lt;/td&gt;
+&lt;td style="text-align:center"&gt;local access only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;content comes from...&lt;/td&gt;
+&lt;td style="text-align:center"&gt;any mix of DOM + JS&lt;/td&gt;
+&lt;td style="text-align:center"&gt;purely the component state&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left"&gt;content manipulation&lt;/td&gt;
+&lt;td style="text-align:center"&gt;DOM API&lt;/td&gt;
+&lt;td style="text-align:center"&gt;setState&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;I&amp;#39;m going to be running through each of these points in order (mostly), and I&amp;#39;d strongly advise you not to skip to just the step &amp;quot;you care about&amp;quot;. Unless you gave up on the notion that you&amp;#39;re writing a webpage rather than an object oriented application that happens to render its UI elements as inaccessible HTML, you&amp;#39;re going to want to read all of them. In fact, humour me: even if you have, read every point anyway. They build on each other.&lt;/p&gt;
+&lt;h2 id="the-thing-that-you-re-working-on"&gt;The &amp;quot;thing&amp;quot; that you&amp;#39;re working on&lt;/h2&gt;
+&lt;p&gt;In a traditional web setting, you have the data, the markup around that data, the styling of that markup, and the interaction logic that lets you bridge the gap between the data and the user. These things are typically your data, your HTML, your CSS and your JavaScript, respectively.&lt;/p&gt;
+&lt;p&gt;That is not how you model in React. React is far more like a traditional programming language, with objects that represent your functional blocks. Each object has an initial construction configuration, a running state, and because we&amp;#39;re working on the web, each object has a &lt;code&gt;.render()&lt;/code&gt; function that will produce a snapshot of the object, serialized into HTML that is &amp;quot;done&amp;quot; as far as React is concerned. Nothing you can do to it will be meaningful for the object that generated it. React could, essentially, be anything. If it rendered to native UI or to GTK or Java Swing, you&amp;#39;d never know, since React&amp;#39;s written in a way that everything your components might conceivably want to do is contained in your object&amp;#39;s code. &lt;/p&gt;
+&lt;p&gt;It&amp;#39;s also much more like a traditional OOP environment in that objects don&amp;#39;t &amp;quot;take things from other objects&amp;quot;. Where in HTML+JS you might do a &lt;code&gt;document.querySelector(&amp;quot;#maincontainer div.secondary ol li.current&amp;quot;)&lt;/code&gt; and then manipulate what comes rolling out of that, in React, you delegate. There is no &amp;quot;global&amp;quot; context to speak of, so you&amp;#39;d have a Main component, containing a Secondary component, and that&amp;#39;s all Main can see. If it wants to initiate things on &amp;quot;the current selected list item&amp;quot;, it tells the contained Secondary element to take care of it, without caring &lt;em&gt;how&lt;/em&gt; it takes care of it. The code for doing things lives inside the things that do the doing.&lt;/p&gt;
+&lt;p&gt;This is pitfall number one if you&amp;#39;re starting with React: &lt;strong&gt;you&amp;#39;re not writing HTML, you&amp;#39;re doing object oriented programming with a to-HTML-render pipeline step at the end&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id="is-this-mvc-"&gt;Is this MVC?&lt;/h2&gt;
+&lt;p&gt;If you think in terms of Model/View/Controller separation (and let&amp;#39;s be clear here: that&amp;#39;s just one of many possible ways to model data visualisation and interaction), you might be wondering if React is an MVC framework, to which the only real answer is &amp;quot;that question has assumptions that don&amp;#39;t really apply here&amp;quot; (which is why comparing React to Ember or Angular or the like doesn&amp;#39;t really make all that much sense). React is an object oriented modeling framework, whereas MVC frameworks are MVC frameworks.&lt;/p&gt;
+&lt;p&gt;If we absolutely have to express React in terms of MVC: each component is responsible for housing all MVC aspects, in isolation of every other component:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the model aspect is captured as the component properties (its config) and state (it&amp;#39;s current data),&lt;/li&gt;
+&lt;li&gt;the view aspect is captured as the &lt;code&gt;render&lt;/code&gt; function, generating new views every time either the configuration or state updates, and&lt;/li&gt;
+&lt;li&gt;the control aspect is covered by all the functions defined on the object that you (or React) intend to be called either through interaction with the component, or as public API, to be called by other components.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="the-internal-structure-of-things-"&gt;The internal structure of &amp;quot;things&amp;quot;&lt;/h2&gt;
+&lt;p&gt;In HTML+JS, the structure of your functional blocks are just &amp;quot;more HTML&amp;quot;. In React, you&amp;#39;re using a completely different thing. It&amp;#39;s a &lt;em&gt;little&lt;/em&gt; bit different in terms of what it looks like (you should be entirely forgiven for thinking you&amp;#39;re working with HTML except using XML syntax) but it&amp;#39;s completely different in what it &lt;em&gt;is&lt;/em&gt;: React uses a syntax that lets you define what look like XML structures, which are transformed into key/value maps. It&amp;#39;s these key/value maps that React uses internally as the canonical representation of your object. That&amp;#39;s a lot of words for the summary &amp;quot;it&amp;#39;s not HTML, just a sort of familiar syntax to make development easy&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Let&amp;#39;s unpack that a little more: the JSX syntax uses tags that &lt;em&gt;map&lt;/em&gt; to HTML elements during the final render pipeline step. They are, however, most emphatically &lt;strong&gt;not&lt;/strong&gt; real HTML elements, and certainly not elements that end up being used in the browser. The reason here is that React uses an internal snapshot representation that lets it perform diffs between successive render calls. Each call generates a snapshot, a new snapshot is structurally compared to the previous one, and differences between them are translated into transforms that the browser can selectively apply to the snapshot&amp;#39;s associated active DOM. It&amp;#39;s super fast, but also means that the JSX you write has almost nothing to do with what the browser will end up using as DOM. &lt;/p&gt;
+&lt;p&gt;This is pitfall number two, and really is just a rephrasing of pitfall number one: &lt;strong&gt;React objects aren&amp;#39;t &amp;quot;backed by HTML&amp;quot;, nor is the browser DOM &amp;quot;backed by a React object&amp;quot;. What the browser shows you is just snapshots of React objects throughout their life cycle.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="html-is-unscoped-react-objects-are-scoped-as-per-oop-rules-"&gt;HTML is unscoped, React objects are scoped as per OOP rules.&lt;/h2&gt;
+&lt;p&gt;Since we have no DOM, and we&amp;#39;re doing proper OOP, React components know about their own state, and only their own state. To get around being completely isolated the normal OOP approaches apply for making components aware of things outside of their scope: they can be passed outside references during creation (i.e. these are constructor arguments; the constructor syntax just happens to look like, but conceptually is not, markup), or they can be passed in later by calling functions on the object that let you pass data in, and get data back as function return or via callbacks.&lt;/p&gt;
+&lt;p&gt;Which brings us to pitfall number three: &lt;strong&gt;If you&amp;#39;re using &lt;code&gt;window&lt;/code&gt; or some other dsignated master global context in React objects, you&amp;#39;re probably doing something wrong.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Everything you do in React you can achieve without the need for a global context. A component should only need to care about the things it was given when it was born, and the immediately visible content it has as described in its &lt;code&gt;render()&lt;/code&gt; function. Which brings us to the next section&lt;/p&gt;
+&lt;h2 id="how-do-we-find-the-right-nodes-"&gt;How do we find the right nodes?&lt;/h2&gt;
+&lt;p&gt;In HTML the answer is simple: &lt;code&gt;querySelect(&amp;quot;#all.the[things]&amp;quot;)&lt;/code&gt;. In React the answer is equally simple, as long as we obey OOP rules: We don&amp;#39;t know anything about &amp;quot;higher up&amp;quot; elements and we only know about our immediate children. That last bit is important: we should not care about our children&amp;#39;s children in the slightest. Children are black boxes and if we need something done to our children&amp;#39;s children, we &lt;em&gt;needSomethingDone()&lt;/em&gt;, so we call our children&amp;#39;s API functions and trust that they do the right thing, without caring in the slightest &lt;em&gt;how&lt;/em&gt; they get them done.&lt;/p&gt;
+&lt;p&gt;That&amp;#39;s not to say you might not want to &amp;quot;highlight the input text field when the main dialog gains focus&amp;quot; but that&amp;#39;s the HTML way of thinking. In React, when the dialog gains focus you want to tell all children that focus was gained, and then they can do whatever that means to them. If one of those children houses the input, then it should know to update its state to one where the input renders as highlighted. React&amp;#39;s diffing updates will then take care of making sure it&amp;#39;s still the same DOM element that gets highlight despite the &lt;code&gt;render()&lt;/code&gt; call outputting a &lt;em&gt;new&lt;/em&gt; snapshot.&lt;/p&gt;
+&lt;p&gt;So, how do we get our own children? In HTML we can use the globally unique &lt;code&gt;id&lt;/code&gt; attribute, and the same concept but then scoped locally to React objects is the &lt;code&gt;ref&lt;/code&gt; attribute: &lt;code&gt;&amp;lt;div ref=&amp;quot;abcd&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;&lt;/code&gt; will let us manipulate the &lt;strong&gt;React XML element&lt;/strong&gt; that represents as &lt;code&gt;this.refs.abcd&lt;/code&gt; in our code. Again: there is no HTML. Similarly, we can select any other React XML element to work with through &lt;code&gt;this.refs&lt;/code&gt; so if we have a React element &lt;code&gt;&amp;lt;ModalDialog ref=&amp;quot;md&amp;quot; /&amp;gt;&lt;/code&gt; then we can grab it from &lt;code&gt;this.refs.md&lt;/code&gt; and call its functions so that it does what we need, such as &lt;code&gt;this.refs.md.setTitle(&amp;quot;Enhanced modal titles are a go&amp;quot;);&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="the-secret-sauce-in-react-s-diffing-elements-have-hashcodes-and-sometimes-that-s-on-you-"&gt;The secret sauce in React&amp;#39;s diffing: elements have hashcodes, and sometimes that&amp;#39;s on you.&lt;/h2&gt;
+&lt;p&gt;Because React generates new XML tree snapshots every time &lt;code&gt;render()&lt;/code&gt; gets called, it needs a way to order elements reliably, for which it uses hashcodes. These are unique identifiers &lt;em&gt;local to the component they&amp;#39;re used in&lt;/em&gt; that let React check two successive snapshots for elements with the same code, so that it can determine whether they moved around, whether any attributes changed, etc. etc. &lt;/p&gt;
+&lt;p&gt;For statically defined JSX, React can add these keys automatically, but it can&amp;#39;t do that for dynamic content. When you&amp;#39;re creating renderable content dynamically (and the only place you&amp;#39;ll do this is in &lt;code&gt;render()&lt;/code&gt;; if you do it anywhere else, you&amp;#39;re doing React wrong) you need to make sure you add &lt;code&gt;key&lt;/code&gt; attributes to your JSX. And example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;render: function() {
+  var list = this.state.mylist.map(function(obj) {
+    return &amp;lt;li key={obj.internalid}&amp;gt;{obj.text}&amp;lt;/li&amp;gt;
+  });
+  return &amp;lt;ol&amp;gt;{list}&amp;lt;/ol&amp;gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If we don&amp;#39;t add &lt;code&gt;key&lt;/code&gt; attributes in this JSX, React will see successive snapshots with unmarked elements, and will simply key them them based on their position. This is fairly inefficient, and can lead to situations where lists are generated without a fixed order, making React think multiple elements changed when in fact elements merely moved around. To prevent this needlessly expensive kind up updating, we explicitly add the &lt;code&gt;key&lt;/code&gt; attribute for each &lt;code&gt;obj&lt;/code&gt; in our list &lt;code&gt;mylist&lt;/code&gt; so that they&amp;#39;re transformed into XML elements that will eventually end up being rendered as an HTML list item in the browser, while letting React see actual differences in successive snapshots.&lt;/p&gt;
+&lt;p&gt;If, for instance, we remove the first element in &lt;code&gt;mylist&lt;/code&gt; because we no longer need it, none of the other elements change, but without key attributes React will see every element as having changed, because the position for each element has changed. With key attributes, it&amp;#39;ll see that the elements merely moved and one of them disappeared.&lt;/p&gt;
+&lt;p&gt;The simplest &lt;code&gt;key&lt;/code&gt; when generating content, if you know your list stays ordered, is to make it explicit that you really do just want the position that React makes use of when you forget to add keys:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;render: function() {
+  var list = this.state.mylist.map(function(obj, idx) {
+    return &amp;lt;li key={idx}&amp;gt;{obj.text}&amp;lt;/li&amp;gt;
+  });
+  return &amp;lt;ol&amp;gt;{list}&amp;lt;/ol&amp;gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, while this will make React &amp;quot;stop complaining&amp;quot; about missing keys, this will also almost always be the &amp;quot;wrong&amp;quot; way to do keys, due to what React will see once you modify the list, rather than only ever appending to it. Generally, if you have dynamic content, spend a little time thinking about what can uniquely identify elements in it. Even if there&amp;#39;s nothing you can think of, you can always use an id generator dedicated to just those elements:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;render: function() {
+  var list = this.state.mylist.map(function(obj) {
+    return &amp;lt;li key={obj.key}&amp;gt;{obj.text}&amp;lt;/li&amp;gt;
+  });
+  return &amp;lt;ol&amp;gt;{list}&amp;lt;/ol&amp;gt;;
+},
+generateKey: (function() {
+  var id = 1;
+  return function() { return id++; };
+},
+addEntry: function(obj) {
+  obj.key = generateKey();
+  this.setState({
+    mylist: this.state.mylist.concat([obj])
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now, every time we add something that needs to go in our list, we make sure that they have a properly unique key even before the object makes it into the list. If we now modify the list in any way, the objects retain their keys and React will be able to use its optimized diffing and stay nice and fast.&lt;/p&gt;
+&lt;p&gt;Before we move on, &lt;strong&gt;a warning&lt;/strong&gt;: keys uniquely identify React XML elements, which also means that if you use &lt;code&gt;key&lt;/code&gt; attributes, but some elements share the same value, React will treat these &amp;quot;clearly different&amp;quot; elements as &amp;quot;the same element&amp;quot;, and the last element in a list of same-key elements will make it into the final browser DOM. The reason here is that keys are literally JavaScript object keys,  and are used by React  to build an internal element object of the standard JavaScript kind, forming&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  key1: element,
+  key2: element,
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;React runs through the elements one by one and adds key:element bindings to this object, so when it sees a second (or third, or fourth, etc) element with &lt;code&gt;key1&lt;/code&gt; as key value, then the result of React&amp;#39;s &lt;code&gt;obj[key]=element&lt;/code&gt; is that the previously bound element simply gets clobbered.&lt;/p&gt;
+&lt;p&gt;This, for instance, is a list with only a single item, no matter how many items are actually in &lt;code&gt;mylist&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;render: function() {
+  var key = 1;
+  var list = this.state.mylist.map(function(obj) {
+    return &amp;lt;li key={key}&amp;gt;{obj.text}&amp;lt;/li&amp;gt;
+  });
+  return &amp;lt;ol&amp;gt;{list}&amp;lt;/ol&amp;gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="mutable-properties"&gt;Mutable properties&lt;/h2&gt;
+&lt;p&gt;We can be brief here: in HTML, all element attributes are mutable properties. In React, the only true mutable properties you have are the normal JavaScript object property kind of properties. &lt;/p&gt;
+&lt;h2 id="immutable-properties"&gt;Immutable properties&lt;/h2&gt;
+&lt;p&gt;This one&amp;#39;s stranger, if you&amp;#39;re used to HTML, because there aren&amp;#39;t really any immutable properties when it comes to HTML elements.&lt;/p&gt;
+&lt;p&gt;In React, however, there are two kinds of immutable properties: the construction properties and the object&amp;#39;s internal state. The first is used to &amp;quot;bootstrap&amp;quot; a component, and you can think of it as the constructor arguments you pass into a creation call, or the config or options object that you pass along during construction. These values are &amp;quot;set once, never touch&amp;quot;. Your component uses them to set its initial state, and then after that the properties are kind of done. Except to reference the initial state (like during a reset call), they don&amp;#39;t get used again. Instead, you constantly update the object&amp;#39;s &amp;quot;state&amp;quot;. This is the collection that defines everything that makes your object uniquely that object in time. An example&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ParentElement = {
+  ...
+  render: function() {
+    var spectype = 3;
+    return &amp;lt;ChildElement name=&amp;quot;antonius&amp;quot; type={spectype} onClick={this.someHandler}/&amp;gt;
+  },
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ChildElement = {
+  ...
+  getInitialState: function() {
+    return {
+      name: &amp;#39;&amp;#39;,
+      type: -1
+    };
+  },
+  componentDidMount: function() {
+    this.setState({
+      name: this.props.name,
+      type: this.props.type
+    });
+  },
+  render: function() {
+    return (
+      &amp;lt;div&amp;gt;
+        &amp;lt;span&amp;gt;{this.state.name}&amp;lt;/span&amp;gt;
+        (&amp;lt;span&amp;gt;{this.state.type}&amp;lt;/span&amp;gt;)
+      &amp;lt;/div&amp;gt;
+    );
+  },
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We see the child element, with an intial &amp;quot;I have no idea what&amp;#39;s going on&amp;quot; state defined in the &lt;code&gt;getInitialState&lt;/code&gt; function. Once the element&amp;#39;s been properly created and is ready to be rendered (at which point &lt;code&gt;componentDidMount&lt;/code&gt; is called) it copies its creation properties into its state, setting up its &amp;quot;true&amp;quot; form, and after that the role of &lt;code&gt;this.props&lt;/code&gt; is mostly over. Rendering relies on tapping into &lt;code&gt;this.state&lt;/code&gt; to get the to-actually-show values, and we can modify the element&amp;#39;s state through its lifecycle by using the &lt;code&gt;setState()&lt;/code&gt; function:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ChildElement = {
+  ...
+  render: function() {
+    return &amp;lt;div onClick={this.rename}&amp;gt;{this.state.name}&amp;lt;/div&amp;gt;;
+  },
+  rename: function(event) {
+    var newname = prompt(&amp;quot;Please enter a new name&amp;quot;);
+    this.setState({ name: newname });
+  },
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The chain of events here is: &lt;code&gt;render()&lt;/code&gt; -&amp;gt; the user clicks on the name -&amp;gt; &lt;code&gt;rename()&lt;/code&gt; is called, which prompts for a new name -&amp;gt; the element&amp;#39;s state is updated so that &lt;code&gt;name&lt;/code&gt; is this new name -&amp;gt; &lt;code&gt;render()&lt;/code&gt; is called because the element&amp;#39;s state was updated -&amp;gt; React compared the new render output to the old output and sees a string diff in the &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; XML element -&amp;gt; React causes the browser to update the mapped HTML element so we see the new name.&lt;/p&gt;
+&lt;h2 id="what-can-i-pass-as-property-values-"&gt;What can I pass as property values?&lt;/h2&gt;
+&lt;p&gt;In HTML the answer is &amp;quot;strings&amp;quot; - it doesn&amp;#39;t matter what you pass in, if you use it as HTML attribute content, it becomes a string. &lt;/p&gt;
+&lt;p&gt;In React, the answer is &amp;quot;everything&amp;quot;. If you pass in a number, it stays a number. If you pass in a string, it stays a string. But, more importantly, if you pass in an object or function reference, &lt;strong&gt;it stays an object or function reference&lt;/strong&gt; and that&amp;#39;s how owning elements can set up meaningful deep bindings with child or even descendant elements.&lt;/p&gt;
+&lt;h2 id="if-there-is-no-html-how-do-i-style-my-stuff-"&gt;If there is no HTML, how do I style my stuff??&lt;/h2&gt;
+&lt;p&gt;React elements can use the &lt;code&gt;className&lt;/code&gt; property so that you can use regular CSS styling on them. Anything passed into the &lt;code&gt;className&lt;/code&gt; property gets transformed to the HTML &lt;code&gt;class&lt;/code&gt; attribute at the final step of rendering.&lt;/p&gt;
+&lt;h2 id="what-if-i-need-id-s-"&gt;What if I need &lt;code&gt;id&lt;/code&gt;s?&lt;/h2&gt;
+&lt;p&gt;You kind of don&amp;#39;t. Even if you have a single element that will always be the only single instance of that React object, ever, you could still be wrong. &lt;code&gt;id&lt;/code&gt; attributes cannot be guaranteed in an environment where every component only knows about itself, and its immediate children; there is no global scope, so setting a global scope identifier makes absolutely no sense.&lt;/p&gt;
+&lt;h2 id="but-what-if-i-need-to-tie-functionality-to-what-i-need-an-id-on-element-"&gt;But what if I need to tie functionality to what-I-need-an-id-on element?&lt;/h2&gt;
+&lt;p&gt;Add it:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Element = {
+  ...
+  render: function() {
+    return &amp;lt;div className=&amp;quot;top-level-element&amp;quot;&amp;gt;........&amp;lt;/div&amp;gt;;
+  },
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;surprise: you can querySelect your way to this element just fine with a &lt;code&gt;.top-level-element&lt;/code&gt; query selector outside of the React environment (although as long as you&amp;#39;re in React setting, there is literally no need to ever do this. Use &lt;code&gt;ref&lt;/code&gt; attributes and just directly tap into those elements)&lt;/p&gt;
+&lt;h2 id="but-that-s-slower-than-ids-"&gt;But that&amp;#39;s slower than ids!&lt;/h2&gt;
+&lt;p&gt;Not in modern browsers, no. Let&amp;#39;s move on.&lt;/p&gt;
+&lt;h2 id="how-do-i-access-elements-hierarchically-"&gt;How do I access elements hierarchically?&lt;/h2&gt;
+&lt;p&gt;As should be obvious by now, we don&amp;#39;t have querySelector available, but we do have a full OOP environment at our fingertips, so the answer is &lt;strong&gt;delegate&lt;/strong&gt;. If you need something done to a descendant, tell your child between you and that descendant to &amp;quot;make it happen&amp;quot; and rely on their API function to do the right thing. How things are done are controlled by the things that do the actual doing, but that doesn&amp;#39;t mean they can&amp;#39;t offer an API that can be reached: &lt;code&gt;X:Y.doIt()&lt;/code&gt; -&amp;gt; &lt;code&gt;Y.doIt() { this.refs.Z.doIt(); }&lt;/code&gt; -&amp;gt; &lt;code&gt;Z.doIt() { this.refs.actualthing.doIt(); }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Similarly, if you need parents to do things, then you need to make sure those parents construct the element with a knowledge of what to call:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ParentElement = {
+  ...
+  render: function() {
+    return &amp;lt;ChildElement doit={this.doit}/&amp;gt;
+  },
+  doit: function() {
+    ...
+  },  
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ChildElement = {
+  ...
+  render: function() {
+    return &amp;lt;div onClick={this.props.doit}&amp;gt;do it&amp;lt;/div&amp;gt;;
+  },
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id="what-else-is-there-"&gt;What else is there?&lt;/h1&gt;
+&lt;p&gt;This kind of covers everything in a way that hopefully makes you realise that React is a proper object oriented programming approach to page and app modelling, and that it has almost nothing to do with HTML. Its ultimate goal of course is to generate HTML that the browser knows how to show and work with, but that view and React&amp;#39;s operations are extremely loosely coupled, and mostly works as a destructive rendering of the object: the DOM that you see rendered in the browser and the React objects that lead to that DOM are not tied together except with extremely opaque React hooks that you have no business with.&lt;/p&gt;
+&lt;p&gt;More posts will follow because this is hardly an exhausted topic, but in the mean time: treating React as a proper OOP environment actually makes it a delight to work with. Treating it as an HTML framework is going to leave you fighting it for control nonstop. &lt;/p&gt;
+&lt;p&gt;So remember: &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;you’re not writing HTML, you’re doing object oriented programming with a to-HTML-render pipeline step at the end.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;React objects aren’t “backed by HTML”, nor is the browser DOM “backed by a React object”. What the browser shows you is just snapshots of React objects throughout their life cycle.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Your objects have creation properties, but you should always render off of the &amp;quot;current state&amp;quot;. If you need to copy those properties into your state right after creation, do. Then forget they&amp;#39;re even there.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The best way I can think of to get to business is with a table that compares the various aspects of programming to how you express those things when you&amp;#39;re using HTML, versus how you express those things when you&amp;#39;re using React&amp;#39;s object model. I&amp;#39;m calling it JSX because that&amp;#39;s what React refers to it, but really it&amp;#39;s &amp;quot;React&amp;#39;s object model&amp;quot;.&lt;/p&gt;
+</description>
+<category>Mozilla</category>
+<category>React</category>
+<category>HTML</category>
+<category>OOP</category>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1419289380022</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1419289380022</guid>
+<pubDate>Mon, 22 Dec 2014 23:03:00 GMT</pubDate>
+</item>
+<item>
+<title>Let's make a Firefox Extension, the painless way</title>
+<description>&lt;p&gt;Ever had a thing you really wanted to customise about &lt;a href="http://firefox.com"&gt;Firefox&lt;/a&gt;, but you couldn&amp;#39;t because it wasn&amp;#39;t in any regular menu, advanced menu, or &lt;a href="http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries"&gt;about:config&lt;/a&gt;?&lt;/p&gt;
+&lt;p&gt;For instance, you want to be able to delete elements on a page for peace of mind from the context menu. How the heck do you do that? Well, with the publication of the new node-based &lt;a href="https://www.npmjs.com/package/jpm"&gt;jpm&lt;/a&gt;, the answer to that question is &amp;quot;pretty dang simply&amp;quot;...&lt;/p&gt;
+&lt;p&gt;Let&amp;#39;s make our own Firefox extension with a &amp;quot;Delete element&amp;quot; option added to the context menu:&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://i.imgur.com/duBHYhj.png" alt="a screenshot of the Firefox page context menu with a 'delete element' option" class="border"&gt;&lt;/p&gt;
+&lt;p&gt;We&amp;#39;re going to make that happen in five steps.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install jpm -- in your terminal simply run: &lt;code&gt;npm install -g jpm&lt;/code&gt; (make sure you have &lt;a href="http://nodejs.org"&gt;node.js&lt;/a&gt; installed) and done (this is mostly prerequisite to developing an extension, so you only have to do this once, and then never again. For future extensions, you start at step 2!)&lt;/li&gt;
+&lt;li&gt;Create a dir for working on your extension whereveryou like, navigate to it in the terminal and run: &lt;code&gt;jpm init&lt;/code&gt; to set up the standard files necessary to build your extension. Good news: it&amp;#39;s very few files!&lt;/li&gt;
+&lt;li&gt;Edit the &lt;code&gt;index.js&lt;/code&gt; file that command generated, writing whatever code you need to do what you want to get done,&lt;/li&gt;
+&lt;li&gt;Turn your code into an &lt;code&gt;.xpi&lt;/code&gt; extension by running : &lt;code&gt;jpm xpi&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Install the extension by opening the generated &lt;code&gt;.xpi&lt;/code&gt; file with Firefox&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Of course, step (3) is the part that requires some effort, but let&amp;#39;s run through this together. We&amp;#39;re going to pretty much copy/paste the code straight from the &lt;a href="https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Add_a_Context_Menu_Item"&gt;context menu API&lt;/a&gt; documentation:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    // we need to make sure we have a hook into &amp;quot;things&amp;quot; we click on:
+1:  var self = require(&amp;quot;sdk/self&amp;quot;);
+
+    // and we&amp;#39;ll be using the context menu, so let&amp;#39;s make sure we can:
+2:  var contextMenu = require(&amp;quot;sdk/context-menu&amp;quot;);
+
+    // let&amp;#39;s add a menu item!
+3:  var menuItem = contextMenu.Item({
+      // the label is pretty obvious...
+4:    label: &amp;quot;Delete Element&amp;quot;,
+
+      // the context tells Firefox which things should have this in their context
+      // menu, as there are quite a few elements that get &amp;quot;their own&amp;quot; menu,
+      // like &amp;quot;the page&amp;quot; vs &amp;quot;an image&amp;quot; vs &amp;quot;a link&amp;quot;. .. We pretty much want
+      // everything on a page, so we make that happen:
+5:    context: contextMenu.PredicateContext(function(data) { return true; }),
+
+      // and finally the script that runs when we select the option. Delete!
+6:    contentScript: &amp;#39;self.on(&amp;quot;click&amp;quot;, function (node, data) { node.outerHTML = &amp;quot;&amp;quot;; });&amp;#39;
+    });
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The only changes here are that we want &amp;quot;delete&amp;quot; for everything, so the context is simply &amp;quot;for anything that the context menu opens up on, consider that a valid context for our custom script&amp;quot; (which we do by using the &lt;a href="https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/context-menu#PredicateContext%28predicateFunction%29"&gt;widest context possible&lt;/a&gt; on line 5), and of course the script itself is different because we want to delete nodes (line 6).&lt;/p&gt;
+&lt;p&gt;The &lt;a href="https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/context-menu#In_content_scripts"&gt;contentScript&lt;/a&gt; property is a string, so we&amp;#39;re a little restricted in what we can do without all manner of fancy postMessages, but thankfully we don&amp;#39;t need it: the addon mechanism will always call the contentScript function with two arguments, &amp;quot;node&amp;quot; and &amp;quot;data, and the &amp;quot;node&amp;quot; argument is simply the HTML element you clicked on, which is what we want to delete. So we do! We don&amp;#39;t even try to be clever here, we simply set the element&amp;#39;s &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/element.outerHTML"&gt;.outerHTML&lt;/a&gt; property to an empty string, and that makes it vanish from the page.&lt;/p&gt;
+&lt;p&gt;If you expected more work, then good news: there isn&amp;#39;t any, we&amp;#39;re already done! Seriously: run &lt;code&gt;jpm run&lt;/code&gt; yourself to test your extension, and after verifying that it indeed gives you the new &amp;quot;Delete element&amp;quot; option in the context menu and deletes nodes when used, move on to steps (4) and (5) for the ultimate control of your browser.&lt;/p&gt;
+&lt;p&gt;Because here&amp;#39;s the most important part: the freedom to control your online experience, and Firefox, go hand in hand.&lt;/p&gt;
+</description>
+<category>Mozilla</category>
+<category>Firefox</category>
+<category>JPM</category>
+<category>Extensions</category>
+<category>Addons</category>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1418833974687</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1418833974687</guid>
+<pubDate>Wed, 17 Dec 2014 16:32:54 GMT</pubDate>
+</item>
+<item>
+<title>Appmaking at MozFest 2014</title>
+<description>&lt;p&gt;Two weeks ago we hosted &lt;a href="http://2014.mozillafestival.org"&gt;MozFest 2014&lt;/a&gt; in London (UK, not Ontario), with lots of &lt;a href="http://apps.webmaker.org"&gt;appmaker&lt;/a&gt; related sessions, including a weekend long &amp;quot;introduction to appmaker&amp;quot; that I ran with the help of the wonderful &lt;a href="https://twitter.com/McBeckster"&gt;Becky Weir&lt;/a&gt;, and it was great to see people going from &amp;quot;I have no idea what this is&amp;quot; to &amp;quot;I am remixing apps for giggles&amp;quot; and &amp;quot;I have an idea for an app, let me try to make it&amp;quot;.  MozFest 2014 was the first big event that had the current version of Appmaker in the hands of the public, so it was a good time to see what worked, and what didn&amp;#39;t.&lt;/p&gt;
+&lt;h3 id="what-worked"&gt;What worked&lt;/h3&gt;
+&lt;p&gt;It&amp;#39;s easy to imagine that it&amp;#39;s important to have some fun components as well as some tedious logics components for apps while you&amp;#39;re developing software like this, but it&amp;#39;s not until you ask people to play with it that you realise exactly &lt;em&gt;how&lt;/em&gt; important it is to have fun components. A few weeks before MozFest, &lt;a href="http://scottdowne.wordpress.com"&gt;Scott Downe&lt;/a&gt; had made a simple top-down 2d game level brick, as well as a retro-looking game controller brick, and while those were fun to play with, it wasn&amp;#39;t until he and Becky &lt;a href="https://scott.makes.org/thimble/LTE4NzA1MjgyNTY=/mozfest-appmaker-games"&gt;wrote some tutorials on how to use them&lt;/a&gt; that it was obvious exactly how important these bricks were - they literally made appmaker a fun thing to play with, and without them I have no doubt in my mind that Appmaker would have been received far less positively.&lt;/p&gt;
+&lt;p&gt;During the MozFest weekend the fact that if a tool can&amp;#39;t let you have fun, people aren&amp;#39;t going to want to use it, was so much more obvious than you get testing it with people in an office, or with people who&amp;#39;ve heard you talk about it before. If someone has never seen your tool before, and within minutes can have fun, that&amp;#39;s a tool they want to come back to later.&lt;/p&gt;
+&lt;h3 id="what-didn-t-work"&gt;What didn&amp;#39;t work&lt;/h3&gt;
+&lt;p&gt;We&amp;#39;re missing essential functionality of which we either didn&amp;#39;t know it was essential, or didn&amp;#39;t think was as essential as it turned out to be. So, a list of sorts:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We&amp;#39;re missing components to do things that people care about: accessing online APIs, parsing that data, and plotting that data/routing it on to more user-engaging components. In fact, it turns out this is so essential that during the closing demos party, there was a version of appmaker being shown that had these things hacked in, in order to show off an app that showed weather and atmospheric data, plotted over time. That&amp;#39;s really cool! And that should have been a thing that was already possible rather than requiring a fork with hacks.&lt;/li&gt;
+&lt;li&gt;We&amp;#39;re missing the functionality for people to make their own component, and link that into their app. This is something that we actually used to have, but we had to disable quite a while ago due to complexities, and did not maintain while we rewrote Appmaker&amp;#39;s core functionality. Especially given the missing components in the previous point, this one&amp;#39;s plain annoying.&lt;/li&gt;
+&lt;li&gt;As a web technology, and this one&amp;#39;s really interesting, we&amp;#39;re missing an import function, where we say &amp;quot;my app actually lives over on &lt;a href="http://someplace/app.html"&gt;http://someplace/app.html&lt;/a&gt;&amp;quot; and have Appmaker load that app into the designer for editing. Even a &amp;quot;paste in your code&amp;quot; function so that people who&amp;#39;ve been working in a local copy of Appmaker would have made a different given that internet can be spotty, and running a login-less, database-less local copy of appmaker is really easy.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Of course there were also the usual bugs that only come out during massive testing, such as the fact that a component we thought we&amp;#39;d removed still being listed, or a not-often-used component not behaving properly, which is always great to discover, if a little embarassing!&lt;/p&gt;
+&lt;h3 id="what-s-next-"&gt;What&amp;#39;s next?&lt;/h3&gt;
+&lt;p&gt;One of the major activities on Appmaker following MozFest is clean-up. In the runup to MozFest, as well as over the past few months overhauling parts of the codebase, we&amp;#39;ve had a fair bit of build-up of dead code, unclean code, and of course, hacks to make things work &amp;quot;well enough&amp;quot; rather than &amp;quot;properly&amp;quot;. It&amp;#39;s time to address those issues, while also spending some time on working on the issues that surfaced during MozFest, to add essential components, and crucially: make real apps and document the process as learning kits, because if there are no recipes to follow, exploring a complex tool is not fun; it&amp;#39;s a chore. There&amp;#39;s also some technical debt that we need to repay in the form of hacks we did on the technologies that underpin Appmaker, which should be rewritten as proper patches and submitted as patch requests to the relevant projects.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;tl;dr: add essential components, custom components, and tutorials, tutorials, tutorials.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="the-take-home-message"&gt;The take-home message&lt;/h2&gt;
+&lt;p&gt;People really liked Appmaker, and that&amp;#39;s great! They also had expectations that we didn&amp;#39;t or couldn&amp;#39;t meet, and that&amp;#39;s not great from a &amp;quot;result&amp;quot; perspective, but &lt;em&gt;is&lt;/em&gt; great from a &amp;quot;learning what people want&amp;quot; perspective. Also, and really once again, it&amp;#39;s been made clear that tools that can&amp;#39;t let you have fun aren&amp;#39;t worth spending time on, and Appmaker can certainly do with more fun. That doesn&amp;#39;t necessarily mean Appmaker itself needs to be made more fun, but we need more components and, crucially, good tutorials, on how to have fun in Appmaker by making something that&amp;#39;s not just a cut and dry purpose-built app, but something you can keep playing with after you made it.&lt;/p&gt;
+&lt;p&gt;If you were at MozFest 2014, or you have an interest in Appmaker and helping us improve it, you can find us in the #appmaker IRC channel on irc.mozilla.org (if you like real-time interacting) or on github over at &lt;a href="https://github.com/mozilla-appmaker/appmaker"&gt;github.com/mozilla-appmaker/appmaker&lt;/a&gt; if you prefer the more ticket-based communication. With everyone slowly returning to work after post-MozFest vacations (a yearly tradition!) I&amp;#39;m looking forward to making Appmaker leaner, faster, and more what you want, based on what you&amp;#39;ve told us!&lt;/p&gt;
+</description>
+<category>Webmaker</category>
+<category>Appmaker</category>
+<category>Mozilla</category>
+<category>MozFest</category>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1415815317842</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1415815317842</guid>
+<pubDate>Wed, 12 Nov 2014 18:01:57 GMT</pubDate>
+</item>
+<item>
+<title>Let's simplify installations.</title>
+<description>&lt;p&gt;&lt;a href="https://webmaker.org"&gt;Webmaker&lt;/a&gt; is a collection of tools that are awesome. Getting them all up and running at the same time, however, is somewhat the opposite of that qualifier, so in order to make the process easier, about a year ago, I wrote the &amp;quot;webmaker suite&amp;quot; - a set of scripts that could do things like install all our apps, update them, and run them.&lt;/p&gt;
+&lt;p&gt;That sounds pretty useful, and it was, but it was also a lot of &amp;quot;scripts&amp;quot;. It was certainly friendlier than telling someone to clone ten apps themselves and do the whole npm install thing, but it was a lot of runtime flags to make sure only the right things would start up or install or update, and I finally had enough.&lt;/p&gt;
+&lt;p&gt;Programmers do their best work on things that scratch an itch, and I just got a new work laptop, which needed webmaker-suite installed. I was not happy. Why didn&amp;#39;t we just have a package manager, really, so I could just say &amp;quot;grab me X, Y, and Z, and let me run them&amp;quot;? Well, pretty much because I never wrote it. How dare I be so lazy!&lt;/p&gt;
+&lt;p&gt;So I took a day to just implement a package manager for webmaker and in the process ended up writing a pretty sweet retro menu system program package .. thing... for node.js that you can find &lt;a href="http://github.com/Pomax/terminal-menu-program"&gt;here&lt;/a&gt; (based on the already existing &lt;a href="https://www.npmjs.org/package/terminal-menu"&gt;terminal-menu&lt;/a&gt; package).&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://cloud.githubusercontent.com/assets/177243/4414059/0e4e9a00-4510-11e4-924e-59db1c523557.png"&gt;&lt;/p&gt;
+&lt;p&gt;With that in place, it was suddenly possible to write an app manager for webmaker, and I&amp;#39;m pretty sure I can make it slightly more generic so that you, too, can use it for managing your multi-app setup without having to write all the scripts yourself. But that&amp;#39;ll be for another post. For now, I&amp;#39;m working on making sure that you can simple-navigate your way through our installer and be up and running in the time it takes to automatically run some installers, and not really much more:&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/webmaker-menu-01.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;And you&amp;#39;ll have the freedom to set up multiple run profiles so that you can run exactly what you want to run, when you need it:&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/webmaker-menu-02.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Right now external dependencies like &lt;a href="https://www.java.com/en/download/index.jsp"&gt;Java&lt;/a&gt;, &lt;a href="www.elasticsearch.org/overview/elkdownloads"&gt;ElasticSearch&lt;/a&gt;, and &lt;a href="www.mongodb.org/downloads"&gt;MongoDB&lt;/a&gt; are still up to you, but hopefully I can somehow cleverly work that in, too, and then everything will be fantastic.&lt;/p&gt;
+</description>
+<category>Mozilla</category>
+<category>Webmaker</category>
+<category>Node</category>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1411780655333</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1411780655333</guid>
+<pubDate>Sat, 27 Sep 2014 01:17:35 GMT</pubDate>
+</item></channel>
+</rss>
