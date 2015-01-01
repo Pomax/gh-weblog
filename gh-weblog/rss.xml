@@ -5,14 +5,14 @@
 <title>undefined</title>
 <description>undefined</description>
 <link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 03:13:35 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 03:13:35 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 03:13:41 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 03:13:41 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>Test entry</title>
 <description>&lt;p&gt;does everything still work as it should?&lt;/p&gt;
 </description>
-
+<category>tests</category>
 <link>undefined/#gh-weblog-1420082000384</link>
 <guid>undefined/#gh-weblog-1420082000384</guid>
 <pubDate>Thu, 01 Jan 2015 03:13:20 GMT</pubDate>
