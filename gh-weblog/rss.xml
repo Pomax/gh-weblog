@@ -5,8 +5,8 @@
 <title>undefined</title>
 <description>undefined</description>
 <link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 04:01:46 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 04:01:46 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 04:02:15 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 04:02:15 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title> A client-side Mahjong scoring app, using React</title>
@@ -305,7 +305,7 @@ addEntry: function(obj) {
 <description>&lt;p&gt;Ever had a thing you really wanted to customise about &lt;a href="http://firefox.com"&gt;Firefox&lt;/a&gt;, but you couldn&amp;#39;t because it wasn&amp;#39;t in any regular menu, advanced menu, or &lt;a href="http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries"&gt;about:config&lt;/a&gt;?&lt;/p&gt;
 &lt;p&gt;For instance, you want to be able to delete elements on a page for peace of mind from the context menu. How the heck do you do that? Well, with the publication of the new node-based &lt;a href="https://www.npmjs.com/package/jpm"&gt;jpm&lt;/a&gt;, the answer to that question is &amp;quot;pretty dang simply&amp;quot;...&lt;/p&gt;
 &lt;p&gt;Let&amp;#39;s make our own Firefox extension with a &amp;quot;Delete element&amp;quot; option added to the context menu:&lt;/p&gt;
-&lt;p&gt;&lt;img src="http://i.imgur.com/duBHYhj.png" alt="a screenshot of the Firefox page context menu with a &amp;#39;delete element&amp;#39; option"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://i.imgur.com/duBHYhj.png" alt="a screenshot of the Firefox page context menu with a 'delete element' option" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;We&amp;#39;re going to make that happen in five steps.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Install jpm -- in your terminal simply run: &lt;code&gt;npm install -g jpm&lt;/code&gt; (make sure you have &lt;a href="http://nodejs.org"&gt;node.js&lt;/a&gt; installed) and done (this is mostly prerequisite to developing an extension, so you only have to do this once, and then never again. For future extensions, you start at step 2!)&lt;/li&gt;
