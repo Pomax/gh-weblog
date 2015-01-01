@@ -46,6 +46,10 @@ var Entry = React.createClass({
     );
   },
 
+  componentDidUpdate: function() {
+    this.props.runProcessors(this.refs.markdown.getDOMNode());
+  },
+
   updateTags: function(tags) {
     var self = this;
     this.setState({ tags: tags }, function() {

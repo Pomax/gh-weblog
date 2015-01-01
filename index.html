@@ -16,6 +16,37 @@
         (Also available in <a href="gh-weblog/rss.xml">RSS</a>).</h2>
     </header>
 
+
+    <!-- my personal blog uses MathJax for maths typesetting. Add that in: -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        displayAlign: "left",
+        displayIndent: "2em",
+        TeX: {
+          extensions: ["color.js"]
+        }
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script>
+      var MathJaxProcessor = {
+        process: function(element) {
+          // markdown turns ` into <code>, which we need to strip out again
+          var needsMathJax = false;
+          var codes = Array.prototype.slice.call(element.querySelectorAll("code"));
+          codes.forEach(function(codeElement) {
+            var s = codeElement.innerHTML;
+            if(s.match(/^\\+\[/) && s.match(/\\+\]$/)) {
+              codeElement.outerHTML = s.replace(/\\\\/g,"\\");
+              needsMathJax = true;
+            }
+          });
+          if(needsMathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+        }
+      };
+    </script>
+
+
     <!-- Github gh-pages weblog code: -->
     <section id="gh-weblog"></section>
     <div class="page-requirements">
@@ -42,14 +73,20 @@
       <script src='gh-weblog/components/Tags.jsx' type='text/jsx'></script>
       <script src='gh-weblog/components/Entry.jsx' type='text/jsx'></script>
       <script src='gh-weblog/components/WebLog.jsx' type='text/jsx'></script>
+
       <!-- app kickoff -->
       <script type='text/jsx'>
         var fragmentId = window.location.hash || false;
         if(fragmentId) { fragmentId = fragmentId.replace("#gh-weblog-",''); }
+
+        // load the mathjax processor for my blog content
+        var processors = [ MathJaxProcessor ];
+
+
         React.render(<WebLog title="Pomax.github.io [dev version]"
                              description="The dev version of my blog over at pomax.github.io"
-                             rssfeeds="Mozilla"         // : generate mozilla-rss.xml file, in addition to rss.xml
-                             processors="js/mathjax.js"  // : load the mathjax processor for my blog content
+                             rssfeeds="Mozilla"
+                             processors={processors}
                              base="http://pomax.github.io/gh-blog"
                              entryid={fragmentId} />, document.getElementById('gh-weblog'));
       </script>

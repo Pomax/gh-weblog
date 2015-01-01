@@ -39,31 +39,45 @@ var WebLog = React.createClass({
   },
 
   render: function() {
-    var self = this;
-    var entries = this.getSlice().map(function(entry) {
-      return <Entry key={entry.metadata.created}
-                    ref={entry.metadata.id}
-                    metadata={entry.metadata}
-                    postdata={entry.postdata}
-                    editable={!self.state.singleton && self.state.authenticated}
-                    onSave={self.save}
-                    onDelete={self.delete}/>;
-    });
-    var postbutton, morebutton, adminbutton;
+    var postbutton,
+        morebutton,
+        adminbutton;
+
     if(!this.state.singleton) {
       adminbutton = <button className="authenticate" onClick={this.showSettings} onClose={this.bindSettings}>admin</button>
       if(this.state.authenticated) { postbutton = <button className="admin post button" onClick={this.create}>new entry</button>; }
       morebutton = <button onClick={this.more}>Load more posts</button>;
     }
+
     return (
       <div ref="weblog" className="gh-weblog">
         <Admin ref="admin" hidden="true" onClose={this.bindSettings}/>
         {adminbutton}
         {postbutton}
-        {entries}
+        {this.generateEntries()}
         {morebutton}
       </div>
     );
+  },
+
+  generateEntries: function() {
+    var self = this;
+    return this.getSlice().map(function(entry) {
+      return <Entry key={entry.metadata.created}
+                    ref={entry.metadata.id}
+                    metadata={entry.metadata}
+                    postdata={entry.postdata}
+                    editable={!self.state.singleton && self.state.authenticated}
+                    runProcessors={self.runProcessors}
+                    onSave={self.save}
+                    onDelete={self.delete}/>;
+    });
+  },
+
+  runProcessors: function(domnode) {
+    this.props.processors.forEach(function(processor) {
+      processor.process(domnode);
+    });
   },
 
   showSettings: function() {
