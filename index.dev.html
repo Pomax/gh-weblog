@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Github weblogging</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lustria">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eagle+Lake">
+  </head>
+  <body>
+
+    <header>
+      <h1><a href=".">Pomax.github.io</a><a class="deved" href="https://github.com/Pomax/gh-blog">[dev edition]</a></h1>
+      <h2>Because chronicling the past using technology is kind of cool
+        (Also available in <a href="gh-weblog/rss.xml">RSS</a>).</h2>
+    </header>
+
+
+    <!-- my personal blog uses MathJax for maths typesetting. Add that in: -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        displayAlign: "left",
+        displayIndent: "2em",
+        TeX: {
+          extensions: ["color.js"]
+        }
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script>
+      var MathJaxProcessor = function(element) {
+        // markdown turns ` into <code>, which we need to strip out again
+        var needsMathJax = false;
+        var codes = Array.prototype.slice.call(element.querySelectorAll("code"));
+        codes.forEach(function(codeElement) {
+          var s = codeElement.innerHTML;
+          if(s.match(/^\\+\[/) && s.match(/\\+\]$/)) {
+            codeElement.outerHTML = s.replace(/\\\\/g,"\\");
+            needsMathJax = true;
+          }
+        });
+        if(needsMathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+      };
+    </script>
+
+
+    <!-- Github gh-pages weblog code: -->
+    <section id="gh-weblog"></section>
+    <div class="page-requirements">
+      <link rel="stylesheet" href="gh-weblog/style.css">
+      <!-- react in development mode -->
+      <script src='gh-weblog/bower_components/react/react.js'></script>
+      <script src='gh-weblog/bower_components/react/JSXTransformer.js'></script>
+      <!-- for converting Markdown syntax to HTML -->
+      <script src='gh-weblog/bower_components/marked/lib/marked.js'></script>
+      <script src='gh-weblog/mixins/markdown.js'></script>
+      <!-- for interfacing with Github.com -->
+      <script src='gh-weblog/bower_components/octokit/octokit.js'></script>
+      <script src='gh-weblog/mixins/connector.js'></script>
+      <!-- for sensible "onclick out of this element" handling -->
+      <script src='gh-weblog/mixins/onclickoutside.js'></script>
+      <!-- for turning seconds-since-epoch timestamps into yyyy-mm-dd-hh-mm-ss ids -->
+      <script src='gh-weblog/mixins/timetoid.js'></script>
+      <!-- RSS generator, because it's a blog -->
+      <script src='gh-weblog/mixins/rssgenerator.js'></script>
+      <!-- app components -->
+      <script src='gh-weblog/components/Admin.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/Editor.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/MarkDown.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/Tags.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/Entry.jsx' type='text/jsx'></script>
+      <script src='gh-weblog/components/WebLog.jsx' type='text/jsx'></script>
+
+      <!-- app kickoff -->
+      <script type='text/jsx'>
+        var fragmentId = window.location.hash || false;
+        if(fragmentId) { fragmentId = fragmentId.replace("#gh-weblog-",''); }
+
+        // load the mathjax processor for my blog content
+        var processors = [ MathJaxProcessor ];
+
+
+        React.render(<WebLog title="Pomax.github.io [dev version]"
+                             description="The dev version of my blog over at pomax.github.io"
+                             rssfeeds="Mozilla"
+                             processors={processors}
+                             base="http://pomax.github.io/gh-blog"
+                             entryid={fragmentId} />, document.getElementById('gh-weblog'));
+      </script>
+    </div>
+    <!-- End of Github gh-pages weblog code -->
+
+  </body>
+</html>
