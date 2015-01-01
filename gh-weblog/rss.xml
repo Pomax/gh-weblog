@@ -5,11 +5,11 @@
 <title>undefined</title>
 <description>undefined</description>
 <link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 03:14:27 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 03:14:27 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 04:01:36 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 04:01:36 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
-<title>A client-side Mahjong scoring app using React</title>
+<title> A client-side Mahjong scoring app, using React</title>
 <description>&lt;p&gt;2 weeks ago, on a Saturday, I thought I&amp;#39;d revisit my old &lt;a href="http://pomax.nihongoresources.com/downloads/mjscoring"&gt;PHP-based&lt;/a&gt; &lt;a href="http://en.wikipedia.org/wiki/Mahjong"&gt;mahjong&lt;/a&gt; scoring application. We like playing Chinese Classical rules, which are a little more &amp;quot;fun&amp;quot; and a little less &amp;quot;optimised for gambling&amp;quot; that the usual rules, and one aspect of that is that it&amp;#39;s much harder to track scores: everyone pays the winner, but the losers settle score differences amongst themselves in addition to paying the winner, too, and there&amp;#39;s a fair number of different things to score. Plus, you can get both points and &amp;quot;doubles&amp;quot;, the latter of which doubles (surprise!) your total point score. Only 28 tile points but 5 doubles? That&amp;#39;s 896 points total.&lt;/p&gt;
 &lt;p&gt;On that fateful Saturday, I decided I&amp;#39;d put &lt;a href="https://www.polymer-project.org"&gt;Polymer&lt;/a&gt; to the test, and see if it&amp;#39;d hold up. I was doing my dev work in &lt;a href="http://www.sublimetext.com"&gt;Sublime Text 2&lt;/a&gt; and &lt;a href="http://www.google.com/chrome"&gt;Chrome&lt;/a&gt;, and that combination worked just fine. And then after a day and a few hours on sunday, I tried it in &lt;a href="http://firefox.com"&gt;Firefox&lt;/a&gt;, and all my joy turned to hatred as the app broke all over the place. Polymer plain old didn&amp;#39;t work (and at this point, sad to say, Polymer is dead to me). The bits that did we slow, the bits that didn&amp;#39;t ultimately gave me too much of a headache trying to fix specifically for Firefox. I literally gave up: it was easy to port, too bad technology let me down.&lt;/p&gt;
 &lt;p&gt;However, as per the previous post, the Mozilla Foundation engineering team is considering using &lt;a href="http://facebook.github.io/react"&gt;React&lt;/a&gt;, and what better way to learn it than to take that broken Polymer app, and rewrite it as a React app? Long story short: a week later I ported the app from Polymer to React, and React works brilliantly in all browsers (yes, IE11 and Android 4.2 work) and is &lt;em&gt;fast&lt;/em&gt; too boot. So... I have a new app up and running for scoring mahjong, and that makes me happy!&lt;/p&gt;
