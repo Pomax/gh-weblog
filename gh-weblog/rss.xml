@@ -5,12 +5,14 @@
 <title>undefined</title>
 <description>undefined</description>
 <link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 04:12:05 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 04:12:05 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 04:18:56 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 04:18:56 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>Refactoring by starting from scratch</title>
 <description>&lt;p&gt;I rewrote my blog software to be easier to maintain (despite having no real desire to need to - if it works, it should just work) as well as easier to have others install and use it. The new version has been implemented as a React application, using &lt;code&gt;marked.js&lt;/code&gt; as the Markdown parser, and &lt;code&gt;octokit.js&lt;/code&gt; as the interface to github. Before, posts were rather ugly .json files on github, but the new version makes that &lt;code&gt;.json&lt;/code&gt; files for the metadata, and &lt;code&gt;.md&lt;/code&gt; files for the actual posts, so if you want to edit them after you posted them outside of the blog itself, it&amp;#39;s now super simple.&lt;/p&gt;
+&lt;p&gt;There&amp;#39;s an admin panel now, too, which is getting some bits like letting you say (based on your &lt;em&gt;current browser localStorage&lt;/em&gt;) what your credentials are, and will include things like saying which tags should have dedicated RSS feeds (for instance, in addition to the general &lt;code&gt;rss.xml&lt;/code&gt;, I need a feed for Mozilla-only posts). I&amp;#39;ll be adding a few more things, maybe, like a calendar filter and a &amp;quot;titles only&amp;quot; view, but for the most part this thing is virtually done now, and really just needs packing up.&lt;/p&gt;
+&lt;p&gt;I&amp;#39;m trying to figure out how to combine React code with mixins in a way that lets me gulp-pack-browserify-uglify the whole shebang, so hopefully that works and then you can add this to your own Github pages site by simply including a one line script in your .html -- we&amp;#39;ll see how far I get with that.&lt;/p&gt;
 </description>
 <category>Blog</category>
 <category>React</category>
