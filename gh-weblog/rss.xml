@@ -5,14 +5,17 @@
 <title>undefined</title>
 <description>undefined</description>
 <link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 04:11:55 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 04:11:55 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 04:12:05 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 04:12:05 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>Refactoring by starting from scratch</title>
 <description>&lt;p&gt;I rewrote my blog software to be easier to maintain (despite having no real desire to need to - if it works, it should just work) as well as easier to have others install and use it. The new version has been implemented as a React application, using &lt;code&gt;marked.js&lt;/code&gt; as the Markdown parser, and &lt;code&gt;octokit.js&lt;/code&gt; as the interface to github. Before, posts were rather ugly .json files on github, but the new version makes that &lt;code&gt;.json&lt;/code&gt; files for the metadata, and &lt;code&gt;.md&lt;/code&gt; files for the actual posts, so if you want to edit them after you posted them outside of the blog itself, it&amp;#39;s now super simple.&lt;/p&gt;
 </description>
-
+<category>Blog</category>
+<category>React</category>
+<category>Github</category>
+<category>Markdown</category>
 <link>undefined/#gh-weblog-1420085372630</link>
 <guid>undefined/#gh-weblog-1420085372630</guid>
 <pubDate>Thu, 01 Jan 2015 04:09:32 GMT</pubDate>
