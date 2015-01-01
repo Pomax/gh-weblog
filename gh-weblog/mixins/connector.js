@@ -31,17 +31,6 @@ var ConnectorMixin = {
           if(xhr.status === 0 || xhr.status===200) {
             if(xhr.readyState === 4) {
               var obj = evt.target.response;
-              if (url.indexOf(".json") > -1) {
-                var mybj = JSON.parse(JSON.stringify(obj));
-                if(mybj.created) {
-                  var date = new Date(parseInt(mybj.created,10));
-                  var formatted = date.toISOString();
-                  formatted = formatted.replace('T','-');
-                  formatted = formatted.replace(/\..*/,'');
-                  formatted = formatted.replace(/\:/g,'-');
-                  console.log(mybj.created, formatted);
-                }
-              }
               processData(!obj, obj);
             }
           } else {
