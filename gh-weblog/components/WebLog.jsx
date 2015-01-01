@@ -30,7 +30,7 @@ var WebLog = React.createClass({
       settings = JSON.parse(settings);
       this.connector = new this.Connector(settings);
       if(settings.token) { this.setState({ authenticated: true }); }
-    }
+    } else { this.connector = new this.Connector(); }
 
     // are we loading one entry, or "all" entries?
     var id = this.timeToId(this.props.entryid);
