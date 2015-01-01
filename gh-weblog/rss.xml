@@ -5,8 +5,8 @@
 <title>undefined</title>
 <description>undefined</description>
 <link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 04:01:36 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 04:01:36 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 04:01:46 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 04:01:46 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title> A client-side Mahjong scoring app, using React</title>
@@ -25,7 +25,7 @@
 <pubDate>Wed, 24 Dec 2014 06:49:19 GMT</pubDate>
 </item>
 <item>
-<title>So you're thinking about using React</title>
+<title> So you're thinking about using React</title>
 <description>&lt;p&gt;I was in the same boat: at the Mozilla Foundation we&amp;#39;re considering using React for the next few months as client-side framework of choice for new apps, and that means learning a new technology, because you can&amp;#39;t make a decision on something you don&amp;#39;t understand. So I took an app I was unhappy with due to framework choice, and rewrote the whole thing in React, taking notes on everything that felt weird, or didn&amp;#39;t click.&lt;/p&gt;
 &lt;p&gt;I ended up writing about 6000 words worth of thoughts on React by the time I was done, and it took another 3000 or so to figure out what I had actually learned, and why React seemed so foreign at first, but so &lt;em&gt;right&lt;/em&gt; once I got familiar with it. It&amp;#39;s been great learning a new thing, and even better discovering that it&amp;#39;s a thing I can love, but there&amp;#39;s a reason for that, and I&amp;#39;d like to distill my close to 10k words into something that you can read, so that you might understand where React&amp;#39;s coming from.&lt;/p&gt;
 &lt;p&gt;So: if you&amp;#39;re used to other frameworks (whether they&amp;#39;re MVC, MVVM, some other paradigm or even just plain JS and HTML templating engines), and you feel like React is doing something very weird, don&amp;#39;t worry: if you treat it as HTML+JS, React is really, really weird. However, the reason for it is actually you: React is not about doing things as HTML+JS, it&amp;#39;s about writing applications using plain old object oriented programing... The objects just happen to be able to render themselves as UI elements, and the UI happens to be the browser. The logic behind what you&amp;#39;re programming, as such, depends on knowing that you&amp;#39;re doing OOP, and making sure you&amp;#39;re thinking about modelling your elements and interactions based on object interactions as you would in any other OOP design setting.&lt;/p&gt;
@@ -44,7 +44,7 @@
 &lt;tr&gt;
 &lt;td style="text-align:left"&gt;&amp;quot;thing&amp;quot; to think in terms of&lt;/td&gt;
 &lt;td style="text-align:center"&gt;DOM elements&lt;/td&gt;
-&lt;td style="text-align:center"&gt;components (React XML elements)&lt;/td&gt;
+&lt;td style="text-align:center"&gt;React components&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style="text-align:left"&gt;Is this MVC?&lt;/td&gt;
@@ -116,7 +116,7 @@
 &lt;p&gt;I&amp;#39;m going to be running through each of these points in order (mostly), and I&amp;#39;d strongly advise you not to skip to just the step &amp;quot;you care about&amp;quot;. Unless you gave up on the notion that you&amp;#39;re writing a webpage rather than an object oriented application that happens to render its UI elements as inaccessible HTML, you&amp;#39;re going to want to read all of them. In fact, humour me: even if you have, read every point anyway. They build on each other.&lt;/p&gt;
 &lt;h2 id="the-thing-that-you-re-working-on"&gt;The &amp;quot;thing&amp;quot; that you&amp;#39;re working on&lt;/h2&gt;
 &lt;p&gt;In a traditional web setting, you have the data, the markup around that data, the styling of that markup, and the interaction logic that lets you bridge the gap between the data and the user. These things are typically your data, your HTML, your CSS and your JavaScript, respectively.&lt;/p&gt;
-&lt;p&gt;That is not how you model in React. React is far more like a traditional programming language, with objects that represent your functional blocks. Each object has an initial construction configuration, a running state, and because we&amp;#39;re working on the web, each object has a &lt;code&gt;.render()&lt;/code&gt; function that will produce a snapshot of the object, serialized into HTML that is &amp;quot;done&amp;quot; as far as React is concerned. Nothing you can do to it will be meaningful for the object that generated it. React could, essentially, be anything. If it rendered to native UI or to GTK or Java Swing, you&amp;#39;d never know, since React&amp;#39;s written in a way that everything your components might conceivably want to do is contained in your object&amp;#39;s code.&lt;/p&gt;
+&lt;p&gt;That is not how you model in React. React is far more like a traditional programming language, with objects that represent your functional blocks. Each object has an initial construction configuration, a running state, and because we&amp;#39;re working on the web, each object has a &lt;code&gt;.render()&lt;/code&gt; function that will produce a snapshot of the object, serialized into HTML that is &amp;quot;done&amp;quot; as far as React is concerned. Nothing you can do to it will be meaningful for the object that generated it. React could, essentially, be anything. If it rendered to native UI or to GTK or Java Swing, you&amp;#39;d never know, since React&amp;#39;s written in a way that everything your components might conceivably want to do is contained in your object&amp;#39;s code. &lt;/p&gt;
 &lt;p&gt;It&amp;#39;s also much more like a traditional OOP environment in that objects don&amp;#39;t &amp;quot;take things from other objects&amp;quot;. Where in HTML+JS you might do a &lt;code&gt;document.querySelector(&amp;quot;#maincontainer div.secondary ol li.current&amp;quot;)&lt;/code&gt; and then manipulate what comes rolling out of that, in React, you delegate. There is no &amp;quot;global&amp;quot; context to speak of, so you&amp;#39;d have a Main component, containing a Secondary component, and that&amp;#39;s all Main can see. If it wants to initiate things on &amp;quot;the current selected list item&amp;quot;, it tells the contained Secondary element to take care of it, without caring &lt;em&gt;how&lt;/em&gt; it takes care of it. The code for doing things lives inside the things that do the doing.&lt;/p&gt;
 &lt;p&gt;This is pitfall number one if you&amp;#39;re starting with React: &lt;strong&gt;you&amp;#39;re not writing HTML, you&amp;#39;re doing object oriented programming with a to-HTML-render pipeline step at the end&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id="is-this-mvc-"&gt;Is this MVC?&lt;/h2&gt;
@@ -129,7 +129,7 @@
 &lt;/ul&gt;
 &lt;h2 id="the-internal-structure-of-things-"&gt;The internal structure of &amp;quot;things&amp;quot;&lt;/h2&gt;
 &lt;p&gt;In HTML+JS, the structure of your functional blocks are just &amp;quot;more HTML&amp;quot;. In React, you&amp;#39;re using a completely different thing. It&amp;#39;s a &lt;em&gt;little&lt;/em&gt; bit different in terms of what it looks like (you should be entirely forgiven for thinking you&amp;#39;re working with HTML except using XML syntax) but it&amp;#39;s completely different in what it &lt;em&gt;is&lt;/em&gt;: React uses a syntax that lets you define what look like XML structures, which are transformed into key/value maps. It&amp;#39;s these key/value maps that React uses internally as the canonical representation of your object. That&amp;#39;s a lot of words for the summary &amp;quot;it&amp;#39;s not HTML, just a sort of familiar syntax to make development easy&amp;quot;.&lt;/p&gt;
-&lt;p&gt;Let&amp;#39;s unpack that a little more: the JSX syntax uses tags that &lt;em&gt;map&lt;/em&gt; to HTML elements during the final render pipeline step. They are, however, most emphatically &lt;strong&gt;not&lt;/strong&gt; real HTML elements, and certainly not elements that end up being used in the browser. The reason here is that React uses an internal snapshot representation that lets it perform diffs between successive render calls. Each call generates a snapshot, a new snapshot is structurally compared to the previous one, and differences between them are translated into transforms that the browser can selectively apply to the snapshot&amp;#39;s associated active DOM. It&amp;#39;s super fast, but also means that the JSX you write has almost nothing to do with what the browser will end up using as DOM.&lt;/p&gt;
+&lt;p&gt;Let&amp;#39;s unpack that a little more: the JSX syntax uses tags that &lt;em&gt;map&lt;/em&gt; to HTML elements during the final render pipeline step. They are, however, most emphatically &lt;strong&gt;not&lt;/strong&gt; real HTML elements, and certainly not elements that end up being used in the browser. The reason here is that React uses an internal snapshot representation that lets it perform diffs between successive render calls. Each call generates a snapshot, a new snapshot is structurally compared to the previous one, and differences between them are translated into transforms that the browser can selectively apply to the snapshot&amp;#39;s associated active DOM. It&amp;#39;s super fast, but also means that the JSX you write has almost nothing to do with what the browser will end up using as DOM. &lt;/p&gt;
 &lt;p&gt;This is pitfall number two, and really is just a rephrasing of pitfall number one: &lt;strong&gt;React objects aren&amp;#39;t &amp;quot;backed by HTML&amp;quot;, nor is the browser DOM &amp;quot;backed by a React object&amp;quot;. What the browser shows you is just snapshots of React objects throughout their life cycle.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id="html-is-unscoped-react-objects-are-scoped-as-per-oop-rules-"&gt;HTML is unscoped, React objects are scoped as per OOP rules.&lt;/h2&gt;
 &lt;p&gt;Since we have no DOM, and we&amp;#39;re doing proper OOP, React components know about their own state, and only their own state. To get around being completely isolated the normal OOP approaches apply for making components aware of things outside of their scope: they can be passed outside references during creation (i.e. these are constructor arguments; the constructor syntax just happens to look like, but conceptually is not, markup), or they can be passed in later by calling functions on the object that let you pass data in, and get data back as function return or via callbacks.&lt;/p&gt;
@@ -140,7 +140,7 @@
 &lt;p&gt;That&amp;#39;s not to say you might not want to &amp;quot;highlight the input text field when the main dialog gains focus&amp;quot; but that&amp;#39;s the HTML way of thinking. In React, when the dialog gains focus you want to tell all children that focus was gained, and then they can do whatever that means to them. If one of those children houses the input, then it should know to update its state to one where the input renders as highlighted. React&amp;#39;s diffing updates will then take care of making sure it&amp;#39;s still the same DOM element that gets highlight despite the &lt;code&gt;render()&lt;/code&gt; call outputting a &lt;em&gt;new&lt;/em&gt; snapshot.&lt;/p&gt;
 &lt;p&gt;So, how do we get our own children? In HTML we can use the globally unique &lt;code&gt;id&lt;/code&gt; attribute, and the same concept but then scoped locally to React objects is the &lt;code&gt;ref&lt;/code&gt; attribute: &lt;code&gt;&amp;lt;div ref=&amp;quot;abcd&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;&lt;/code&gt; will let us manipulate the &lt;strong&gt;React XML element&lt;/strong&gt; that represents as &lt;code&gt;this.refs.abcd&lt;/code&gt; in our code. Again: there is no HTML. Similarly, we can select any other React XML element to work with through &lt;code&gt;this.refs&lt;/code&gt; so if we have a React element &lt;code&gt;&amp;lt;ModalDialog ref=&amp;quot;md&amp;quot; /&amp;gt;&lt;/code&gt; then we can grab it from &lt;code&gt;this.refs.md&lt;/code&gt; and call its functions so that it does what we need, such as &lt;code&gt;this.refs.md.setTitle(&amp;quot;Enhanced modal titles are a go&amp;quot;);&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id="the-secret-sauce-in-react-s-diffing-elements-have-hashcodes-and-sometimes-that-s-on-you-"&gt;The secret sauce in React&amp;#39;s diffing: elements have hashcodes, and sometimes that&amp;#39;s on you.&lt;/h2&gt;
-&lt;p&gt;Because React generates new XML tree snapshots every time &lt;code&gt;render()&lt;/code&gt; gets called, it needs a way to order elements reliably, for which it uses hashcodes. These are unique identifiers &lt;em&gt;local to the component they&amp;#39;re used in&lt;/em&gt; that let React check two successive snapshots for elements with the same code, so that it can determine whether they moved around, whether any attributes changed, etc. etc.&lt;/p&gt;
+&lt;p&gt;Because React generates new XML tree snapshots every time &lt;code&gt;render()&lt;/code&gt; gets called, it needs a way to order elements reliably, for which it uses hashcodes. These are unique identifiers &lt;em&gt;local to the component they&amp;#39;re used in&lt;/em&gt; that let React check two successive snapshots for elements with the same code, so that it can determine whether they moved around, whether any attributes changed, etc. etc. &lt;/p&gt;
 &lt;p&gt;For statically defined JSX, React can add these keys automatically, but it can&amp;#39;t do that for dynamic content. When you&amp;#39;re creating renderable content dynamically (and the only place you&amp;#39;ll do this is in &lt;code&gt;render()&lt;/code&gt;; if you do it anywhere else, you&amp;#39;re doing React wrong) you need to make sure you add &lt;code&gt;key&lt;/code&gt; attributes to your JSX. And example:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;render: function() {
   var list = this.state.mylist.map(function(obj) {
@@ -191,7 +191,7 @@ addEntry: function(obj) {
   return &amp;lt;ol&amp;gt;{list}&amp;lt;/ol&amp;gt;;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id="mutable-properties"&gt;Mutable properties&lt;/h2&gt;
-&lt;p&gt;We can be brief here: in HTML, all element attributes are mutable properties. In React, the only true mutable properties you have are the normal JavaScript object property kind of properties.&lt;/p&gt;
+&lt;p&gt;We can be brief here: in HTML, all element attributes are mutable properties. In React, the only true mutable properties you have are the normal JavaScript object property kind of properties. &lt;/p&gt;
 &lt;h2 id="immutable-properties"&gt;Immutable properties&lt;/h2&gt;
 &lt;p&gt;This one&amp;#39;s stranger, if you&amp;#39;re used to HTML, because there aren&amp;#39;t really any immutable properties when it comes to HTML elements.&lt;/p&gt;
 &lt;p&gt;In React, however, there are two kinds of immutable properties: the construction properties and the object&amp;#39;s internal state. The first is used to &amp;quot;bootstrap&amp;quot; a component, and you can think of it as the constructor arguments you pass into a creation call, or the config or options object that you pass along during construction. These values are &amp;quot;set once, never touch&amp;quot;. Your component uses them to set its initial state, and then after that the properties are kind of done. Except to reference the initial state (like during a reset call), they don&amp;#39;t get used again. Instead, you constantly update the object&amp;#39;s &amp;quot;state&amp;quot;. This is the collection that defines everything that makes your object uniquely that object in time. An example&lt;/p&gt;
@@ -242,12 +242,12 @@ addEntry: function(obj) {
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The chain of events here is: &lt;code&gt;render()&lt;/code&gt; -&amp;gt; the user clicks on the name -&amp;gt; &lt;code&gt;rename()&lt;/code&gt; is called, which prompts for a new name -&amp;gt; the element&amp;#39;s state is updated so that &lt;code&gt;name&lt;/code&gt; is this new name -&amp;gt; &lt;code&gt;render()&lt;/code&gt; is called because the element&amp;#39;s state was updated -&amp;gt; React compared the new render output to the old output and sees a string diff in the &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; XML element -&amp;gt; React causes the browser to update the mapped HTML element so we see the new name.&lt;/p&gt;
 &lt;h2 id="what-can-i-pass-as-property-values-"&gt;What can I pass as property values?&lt;/h2&gt;
-&lt;p&gt;In HTML the answer is &amp;quot;strings&amp;quot; - it doesn&amp;#39;t matter what you pass in, if you use it as HTML attribute content, it becomes a string.&lt;/p&gt;
+&lt;p&gt;In HTML the answer is &amp;quot;strings&amp;quot; - it doesn&amp;#39;t matter what you pass in, if you use it as HTML attribute content, it becomes a string. &lt;/p&gt;
 &lt;p&gt;In React, the answer is &amp;quot;everything&amp;quot;. If you pass in a number, it stays a number. If you pass in a string, it stays a string. But, more importantly, if you pass in an object or function reference, &lt;strong&gt;it stays an object or function reference&lt;/strong&gt; and that&amp;#39;s how owning elements can set up meaningful deep bindings with child or even descendant elements.&lt;/p&gt;
 &lt;h2 id="if-there-is-no-html-how-do-i-style-my-stuff-"&gt;If there is no HTML, how do I style my stuff??&lt;/h2&gt;
 &lt;p&gt;React elements can use the &lt;code&gt;className&lt;/code&gt; property so that you can use regular CSS styling on them. Anything passed into the &lt;code&gt;className&lt;/code&gt; property gets transformed to the HTML &lt;code&gt;class&lt;/code&gt; attribute at the final step of rendering.&lt;/p&gt;
 &lt;h2 id="what-if-i-need-id-s-"&gt;What if I need &lt;code&gt;id&lt;/code&gt;s?&lt;/h2&gt;
-&lt;p&gt;You don&amp;#39;t. Even if you have a single element that will always be the only single instance of that React object, ever, you could still be wrong. &lt;code&gt;id&lt;/code&gt; attributes cannot be guaranteed in an environment where every component only knows about itself, and its immediate children. There is no global scope, so setting a global scope identifier makes absolutely no sense.&lt;/p&gt;
+&lt;p&gt;You kind of don&amp;#39;t. Even if you have a single element that will always be the only single instance of that React object, ever, you could still be wrong. &lt;code&gt;id&lt;/code&gt; attributes cannot be guaranteed in an environment where every component only knows about itself, and its immediate children; there is no global scope, so setting a global scope identifier makes absolutely no sense.&lt;/p&gt;
 &lt;h2 id="but-what-if-i-need-to-tie-functionality-to-what-i-need-an-id-on-element-"&gt;But what if I need to tie functionality to what-I-need-an-id-on element?&lt;/h2&gt;
 &lt;p&gt;Add it:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Element = {
@@ -257,7 +257,7 @@ addEntry: function(obj) {
   },
   ...
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;surprise: you can querySelect your way to this element just fine with a &lt;code&gt;.top-level-element&lt;/code&gt; query selector.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;surprise: you can querySelect your way to this element just fine with a &lt;code&gt;.top-level-element&lt;/code&gt; query selector outside of the React environment (although as long as you&amp;#39;re in React setting, there is literally no need to ever do this. Use &lt;code&gt;ref&lt;/code&gt; attributes and just directly tap into those elements)&lt;/p&gt;
 &lt;h2 id="but-that-s-slower-than-ids-"&gt;But that&amp;#39;s slower than ids!&lt;/h2&gt;
 &lt;p&gt;Not in modern browsers, no. Let&amp;#39;s move on.&lt;/p&gt;
 &lt;h2 id="how-do-i-access-elements-hierarchically-"&gt;How do I access elements hierarchically?&lt;/h2&gt;
@@ -270,7 +270,7 @@ addEntry: function(obj) {
   },
   doit: function() {
     ...
-  },
+  },  
   ...
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and&lt;/p&gt;
@@ -283,8 +283,8 @@ addEntry: function(obj) {
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id="what-else-is-there-"&gt;What else is there?&lt;/h1&gt;
 &lt;p&gt;This kind of covers everything in a way that hopefully makes you realise that React is a proper object oriented programming approach to page and app modelling, and that it has almost nothing to do with HTML. Its ultimate goal of course is to generate HTML that the browser knows how to show and work with, but that view and React&amp;#39;s operations are extremely loosely coupled, and mostly works as a destructive rendering of the object: the DOM that you see rendered in the browser and the React objects that lead to that DOM are not tied together except with extremely opaque React hooks that you have no business with.&lt;/p&gt;
-&lt;p&gt;More posts will follow because this is hardly an exhausted topic, but in the mean time: treating React as a proper OOP environment actually makes it a delight to work with. Treating it as an HTML framework is going to leave you fighting it for control nonstop.&lt;/p&gt;
-&lt;p&gt;So remember:&lt;/p&gt;
+&lt;p&gt;More posts will follow because this is hardly an exhausted topic, but in the mean time: treating React as a proper OOP environment actually makes it a delight to work with. Treating it as an HTML framework is going to leave you fighting it for control nonstop. &lt;/p&gt;
+&lt;p&gt;So remember: &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;you’re not writing HTML, you’re doing object oriented programming with a to-HTML-render pipeline step at the end.&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;React objects aren’t “backed by HTML”, nor is the browser DOM “backed by a React object”. What the browser shows you is just snapshots of React objects throughout their life cycle.&lt;/strong&gt;&lt;/li&gt;
