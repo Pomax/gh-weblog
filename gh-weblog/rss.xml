@@ -5,12 +5,12 @@
 <title>Pomax.github.io [dev version]</title>
 <description>The dev version of my blog over at pomax.github.io</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Thu, 01 Jan 2015 06:26:32 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 06:26:32 GMT</pubDate>
+<lastBuildDate>Thu, 01 Jan 2015 06:27:08 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 06:27:08 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>Refactoring by starting from scratch</title>
-<description>&lt;p&gt;I rewrote my blog software to be easier to maintain (despite having no real desire to need to - if it works, it should just work) as well as easier to have others install and use it. The new version has been implemented as a React application, using &lt;a href="https://www.npmjs.com/package/marked"&gt;marked.js&lt;/a&gt; as the Markdown parser, and &lt;a href="https://www.npmjs.com/package/octokit"&gt;octokit.js&lt;/a&gt; as the interface to github. Before, posts were rather ugly .json files on github, but the new version makes that &lt;code&gt;.json&lt;/code&gt; files for the metadata, and &lt;code&gt;.md&lt;/code&gt; files for the actual posts, so if you want to edit them after you posted them outside of the blog itself, it&amp;#39;s now super simple.&lt;/p&gt;
+<description>&lt;p&gt;I rewrote my blog software to be easier to maintain (despite having no real desire to need to - if it works, it should just work) as well as easier to have others install and use it. The new version has been implemented as a &lt;a href="http://facebook.github.io/react"&gt;React&lt;/a&gt; application, using &lt;a href="https://www.npmjs.com/package/marked"&gt;marked.js&lt;/a&gt; as the Markdown parser, and &lt;a href="https://www.npmjs.com/package/octokit"&gt;octokit.js&lt;/a&gt; as the interface to github. Before, posts were rather ugly .json files on github, but the new version makes that &lt;code&gt;.json&lt;/code&gt; files for the metadata, and &lt;code&gt;.md&lt;/code&gt; files for the actual posts, so if you want to edit them after you posted them outside of the blog itself, it&amp;#39;s now super simple.&lt;/p&gt;
 &lt;p&gt;There&amp;#39;s an admin panel now, too, which is getting some bits like letting you say (based on your &lt;em&gt;current browser localStorage&lt;/em&gt;) what your credentials are, and will include things like saying which tags should have dedicated RSS feeds (for instance, in addition to the general &lt;code&gt;rss.xml&lt;/code&gt;, I need a feed for Mozilla-only posts). I&amp;#39;ll be adding a few more things, maybe, like a calendar filter and a &amp;quot;titles only&amp;quot; view, but for the most part this thing is virtually done now, and really just needs packing up.&lt;/p&gt;
 &lt;p&gt;I&amp;#39;m trying to figure out how to combine React code with mixins in a way that lets me gulp-pack-browserify-uglify the whole shebang, so hopefully that works and then you can add this to your own Github pages site by simply including a one line script in your .html -- we&amp;#39;ll see how far I get with that.&lt;/p&gt;
 </description>
