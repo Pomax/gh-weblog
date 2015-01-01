@@ -1,1 +1,13 @@
-{"title":"Catmull-Rom curve fitting.","author":"Pomax","tags":["Maths","Bezier","Catmull-Rom"],"created":1397167307456,"published":1397167307456,"updated":1397167494057}
+{
+  "id": "2014-04-10-22-01-47",
+  "title": "Catmull-Rom curve fitting.",
+  "created": 1397167307456,
+  "published": 1397167307456,
+  "updated": 1397167494057,
+  "tags": [
+    "Maths",
+    "Bezier",
+    "Catmull-Rom"
+  ],
+  "author": "Pomax"
+}
