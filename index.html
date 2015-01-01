@@ -29,20 +29,18 @@
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS_HTML"></script>
     <script>
-      var MathJaxProcessor = {
-        process: function(element) {
-          // markdown turns ` into <code>, which we need to strip out again
-          var needsMathJax = false;
-          var codes = Array.prototype.slice.call(element.querySelectorAll("code"));
-          codes.forEach(function(codeElement) {
-            var s = codeElement.innerHTML;
-            if(s.match(/^\\+\[/) && s.match(/\\+\]$/)) {
-              codeElement.outerHTML = s.replace(/\\\\/g,"\\");
-              needsMathJax = true;
-            }
-          });
-          if(needsMathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
-        }
+      var MathJaxProcessor = function(element) {
+        // markdown turns ` into <code>, which we need to strip out again
+        var needsMathJax = false;
+        var codes = Array.prototype.slice.call(element.querySelectorAll("code"));
+        codes.forEach(function(codeElement) {
+          var s = codeElement.innerHTML;
+          if(s.match(/^\\+\[/) && s.match(/\\+\]$/)) {
+            codeElement.outerHTML = s.replace(/\\\\/g,"\\");
+            needsMathJax = true;
+          }
+        });
+        if(needsMathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
       };
     </script>
 

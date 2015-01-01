@@ -75,8 +75,8 @@ var WebLog = React.createClass({
   },
 
   runProcessors: function(domnode) {
-    this.props.processors.forEach(function(processor) {
-      processor.process(domnode);
+    this.props.processors.forEach(function(process) {
+      process(domnode);
     });
   },
 
