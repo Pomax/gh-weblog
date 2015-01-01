@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<atom:link href="undefined/undefined/rss.xml" rel="self" type="application/rss+xml" />
-<title>undefined</title>
-<description>undefined</description>
-<link>undefined</link>
-<lastBuildDate>Thu, 01 Jan 2015 04:22:08 GMT</lastBuildDate>
-<pubDate>Thu, 01 Jan 2015 04:22:08 GMT</pubDate>
+<atom:link href="http://pomax.github.io/gh-blog/undefined/rss.xml" rel="self" type="application/rss+xml" />
+<title>Pomax.github.io [dev version]</title>
+<description>The dev version of my blog over at pomax.github.io</description>
+<link>http://pomax.github.io/gh-blog</link>
+<lastBuildDate>Thu, 01 Jan 2015 04:22:27 GMT</lastBuildDate>
+<pubDate>Thu, 01 Jan 2015 04:22:27 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>Refactoring by starting from scratch</title>
 <description>&lt;p&gt;I rewrote my blog software to be easier to maintain (despite having no real desire to need to - if it works, it should just work) as well as easier to have others install and use it. The new version has been implemented as a React application, using &lt;code&gt;marked.js&lt;/code&gt; as the Markdown parser, and &lt;code&gt;octokit.js&lt;/code&gt; as the interface to github. Before, posts were rather ugly .json files on github, but the new version makes that &lt;code&gt;.json&lt;/code&gt; files for the metadata, and &lt;code&gt;.md&lt;/code&gt; files for the actual posts, so if you want to edit them after you posted them outside of the blog itself, it&amp;#39;s now super simple.&lt;/p&gt;
 &lt;p&gt;There&amp;#39;s an admin panel now, too, which is getting some bits like letting you say (based on your &lt;em&gt;current browser localStorage&lt;/em&gt;) what your credentials are, and will include things like saying which tags should have dedicated RSS feeds (for instance, in addition to the general &lt;code&gt;rss.xml&lt;/code&gt;, I need a feed for Mozilla-only posts). I&amp;#39;ll be adding a few more things, maybe, like a calendar filter and a &amp;quot;titles only&amp;quot; view, but for the most part this thing is virtually done now, and really just needs packing up.&lt;/p&gt;
 &lt;p&gt;I&amp;#39;m trying to figure out how to combine React code with mixins in a way that lets me gulp-pack-browserify-uglify the whole shebang, so hopefully that works and then you can add this to your own Github pages site by simply including a one line script in your .html -- we&amp;#39;ll see how far I get with that.&lt;/p&gt;
-&lt;p&gt;For now though: hurray, a better blog running off of Github. Again =D&lt;/p&gt;
 </description>
 <category>Blog</category>
 <category>React</category>
 <category>Github</category>
 <category>Markdown</category>
-<link>undefined/#gh-weblog-1420085372630</link>
-<guid>undefined/#gh-weblog-1420085372630</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1420085372630</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1420085372630</guid>
 <pubDate>Thu, 01 Jan 2015 04:09:32 GMT</pubDate>
 </item>
 <item>
@@ -35,8 +34,8 @@
 <category>React</category>
 <category>Mahjong</category>
 <category>Games</category>
-<link>undefined/#gh-weblog-1419403759737</link>
-<guid>undefined/#gh-weblog-1419403759737</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1419403759737</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1419403759737</guid>
 <pubDate>Wed, 24 Dec 2014 06:49:19 GMT</pubDate>
 </item>
 <item>
@@ -311,8 +310,8 @@ addEntry: function(obj) {
 <category>React</category>
 <category>HTML</category>
 <category>OOP</category>
-<link>undefined/#gh-weblog-1419289380022</link>
-<guid>undefined/#gh-weblog-1419289380022</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1419289380022</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1419289380022</guid>
 <pubDate>Mon, 22 Dec 2014 23:03:00 GMT</pubDate>
 </item>
 <item>
@@ -360,8 +359,8 @@ addEntry: function(obj) {
 <category>JPM</category>
 <category>Extensions</category>
 <category>Addons</category>
-<link>undefined/#gh-weblog-1418833974687</link>
-<guid>undefined/#gh-weblog-1418833974687</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1418833974687</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1418833974687</guid>
 <pubDate>Wed, 17 Dec 2014 16:32:54 GMT</pubDate>
 </item>
 <item>
@@ -454,8 +453,8 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <category>JavaScript</category>
 <category>Fibonacci</category>
 <category>Lucas</category>
-<link>undefined/#gh-weblog-1419794486361</link>
-<guid>undefined/#gh-weblog-1419794486361</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1419794486361</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1419794486361</guid>
 <pubDate>Sun, 28 Dec 2014 19:21:26 GMT</pubDate>
 </item>
 <item>
@@ -483,8 +482,8 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <category>Appmaker</category>
 <category>Mozilla</category>
 <category>MozFest</category>
-<link>undefined/#gh-weblog-1415815317842</link>
-<guid>undefined/#gh-weblog-1415815317842</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1415815317842</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1415815317842</guid>
 <pubDate>Wed, 12 Nov 2014 18:01:57 GMT</pubDate>
 </item>
 <item>
@@ -496,8 +495,8 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <category>Fountain</category>
 <category>Pen</category>
 <category>Ink</category>
-<link>undefined/#gh-weblog-1412703241308</link>
-<guid>undefined/#gh-weblog-1412703241308</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1412703241308</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1412703241308</guid>
 <pubDate>Tue, 07 Oct 2014 17:34:01 GMT</pubDate>
 </item>
 <item>
@@ -508,8 +507,8 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <category>Bezier</category>
 <category>Curves</category>
 <category>Maths</category>
-<link>undefined/#gh-weblog-1412572015743</link>
-<guid>undefined/#gh-weblog-1412572015743</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1412572015743</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1412572015743</guid>
 <pubDate>Mon, 06 Oct 2014 05:06:55 GMT</pubDate>
 </item>
 <item>
@@ -528,8 +527,8 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 <category>Mozilla</category>
 <category>Webmaker</category>
 <category>Node</category>
-<link>undefined/#gh-weblog-1411780655333</link>
-<guid>undefined/#gh-weblog-1411780655333</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1411780655333</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1411780655333</guid>
 <pubDate>Sat, 27 Sep 2014 01:17:35 GMT</pubDate>
 </item>
 <item>
@@ -548,8 +547,8 @@ s = ++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]&amp;lt;&amp;lt;++[r][+[]]
 </description>
 <category>Open Source</category>
 <category>CLA</category>
-<link>undefined/#gh-weblog-1411176119356</link>
-<guid>undefined/#gh-weblog-1411176119356</guid>
+<link>http://pomax.github.io/gh-blog/#gh-weblog-1411176119356</link>
+<guid>http://pomax.github.io/gh-blog/#gh-weblog-1411176119356</guid>
 <pubDate>Sat, 20 Sep 2014 01:21:59 GMT</pubDate>
 </item></channel>
 </rss>
