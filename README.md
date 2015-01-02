@@ -1,4 +1,4 @@
-Dev instance for http://pomax.github.io
+A free, simple Github-based blogging platform
 =======
 
-live link: http://pomax.github.io/gh-blog
+demonstrator and instructions: http://pomax.github.io/gh-blog
