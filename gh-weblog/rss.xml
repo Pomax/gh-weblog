@@ -5,8 +5,8 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 07:29:19 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 07:29:19 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 07:32:58 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 07:32:58 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
@@ -36,11 +36,14 @@
 &lt;p&gt;Finally, fill in your Github Personal Access Token in the token field, and then click anywhere outside the dialog. That&amp;#39;s it, you&amp;#39;re in!&lt;/p&gt;
 &lt;h1 id="writing-new-posts-editing-posts-deleting-posts"&gt;Writing new posts, editing posts, deleting posts&lt;/h1&gt;
 &lt;p&gt;To write a new post, click the &amp;quot;new entry&amp;quot; button in the upper right, then click the &lt;code&gt;&amp;quot;...click here to start editing your post...&amp;quot;&lt;/code&gt; and you can start writing your entry. For convenience a new entry already has a title and a sample text which you can edit, or you can just delete them entirely if you want to start with an empty text area.&lt;/p&gt;
-&lt;p&gt;&lt;img src="gh-weblog/images/edit.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;There is no &amp;quot;save&amp;quot; button. Instead, clicking anywhere outside of the text area will save your post. Just don&amp;#39;t immediately close the browser or tab when you do, because the platform needs to send the post over to github, which takes at most a few seconds.&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/commit.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;To edit a post, simply click the post&amp;#39;s main text body. The post will turn into the text editor again and you can modify it as much as you like. Click anywhere outside the text area and the update post will be saved again.&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/edit.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;To delete a post, click the &amp;quot;delete entry&amp;quot; button. You&amp;#39;ll have to confirm that you &lt;em&gt;really&lt;/em&gt; want to delete a post, because we don&amp;#39;t want to delete posts by accident, but if you really want to delete it, confirm your intent and your post will disappear from your blog. However, because you&amp;#39;re running your blog on github, that delete is just another commit in your revision history, so you can always get a post back even if you accidentally deleted it on purpose, by accident.&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/delete.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;To add tags to a post, click on the &amp;quot;Tagged with:&amp;quot; in the lower right, and add some tags (comma separated). Hit &amp;quot;OK&amp;quot; and now your posts have categories, too!&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/add-tags.png" class="border"&gt;&lt;/p&gt;
 &lt;h1 id="that-s-all-the-quick-starting-you-need-"&gt;That&amp;#39;s all the quick-starting you need!&lt;/h1&gt;
 &lt;p&gt;You now have a fully functional Github-hosted blog! Who said setting up a blog and using Github was a lot of work?&lt;/p&gt;
 &lt;p&gt;However, if you want to dive a bit deeper, you can start playing with the innards of gh-blog by checking out the code and playing around with the styling, in &lt;code&gt;./gh-weblog/style.css&lt;/code&gt;, or maybe even work on your posts outside of the browser, by editing the files in the &lt;code&gt;./gh-weblog/contents/posts&lt;/code&gt; directory: &lt;code&gt;index.json&lt;/code&gt; is the list of posts the blog knows about, and each entry has a file in the &lt;code&gt;metadata&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt; directories. What&amp;#39;s in them? Well, open them in a text editor and find out! (spoilers: they&amp;#39;re just some things like the title and tags, and your actual post, respectively)&lt;/p&gt;
