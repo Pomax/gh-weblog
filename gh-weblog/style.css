@@ -58,6 +58,7 @@
 
 .gh-weblog .tags {
   float: right;
+  margin-top: 0.55em;
 }
 
 .gh-weblog .tags:before {
