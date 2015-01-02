@@ -5,28 +5,24 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 06:59:36 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 06:59:36 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 06:59:57 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 06:59:57 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
-<description>&lt;h2 id="a-quickstart-guide"&gt;A Quickstart Guide&lt;/h2&gt;
-&lt;p&gt;===
-By far the easiest way to install your own copy of this Github blog is to head on over to &lt;a href="http://github.com/pomax/gh-blog"&gt;http://github.com/pomax/gh-blog&lt;/a&gt; and click the &amp;quot;fork&amp;quot; button, so that you get a copy of the gh-blog repository, but on your own account. &lt;/p&gt;
+<description>&lt;h1 id="a-quickstart-guide"&gt;A Quickstart Guide&lt;/h1&gt;
+&lt;p&gt;By far the easiest way to install your own copy of this Github blog is to head on over to &lt;a href="http://github.com/pomax/gh-blog"&gt;http://github.com/pomax/gh-blog&lt;/a&gt; and click the &amp;quot;fork&amp;quot; button, so that you get a copy of the gh-blog repository, but on your own account. &lt;/p&gt;
 &lt;p&gt;If you just want to install it to play with it, there&amp;#39;s only three steps left:&lt;/p&gt;
-&lt;h2 id="edit-index-html-to-match-your-username-and-repository"&gt;Edit &lt;code&gt;index.html&lt;/code&gt; to match your username and repository&lt;/h2&gt;
-&lt;hr&gt;
+&lt;h1 id="edit-index-html-to-match-your-username-and-repository"&gt;Edit &lt;code&gt;index.html&lt;/code&gt; to match your username and repository&lt;/h1&gt;
 &lt;p&gt;By default the repository will have an &lt;code&gt;index.html&lt;/code&gt; file that points to this specific page on &lt;a href="http://pomax.github.io/gh-blog"&gt;http://pomax.github.io/gh-blog&lt;/a&gt;, but if you&amp;#39;ve forked it, that location will have changed. Go to &lt;code&gt;https://github.com/YourUserName/gh-blog/edit/gh-pages/index.html&lt;/code&gt; and change the &lt;code&gt;base&lt;/code&gt; property to point to your fork, rather than to these instructions.&lt;/p&gt;
 &lt;p&gt;You probably also want to edit the &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; element all the way at the top to read something more personalised, and similarly, change the &lt;code&gt;title&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt; properties for the WebLog element, in the same place you changed the &lt;code&gt;base&lt;/code&gt; property.&lt;/p&gt;
 &lt;p&gt;Two steps left!&lt;/p&gt;
-&lt;h2 id="getting-credentials-so-that-you-can-edit-modify-delete-posts-directly"&gt;Getting credentials so that you can edit/modify/delete posts directly&lt;/h2&gt;
-&lt;hr&gt;
+&lt;h1 id="getting-credentials-so-that-you-can-edit-modify-delete-posts-directly"&gt;Getting credentials so that you can edit/modify/delete posts directly&lt;/h1&gt;
 &lt;p&gt;Create a &lt;a href="https://github.com/settings/applications"&gt;Personal Access Token&lt;/a&gt; for your new repository by opening that link in a new tab, and clicking &lt;a href="https://github.com/settings/tokens/new"&gt;generate new token&lt;/a&gt;. Create a new token with &lt;strong&gt;only repo and public_repo access&lt;/strong&gt;. The blog platform doesn&amp;#39;t need any other rights, so don&amp;#39;t make a token with more permissions for it.&lt;/p&gt;
 &lt;p&gt;Give the token a description like &amp;quot;access token for my github blog&amp;quot; or something, and then click the &amp;quot;generate token&amp;quot; button.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;note: make sure to save the token this generates somewhere&lt;/strong&gt;, github will not ever show you this token again, so if you forget to copy it before moving on, you&amp;#39;ll just have to delete the token and make a new one. This might sound inconvenient, but it also means things are a little more secure.&lt;/p&gt;
 &lt;p&gt;Just one more step, and you&amp;#39;ll be off running your own blog off your own Github account:&lt;/p&gt;
-&lt;h2 id="authenticating-yourself-so-you-can-use-your-new-blog"&gt;Authenticating yourself so you can use your new blog&lt;/h2&gt;
-&lt;hr&gt;
+&lt;h1 id="authenticating-yourself-so-you-can-use-your-new-blog"&gt;Authenticating yourself so you can use your new blog&lt;/h1&gt;
 &lt;p&gt;Open your blog in the browser by going to &lt;a href="http://YourUserName.github.io/gh-blog"&gt;http://YourUserName.github.io/gh-blog&lt;/a&gt; (with, obviously, your username substituted), and click the &amp;quot;admin&amp;quot; link. This will pop up a dialog that you will have to fill in.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;For &amp;quot;username&amp;quot;, fill in your github user name&lt;/li&gt;
@@ -35,14 +31,12 @@ By far the easiest way to install your own copy of this Github blog is to head o
 &lt;li&gt;For &amp;quot;path&amp;quot;, fill in &lt;em&gt;gh-weblog&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Finally, fill in your Github Personal Access Token in the token field, and then click anywhere outside the dialog. That&amp;#39;s it, you&amp;#39;re in!&lt;/p&gt;
-&lt;h2 id="writing-new-posts-editing-posts-deleting-posts"&gt;Writing new posts, editing posts, deleting posts&lt;/h2&gt;
-&lt;hr&gt;
+&lt;h1 id="writing-new-posts-editing-posts-deleting-posts"&gt;Writing new posts, editing posts, deleting posts&lt;/h1&gt;
 &lt;p&gt;To write a new post, click the &amp;quot;new entry&amp;quot; button in the upper right, then click the &lt;code&gt;&amp;quot;...click here to start editing your post...&amp;quot;&lt;/code&gt; and you can start writing your entry. For convenience a new entry already has a title and a sample text which you can edit, or you can just delete them entirely if you want to start with an empty text area.&lt;/p&gt;
 &lt;p&gt;There is no &amp;quot;save&amp;quot; button. Instead, clicking anywhere outside of the text area will save your post. Just don&amp;#39;t immediately close the browser or tab when you do, because the platform needs to send the post over to github, which takes at most a few seconds.&lt;/p&gt;
 &lt;p&gt;To edit a post, simply click the post&amp;#39;s main text body. The post will turn into the text editor again and you can modify it as much as you like. Click anywhere outside the text area and the update post will be saved again.&lt;/p&gt;
 &lt;p&gt;To delete a post, click the &amp;quot;delete entry&amp;quot; button. You&amp;#39;ll have to confirm that you &lt;em&gt;really&lt;/em&gt; want to delete a post, because we don&amp;#39;t want to delete posts by accident, but if you really want to delete it, confirm your intent and your post will disappear from your blog. However, because you&amp;#39;re running your blog on github, that delete is just another commit in your revision history, so you can always get a post back even if you accidentally deleted it on purpose, by accident.&lt;/p&gt;
-&lt;h2 id="that-s-all"&gt;That&amp;#39;s all&lt;/h2&gt;
-&lt;hr&gt;
+&lt;h1 id="that-s-all"&gt;That&amp;#39;s all&lt;/h1&gt;
 </description>
 <category>Github</category>
 <category>Blog</category>
