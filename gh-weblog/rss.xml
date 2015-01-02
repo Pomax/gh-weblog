@@ -5,16 +5,24 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 06:28:03 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 06:28:03 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 06:50:21 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 06:50:21 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
 <description>&lt;h2 id="a-quickstart-guide"&gt;A Quickstart Guide&lt;/h2&gt;
 &lt;p&gt;By far the easiest way to install your own copy of this Github blog is to head on over to &lt;a href="http://github.com/pomax/gh-blog"&gt;http://github.com/pomax/gh-blog&lt;/a&gt; and click the &amp;quot;fork&amp;quot; button, so that you get a copy of the gh-blog repository, but on your own account. &lt;/p&gt;
-&lt;p&gt;If you just want to install it to play with it, that&amp;#39;s all you have to do in terms of &amp;quot;getting the code&amp;quot;.&lt;/p&gt;
+&lt;p&gt;If you just want to install it to play with it, there&amp;#39;s only three steps left:&lt;/p&gt;
+&lt;h2 id="edit-index-html-to-match-your-username-and-repository"&gt;Edit &lt;code&gt;index.html&lt;/code&gt; to match your username and repository&lt;/h2&gt;
+&lt;p&gt;By default the repository will have an &lt;code&gt;index.html&lt;/code&gt; file that points to this specific page on &lt;a href="http://pomax.github.io/gh-blog"&gt;http://pomax.github.io/gh-blog&lt;/a&gt;, but if you&amp;#39;ve forked it, that location will have changed. Go to &lt;code&gt;https://github.com/YourUserName/gh-blog/edit/gh-pages/index.html&lt;/code&gt; and change the &amp;quot;base&amp;quot; property to point to your fork, rather than to these instructions.&lt;/p&gt;
+&lt;p&gt;Two steps left!&lt;/p&gt;
 &lt;h2 id="getting-credentials-so-that-you-can-edit-modify-delete-posts-directly"&gt;Getting credentials so that you can edit/modify/delete posts directly&lt;/h2&gt;
-&lt;p&gt;...text goes here...&lt;/p&gt;
+&lt;p&gt;Create a &lt;a href="https://github.com/settings/applications"&gt;Personal Access Token&lt;/a&gt; for your new repository by opening that link in a new tab, and clicking &lt;a href="https://github.com/settings/tokens/new"&gt;generate new token&lt;/a&gt;. Create a new token with &lt;strong&gt;only repo and public_repo access&lt;/strong&gt;. The blog platform doesn&amp;#39;t need any other rights, so don&amp;#39;t make a token with more permissions for it.&lt;/p&gt;
+&lt;p&gt;Give the token a description like &amp;quot;access token for my github blog&amp;quot; or something, and then click the &amp;quot;generate token&amp;quot; button.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;note: make sure to save the token this generates somewhere&lt;/strong&gt;, github will not ever show you this token again, so if you forget to copy it before moving on, you&amp;#39;ll just have to delete the token and make a new one. This might sound inconvenient, but it also means things are a little more secure.&lt;/p&gt;
+&lt;p&gt;Just one more step, and you&amp;#39;ll be off running your own blog off your own Github account:&lt;/p&gt;
+&lt;h2 id="authenticating-yourself-so-you-can-use-your-new-blog"&gt;Authenticating yourself so you can use your new blog&lt;/h2&gt;
+&lt;p&gt;Open your blog in the browser by going to &lt;a href="http://YourUserName.github.io/gh-blog"&gt;http://YourUserName.github.io/gh-blog&lt;/a&gt; (with, obviously, your username substituted), and click the &amp;quot;admin&amp;quot; link. This will pop up a dialog that you will have to fill in.&lt;/p&gt;
 </description>
 <category>Github</category>
 <category>Blog</category>
