@@ -41,6 +41,7 @@ var Entry = React.createClass({
         </header>
         <MarkDown ref="markdown" hidden={this.state.editing} text={this.state.postdata} onClick={this.edit} />
         <Editor ref="editor" hidden={!this.state.editing} text={text} update={this.update} view={this.view} delete={this.delete} />
+        <a className="comments" href={this.props.issues}>leave a comment on github</a>
         <Tags disabled={!this.props.editable} tags={this.state.tags} onChange={this.updateTags}/>
       </div>
     );

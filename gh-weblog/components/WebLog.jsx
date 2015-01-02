@@ -19,7 +19,10 @@ var WebLog = React.createClass({
       singleton: false,
       entries: this.list,
       slice: { start: 0, end: 10 },
-      authenticated: false
+      githubissues: '',
+      authenticated: false,
+      site: '',
+      issues: ''
     };
   },
 
@@ -44,6 +47,17 @@ var WebLog = React.createClass({
 
     // load the necessary index information
     this.connector.loadIndex(this.loadIndex, id);
+
+    // determine the issue tracker to use:
+    var a = document.createElement("a");
+    a.href = this.props.base;
+    var user = a.host.replace(".github.io",'');
+    var path = a.pathname.replace(/^\//,'').trim().split('/')[0];
+    var repo = path ? path : a.host;
+    this.setState({
+      site: "http://github.com/" + user + "/" + repo,
+      issues: "http://github.com/" + user + "/" + repo + "/issues"
+    });
   },
 
   render: function() {
@@ -73,6 +87,7 @@ var WebLog = React.createClass({
     return this.getSlice().map(function(entry) {
       return <Entry key={entry.metadata.created}
                     ref={entry.metadata.id}
+                    issues={self.state.issues}
                     metadata={entry.metadata}
                     postdata={entry.postdata}
                     editable={!self.state.singleton && self.state.authenticated}
