@@ -21,7 +21,8 @@ gulp.task('default', function () {
   // bundle all the dependencies
   var dependencies = gulp.src([
                            'bower_components/octokit/octokit.js',
-                           'bower_components/marked/lib/marked.js'
+                           'bower_components/marked/lib/marked.js',
+                           'bower_components/react/react.min.js'
                           ])
                          .pipe(concat('dependencies.js'))
                          .pipe(gulp.dest('build'));

@@ -17,18 +17,15 @@
 
     <!-- Github gh-pages weblog code: -->
     <section id="gh-weblog"></section>
-    <div class="page-requirements">
-      <link rel="stylesheet" href="gh-weblog/style.css">
-      <script src='gh-weblog/bower_components/react/react.min.js'></script>
-      <script src='gh-weblog/dist/gh-weblog.js'></script>
-      <script>
-        React.render(React.createElement(WebLog, {
-          base: "http://pomax.github.io/gh-blog",
-          title: "Github weblogging",
-          description: "A free, simple github-based blogging platform"
-        }), document.getElementById('gh-weblog'));
-      </script>
-    </div>
+    <link rel="stylesheet" href="gh-weblog/style.css">
+    <script src='gh-weblog/dist/gh-weblog.js'></script>
+    <script>
+      React.render(React.createElement(WebLog, {
+        base: "http://pomax.github.io/gh-blog",
+        title: "Github weblogging",
+        description: "A free, simple github-based blogging platform"
+      }), document.getElementById('gh-weblog'));
+    </script>
     <!-- End of Github gh-pages weblog code -->
 
   </body>
