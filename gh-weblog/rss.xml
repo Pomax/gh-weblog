@@ -5,8 +5,8 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 07:51:46 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 07:51:46 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 07:52:56 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 07:52:56 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
@@ -47,7 +47,10 @@
 &lt;p&gt;To add tags to a post, click on the &amp;quot;Tagged with:&amp;quot; in the lower right, and add some tags (comma separated). Hit &amp;quot;OK&amp;quot; and now your posts have categories, too!&lt;/p&gt;
 &lt;h1 id="that-s-all-the-quick-starting-you-need-"&gt;That&amp;#39;s all the quick-starting you need!&lt;/h1&gt;
 &lt;p&gt;You now have a fully functional Github-hosted blog! Who said setting up a blog and using Github was a lot of work?&lt;/p&gt;
-&lt;p&gt;However, if you want to dive a bit deeper, you can start playing with the innards of gh-blog by checking out the code and playing around with the styling, in &lt;code&gt;./gh-weblog/style.css&lt;/code&gt;, or maybe even work on your posts outside of the browser, by editing the files in the &lt;code&gt;./gh-weblog/contents/posts&lt;/code&gt; directory: &lt;code&gt;index.json&lt;/code&gt; is the list of posts the blog knows about, and each entry has a file in the &lt;code&gt;metadata&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt; directories. What&amp;#39;s in them? Well, open them in a text editor and find out! (spoilers: they&amp;#39;re just some things like the title and tags, and your actual post, respectively)&lt;/p&gt;
+&lt;p&gt;However, if you want to dive a bit deeper, you can start playing with the innards of gh-blog by cloning your fork to your own computer, and checking out the code in a text editor or IDE.&lt;/p&gt;
+&lt;p&gt;Good places to start are playing around with the styling, in &lt;code&gt;./gh-weblog/style.css&lt;/code&gt;, or maybe even work on your posts outside of the browser, by editing the files in the &lt;code&gt;./gh-weblog/contents/posts&lt;/code&gt; directory: &lt;code&gt;index.json&lt;/code&gt; is the list of posts the blog knows about, and each entry has a file in the &lt;code&gt;metadata&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt; directories.&lt;/p&gt;
+&lt;p&gt;What&amp;#39;s in them?&lt;/p&gt;
+&lt;p&gt;Well, open them in a text editor and find out! (spoilers: they&amp;#39;re just some things like the title and tags, and your actual post, respectively)&lt;/p&gt;
 </description>
 <category>Github</category>
 <category>Blog</category>
