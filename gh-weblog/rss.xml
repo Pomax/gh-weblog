@@ -5,8 +5,8 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 07:03:59 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 07:03:59 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 07:13:21 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 07:13:21 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
@@ -15,6 +15,7 @@
 &lt;p&gt;If you just want to install it to play with it, there&amp;#39;s only three steps left:&lt;/p&gt;
 &lt;h1 id="edit-index-html-to-match-your-username-and-repository"&gt;Edit &lt;code&gt;index.html&lt;/code&gt; to match your username and repository&lt;/h1&gt;
 &lt;p&gt;By default the repository will have an &lt;code&gt;index.html&lt;/code&gt; file that points to this specific page on &lt;a href="http://pomax.github.io/gh-blog"&gt;http://pomax.github.io/gh-blog&lt;/a&gt;, but if you&amp;#39;ve forked it, that location will have changed. Go to &lt;code&gt;https://github.com/YourUserName/gh-blog/edit/gh-pages/index.html&lt;/code&gt; and change the &lt;code&gt;base&lt;/code&gt; property to point to your fork, rather than to these instructions.&lt;/p&gt;
+&lt;p&gt;&lt;img src="" alt="gh-weblog/images/change-values.png"&gt;&lt;/p&gt;
 &lt;p&gt;You probably also want to edit the &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; element all the way at the top to read something more personalised, and similarly, change the &lt;code&gt;title&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt; properties for the WebLog element, in the same place you changed the &lt;code&gt;base&lt;/code&gt; property.&lt;/p&gt;
 &lt;p&gt;Two steps left!&lt;/p&gt;
 &lt;h1 id="getting-credentials-so-that-you-can-edit-modify-delete-posts-directly"&gt;Getting credentials so that you can edit/modify/delete posts directly&lt;/h1&gt;
