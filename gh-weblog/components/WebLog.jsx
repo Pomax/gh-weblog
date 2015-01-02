@@ -98,9 +98,11 @@ var WebLog = React.createClass({
   },
 
   runProcessors: function(domnode) {
-    this.props.processors.forEach(function(process) {
-      process(domnode);
-    });
+    if(this.props.processors && this.props.processors instanceof Array) {
+      this.props.processors.forEach(function(process) {
+        process(domnode);
+      });
+    }
   },
 
   showSettings: function() {

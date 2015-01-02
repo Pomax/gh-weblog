@@ -11,39 +11,9 @@
   <body>
 
     <header>
-      <h1><a href=".">Pomax.github.io</a><a class="deved" href="https://github.com/Pomax/gh-blog">[dev edition]</a></h1>
-      <h2>Because chronicling the past using technology is kind of cool
-        (Also available in <a href="gh-weblog/rss.xml">RSS</a>).</h2>
+      <h1><a href=".">Github weblogging</a></h1>
+      <h2>With perhaps subtitle (Also available in <a href="gh-weblog/rss.xml">RSS</a> form)</h2>
     </header>
-
-
-    <!-- my personal blog uses MathJax for maths typesetting. Add that in: -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        displayAlign: "left",
-        displayIndent: "2em",
-        TeX: {
-          extensions: ["color.js"]
-        }
-      });
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS_HTML"></script>
-    <script>
-      var MathJaxProcessor = function(element) {
-        // markdown turns ` into <code>, which we need to strip out again
-        var needsMathJax = false;
-        var codes = Array.prototype.slice.call(element.querySelectorAll("code"));
-        codes.forEach(function(codeElement) {
-          var s = codeElement.innerHTML;
-          if(s.match(/^\\+\[/) && s.match(/\\+\]$/)) {
-            codeElement.outerHTML = s.replace(/\\\\/g,"\\");
-            needsMathJax = true;
-          }
-        });
-        if(needsMathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
-      };
-    </script>
-
 
     <!-- Github gh-pages weblog code: -->
     <section id="gh-weblog"></section>
@@ -74,12 +44,10 @@
 
       <!-- app kickoff -->
       <script type='text/jsx'>
-        var processors = [ MathJaxProcessor ];
         React.render(<WebLog base="http://pomax.github.io/gh-blog"
                              title="Pomax.github.io [dev version]"
-                             description="The dev version of my blog over at pomax.github.io"
-                             rssfeeds="Mozilla"
-                             processors={processors} />, document.getElementById('gh-weblog'));
+                             description="The dev version of my blog over at pomax.github.io" />,
+                             document.getElementById('gh-weblog'));
       </script>
     </div>
     <!-- End of Github gh-pages weblog code -->
