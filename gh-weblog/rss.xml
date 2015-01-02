@@ -5,8 +5,8 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 06:51:02 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 06:51:02 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 06:52:39 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 06:52:39 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
@@ -22,7 +22,16 @@
 &lt;p&gt;&lt;strong&gt;note: make sure to save the token this generates somewhere&lt;/strong&gt;, github will not ever show you this token again, so if you forget to copy it before moving on, you&amp;#39;ll just have to delete the token and make a new one. This might sound inconvenient, but it also means things are a little more secure.&lt;/p&gt;
 &lt;p&gt;Just one more step, and you&amp;#39;ll be off running your own blog off your own Github account:&lt;/p&gt;
 &lt;h2 id="authenticating-yourself-so-you-can-use-your-new-blog"&gt;Authenticating yourself so you can use your new blog&lt;/h2&gt;
-&lt;p&gt;Open your blog in the browser by going to &lt;a href="http://YourUserName.github.io/gh-blog"&gt;http://YourUserName.github.io/gh-blog&lt;/a&gt; (with, obviously, your username substituted), and click the &amp;quot;admin&amp;quot; link. This will pop up a dialog that you will have to fill in. For &amp;quot;username&amp;quot;, fill in your github user name. For &amp;quot;repository&amp;quot;, fill in &amp;quot;gh-blog&amp;quot;. For &amp;quot;branch&amp;quot;, fill in &amp;quot;gh-pages&amp;quot;, and for&lt;/p&gt;
+&lt;p&gt;Open your blog in the browser by going to &lt;a href="http://YourUserName.github.io/gh-blog"&gt;http://YourUserName.github.io/gh-blog&lt;/a&gt; (with, obviously, your username substituted), and click the &amp;quot;admin&amp;quot; link. This will pop up a dialog that you will have to fill in.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For &amp;quot;username&amp;quot;, fill in your github user name&lt;/li&gt;
+&lt;li&gt;For &amp;quot;repository&amp;quot;, fill in &lt;em&gt;gh-blog&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;For &amp;quot;branch&amp;quot;, fill in &lt;em&gt;gh-pages&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;For &amp;quot;path&amp;quot;, fill in &lt;em&gt;gh-weblog&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Finally, fill in your Github Personal Access Token in the token field, and then click anywhere outside the dialog. That&amp;#39;s it, you&amp;#39;re in!&lt;/p&gt;
+&lt;h2 id="writing-new-posts-editing-posts-deleting-posts"&gt;Writing new posts, editing posts, deleting posts&lt;/h2&gt;
+&lt;p&gt;To write a new post, click the &amp;quot;new entry&amp;quot; button in the upper right, then click the &amp;quot;click here to&lt;/p&gt;
 </description>
 <category>Github</category>
 <category>Blog</category>
