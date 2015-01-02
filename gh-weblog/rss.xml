@@ -5,13 +5,14 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 07:33:11 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 07:33:11 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 07:48:43 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 07:48:43 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
 <description>&lt;h1 id="a-quickstart-guide"&gt;A Quickstart Guide&lt;/h1&gt;
 &lt;p&gt;By far the easiest way to install your own copy of this Github blog is to head on over to &lt;a href="http://github.com/pomax/gh-blog"&gt;http://github.com/pomax/gh-blog&lt;/a&gt; and click the &amp;quot;fork&amp;quot; button, so that you get a copy of the gh-blog repository, but on your own account. &lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/fork.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;If you just want to install it to play with it, there&amp;#39;s only three steps left:&lt;/p&gt;
 &lt;h1 id="edit-index-html-to-match-your-username-and-repository"&gt;Edit &lt;code&gt;index.html&lt;/code&gt; to match your username and repository&lt;/h1&gt;
 &lt;p&gt;By default the repository will have an &lt;code&gt;index.html&lt;/code&gt; file that points to this specific page on &lt;a href="http://pomax.github.io/gh-blog"&gt;http://pomax.github.io/gh-blog&lt;/a&gt;, but if you&amp;#39;ve forked it, that location will have changed. Go to &lt;code&gt;https://github.com/YourUserName/gh-blog/edit/gh-pages/index.html&lt;/code&gt; and change the &lt;code&gt;base&lt;/code&gt; property to point to your fork, rather than to these instructions.&lt;/p&gt;
