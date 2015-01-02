@@ -5,8 +5,8 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Fri, 02 Jan 2015 07:13:48 GMT</lastBuildDate>
-<pubDate>Fri, 02 Jan 2015 07:13:48 GMT</pubDate>
+<lastBuildDate>Fri, 02 Jan 2015 07:14:06 GMT</lastBuildDate>
+<pubDate>Fri, 02 Jan 2015 07:14:06 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
@@ -20,6 +20,7 @@
 &lt;p&gt;Two steps left!&lt;/p&gt;
 &lt;h1 id="getting-credentials-so-that-you-can-edit-modify-delete-posts-directly"&gt;Getting credentials so that you can edit/modify/delete posts directly&lt;/h1&gt;
 &lt;p&gt;Create a &lt;a href="https://github.com/settings/applications"&gt;Personal Access Token&lt;/a&gt; for your new repository by opening that link in a new tab, and clicking &lt;a href="https://github.com/settings/tokens/new"&gt;generate new token&lt;/a&gt;. Create a new token with &lt;strong&gt;only repo and public_repo access&lt;/strong&gt;. The blog platform doesn&amp;#39;t need any other rights, so don&amp;#39;t make a token with more permissions for it.&lt;/p&gt;
+&lt;p&gt;&lt;img src="gh-weblog/images/permissions.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;Give the token a description like &amp;quot;access token for my github blog&amp;quot; or something, and then click the &amp;quot;generate token&amp;quot; button.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;note: make sure to save the token this generates somewhere&lt;/strong&gt;, github will not ever show you this token again, so if you forget to copy it before moving on, you&amp;#39;ll just have to delete the token and make a new one. This might sound inconvenient, but it also means things are a little more secure.&lt;/p&gt;
 &lt;p&gt;Just one more step, and you&amp;#39;ll be off running your own blog off your own Github account:&lt;/p&gt;
