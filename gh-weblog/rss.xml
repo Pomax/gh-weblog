@@ -5,8 +5,8 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Sat, 03 Jan 2015 20:39:16 GMT</lastBuildDate>
-<pubDate>Sat, 03 Jan 2015 20:39:16 GMT</pubDate>
+<lastBuildDate>Sat, 03 Jan 2015 20:40:01 GMT</lastBuildDate>
+<pubDate>Sat, 03 Jan 2015 20:40:01 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
@@ -36,7 +36,7 @@
 &lt;p&gt;Which would look like this:&lt;/p&gt;
 &lt;p&gt;&lt;img src="gh-weblog/images/admin-panel.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;Finally, fill in your Github Personal Access Token in the token field, and then click anywhere outside the dialog.&lt;/p&gt;
-&lt;p&gt;That&amp;#39;s it, you&amp;#39;re done!&lt;/p&gt;
+&lt;p&gt;That&amp;#39;s it, you&amp;#39;re done! Every time you come back to your blog in the browser you&amp;#39;re using right now, you&amp;#39;ll be authenticated already. Want to authenticate on a public computer? Click the &amp;quot;&lt;/p&gt;
 &lt;h1 id="writing-new-posts-editing-posts-deleting-posts"&gt;Writing new posts, editing posts, deleting posts&lt;/h1&gt;
 &lt;p&gt;To write a new post, click the &amp;quot;new entry&amp;quot; button in the upper right, then click the &lt;code&gt;&amp;quot;...click here to start editing your post...&amp;quot;&lt;/code&gt; and you can start writing your entry. For convenience a new entry already has a title and a sample text which you can edit, or you can just delete them entirely if you want to start with an empty text area.&lt;/p&gt;
 &lt;p&gt;&lt;img src="gh-weblog/images/post.png" class="border"&gt;&lt;/p&gt;
