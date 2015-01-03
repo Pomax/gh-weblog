@@ -5,12 +5,13 @@
 <title>Github weblogging</title>
 <description>A free, simple github-based blogging platform</description>
 <link>http://pomax.github.io/gh-blog</link>
-<lastBuildDate>Sat, 03 Jan 2015 20:41:03 GMT</lastBuildDate>
-<pubDate>Sat, 03 Jan 2015 20:41:03 GMT</pubDate>
+<lastBuildDate>Sat, 03 Jan 2015 20:43:02 GMT</lastBuildDate>
+<pubDate>Sat, 03 Jan 2015 20:43:02 GMT</pubDate>
 <ttl>1440</ttl>
 <item>
 <title>How to set up your own Github blog</title>
-<description>&lt;h1 id="a-four-step-quickstart-guide-step-1-fork-it-"&gt;A four step Quickstart Guide... Step 1: fork it!&lt;/h1&gt;
+<description>&lt;p&gt;Do you have a &lt;a href="http://github.com"&gt;github&lt;/a&gt; account, but no blog, because setting up a blog is too much effort? Then good news, there&amp;#39;s now a thing you can clone, on github, that immediately gives you a fully set up blog, using github-pages. It&amp;#39;s literally a four steps process to set up, and you won&amp;#39;t even need to leave your browser. Setting up a blog was never this easy!&lt;/p&gt;
+&lt;h1 id="a-four-step-quickstart-guide-step-1-fork-it-"&gt;A four step Quickstart Guide... Step 1: fork it!&lt;/h1&gt;
 &lt;p&gt;By far the easiest way to install your own copy of this Github blog is to head on over to &lt;a href="http://github.com/pomax/gh-blog"&gt;http://github.com/pomax/gh-blog&lt;/a&gt; and click the &amp;quot;fork&amp;quot; button, so that you get a copy of the gh-blog repository, but on your own account. &lt;/p&gt;
 &lt;p&gt;&lt;img src="gh-weblog/images/fork.png" class="border"&gt;&lt;/p&gt;
 &lt;p&gt;If you just want to install it to play with it, there&amp;#39;s only three steps left:&lt;/p&gt;
