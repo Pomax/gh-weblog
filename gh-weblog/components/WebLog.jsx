@@ -61,16 +61,14 @@ var WebLog = React.createClass({
   },
 
   render: function() {
-    var postbutton,
-        morebutton,
-        adminbutton;
+    if(!!this.state.singleton) { return this.renderContent(); }
+    var postbutton = this.state.authenticated ? <button className="admin post button" onClick={this.create}>new entry</button> : false;
+    var adminbutton = <button className="authenticate" onClick={this.showSettings} onClose={this.bindSettings}>admin</button>
+    var morebutton = <button onClick={this.more}>Load more posts</button>;
+    return this.renderContent(adminbutton, postbutton, morebutton)
+  },
 
-    if(!this.state.singleton) {
-      adminbutton = <button className="authenticate" onClick={this.showSettings} onClose={this.bindSettings}>admin</button>
-      if(this.state.authenticated) { postbutton = <button className="admin post button" onClick={this.create}>new entry</button>; }
-      morebutton = <button onClick={this.more}>Load more posts</button>;
-    }
-
+  renderContent: function(adminbutton, postbutton, morebutton) {
     return (
       <div ref="weblog" className="gh-weblog">
         <Admin ref="admin" hidden="true" onClose={this.bindSettings} onLogout={this.onLogOut}/>
