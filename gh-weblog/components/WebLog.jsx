@@ -3,7 +3,8 @@ var WebLog = React.createClass({
   mixins: [
     ConnectorMixin,
     TimeToId,
-    RSSGenerator
+    RSSGenerator,
+    WebLogSettings
   ],
 
   // local cache, because we don't want to load the entire
@@ -28,9 +29,8 @@ var WebLog = React.createClass({
 
   componentDidMount: function() {
     // are we authenticataed?
-    var settings = localStorage["gh-weblog-settings"];
+    var settings = this.getSettings();
     if(settings) {
-      settings = JSON.parse(settings);
       this.connector = new this.Connector(settings);
       if(settings.token) { this.setState({ authenticated: true }); }
     } else { this.connector = new this.Connector(); }

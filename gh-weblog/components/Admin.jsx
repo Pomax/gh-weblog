@@ -1,5 +1,9 @@
 var Admin = React.createClass({
 
+  mixins: [
+    WebLogSettings
+  ],
+
   getInitialState: function() {
     return {
       hidden: true,
@@ -12,13 +16,10 @@ var Admin = React.createClass({
   },
 
   componentDidMount: function() {
-    var obj = localStorage["gh-weblog-settings"];
+    var obj = this.getSettings();
     if(obj) {
-      try {
-        obj = JSON.parse(obj);
-        obj.hidden = this.props.hidden;
-        this.setState(obj);
-      } catch(e) {}
+      obj.hidden = this.props.hidden;
+      this.setState(obj);
     }
   },
 
@@ -55,7 +56,7 @@ var Admin = React.createClass({
   },
 
   reset: function() {
-    localStorage.removeItem("gh-weblog-settings");
+    this.clearSettings();
     this.setState({
       user: '',
       repo: '',
@@ -108,7 +109,7 @@ var Admin = React.createClass({
   },
 
   update: function() {
-    localStorage["gh-weblog-settings"] = JSON.stringify(this.state);
+    this.saveSettings(this.state);
   }
 
 });
