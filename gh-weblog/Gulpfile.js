@@ -18,17 +18,16 @@ gulp.task('default', function () {
                    .pipe(concat('mixins.js'))
                    .pipe(gulp.dest('build'));
 
-  // bundle all the dependencies
+  // bundle the dependencies
   var dependencies = gulp.src([
                            'bower_components/octokit/octokit.js',
-                           'bower_components/marked/lib/marked.js',
-                           'bower_components/react/react.min.js'
+                           'bower_components/marked/lib/marked.js'
                           ])
                          .pipe(concat('dependencies.js'))
                          .pipe(gulp.dest('build'));
 
   // and finally, bundle everything into a single package
-  merge(components, mixins, dependencies)
+  merge(dependencies, components, mixins)
        .pipe(concat('gh-weblog.js'))
        .pipe(uglify())
        .pipe(gulp.dest('dist'));
