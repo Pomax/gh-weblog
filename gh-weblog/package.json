@@ -16,12 +16,23 @@
   },
   "homepage": "https://pomax.github.io/gh-blog",
   "devDependencies": {
+    "browserify": "^8.0.3",
+    "browserify-global-shim": "^1.0.0",
+    "browserify-shim": "^3.8.2",
     "gulp": "^3.8.10",
     "gulp-add-src": "^0.2.0",
-    "gulp-concat": "^2.4.2",
-    "gulp-order": "^1.1.1",
-    "gulp-react": "^2.0.0",
+    "gulp-concat": "^2.4.3",
+    "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.0.2",
-    "merge-stream": "^0.1.6"
+    "merge-stream": "^0.1.6",
+    "octokit": "^0.10.4",
+    "react": "^0.12.2",
+    "reactify": "^0.17.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0",
+    "vinyl-transform": "^1.0.0"
+  },
+  "dependencies": {
+    "react-onclickoutside": "^0.2.0"
   }
 }

@@ -1,7 +1,9 @@
-var Admin = React.createClass({
+var React = require("react");
+
+module.exports = React.createClass({
 
   mixins: [
-    WebLogSettings
+    require("../mixins/weblogsettings")
   ],
 
   getInitialState: function() {

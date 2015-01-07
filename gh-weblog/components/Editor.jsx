@@ -1,4 +1,6 @@
-var Editor = React.createClass({
+var React = require("react");
+
+module.exports = React.createClass({
 
   getInitialState: function() {
     return { text: '' };
