@@ -1,10 +1,14 @@
-var WebLog = React.createClass({
+var React = require("react");
+var Admin = require("./Admin.jsx");
+var Entry = require("./Entry.jsx");
+
+module.exports = React.createClass({
 
   mixins: [
-    ConnectorMixin,
-    TimeToId,
-    RSSGenerator,
-    WebLogSettings
+    require("../mixins/connector"),
+    require("../mixins/timetoid"),
+    require("../mixins/rssgenerator"),
+    require("../mixins/weblogsettings")
   ],
 
   // local cache, because we don't want to load the entire

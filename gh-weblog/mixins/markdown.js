@@ -1,3 +1,5 @@
+var marked = require("../bower_components/marked/lib/marked");
+
 /**
  * In lieu of a being able to register transformers into JSX,
  * we use a mixin. The "dangerous" part is an outright lie,
@@ -6,7 +8,8 @@
  * considered dangerous. It might not know that CSP catches
  * everything that unsafe HTML still lets through.
  */
-var MarkDownMixin = {
+module.exports = {
+
   markdown: function(string) {
     return {
       dangerouslySetInnerHTML: {

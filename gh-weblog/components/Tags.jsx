@@ -1,4 +1,6 @@
-var Tags = React.createClass({
+var React = require("react");
+
+module.exports = React.createClass({
 
   render: function() {
     var tags = this.props.tags.map(function(tag,idx) {

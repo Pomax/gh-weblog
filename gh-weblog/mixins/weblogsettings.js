@@ -1,4 +1,4 @@
-var WebLogSettings = {
+module.exports = {
   settingsName: (function() {
     var loc = window.location.host;
     var path = window.location.pathname;

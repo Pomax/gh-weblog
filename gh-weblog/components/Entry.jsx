@@ -1,6 +1,13 @@
-var Entry = React.createClass({
+var React = require("react");
+var MarkDown = require("./MarkDown.jsx");
+var Editor = require("./Editor.jsx");
+var Tags = require("./Tags.jsx");
 
-  mixins: [OnClickOutside],
+module.exports = React.createClass({
+
+  mixins: [
+    require("react-onclickoutside")
+  ],
 
   getInitialState: function() {
     return {
@@ -19,7 +26,6 @@ var Entry = React.createClass({
     var state = this.props.metadata;
     state.postdata = this.props.postdata;
     this.setState(state);
-    this.registerOutsideClickListener(this.view);
   },
 
   render: function() {
@@ -49,6 +55,10 @@ var Entry = React.createClass({
 
   componentDidUpdate: function() {
     this.props.runProcessors(this.refs.markdown.getDOMNode());
+  },
+  
+  handleClickOutside: function(evt) {
+    this.view();
   },
 
   updateTags: function(tags) {

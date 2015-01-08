@@ -1,6 +1,10 @@
-var MarkDown = React.createClass({
+var React = require("react");
 
-  mixins: [MarkDownMixin],
+module.exports = React.createClass({
+
+  mixins: [
+    require("../mixins/markdown")
+  ],
 
   render: function() {
     this.html = this.markdown(this.props.text)

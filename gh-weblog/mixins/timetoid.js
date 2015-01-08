@@ -1,7 +1,7 @@
 /**
  * Convert "seconds since epoch" timestamps into yyyy-mm-dd-hh-mm-ss format string ids
  */
-var TimeToId = {
+module.exports = {
   timeToId: function(timestamp) {
     if(!timestamp) return false;
     var d = (new Date(parseInt(timestamp, 10)));

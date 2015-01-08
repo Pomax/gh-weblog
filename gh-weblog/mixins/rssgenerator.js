@@ -1,4 +1,4 @@
-var RSSGenerator = {
+module.exports = {
   /**
    * So, this is weird given that
    */
