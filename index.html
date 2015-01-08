@@ -19,19 +19,17 @@
 
     <section id="blog"></section>
 
-    <!-- Github gh-pages weblog code: -->
+     <!-- Github gh-pages weblog code: -->
     <link rel="stylesheet" href="gh-weblog/style.css">
-    <script src="http://fb.me/react-0.12.2.min.js"></script>    
-    <script src='gh-weblog/gh-weblog.js'></script>
     <script>
-      React.render(React.createElement(WebLog, {
-
-        base: "http://pomax.github.io/gh-blog",
-        title: "Github weblogging",
-        description: "A free, simple github-based blogging platform"
-
-      }), document.getElementById('blog'));
+      var WebLogSettings = {
+        target:      "blog",
+        base:        "http://pomax.github.io/gh-blog",
+        title:       "Github Weblogging",
+        description: "A free, simple github powered blogging platform",
+      };
     </script>
+    <script src='gh-weblog/gh-weblog.js'></script>
     <!-- End of Github gh-pages weblog code -->
 
   </body>
