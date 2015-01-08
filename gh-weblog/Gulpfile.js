@@ -1,16 +1,14 @@
 var gulp = require('gulp');
-var browserify = require('browserify');
-var transform = require('vinyl-transform');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
-var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
-var runSequence = require('run-sequence');
 
 /**
  * Browserify bundling only.
  */
 gulp.task('browserify', function() {
+  var browserify = require('browserify');
+  var transform = require('vinyl-transform');
+  var reactify = require('reactify');
+  var source = require('vinyl-source-stream');
 
   // Don't process react/octokit, because we can "bundle"
   // those in far more efficiently at the cost of a global
@@ -47,7 +45,8 @@ gulp.task('enrich', ['browserify'], function() {
  * Minify everything, using uglify.
  */
 gulp.task('minify', ['enrich'], function() {
-  return gulp.src('./build/enriched.js') 
+  var uglify = require('gulp-uglify');
+  return gulp.src('./build/enriched.js')
    .pipe(concat('gh-weblog.js'))
    .pipe(uglify())
    .pipe(gulp.dest('./dist/'));
