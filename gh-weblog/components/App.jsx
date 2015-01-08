@@ -1,19 +1,20 @@
-(function() {
+(function loadBlog() {
 
-  var target = document.getElementById('gh-weblog');
+  var settings = window.WebLogSettings;
+  var id = settings.target || 'gh-weblog';
+  var target = document.getElementById(id);
 
-  if(!target) {
-    var msg = "no target element with id 'gh-weblog' found to inject gh-weblog into.";
+  if (!target) {
+    var msg = "no target element with id '"+id+"' found to inject gh-weblog into.";
     return console.error(msg);
   }
 
   var React = require("react");
+
+  if(!React) { return setTimeout(loadBlog, 200); }
+
   var WebLog = require("./WebLog.jsx");
 
-  React.render(React.createElement(WebLog, {
-    base: "http://pomax.github.io/gh-blog",
-    title: "Github weblogging",
-    description: "A free, simple github-based blogging platform"
-  }), target);
+  React.render(React.createElement(WebLog, settings), target);
 
 }());

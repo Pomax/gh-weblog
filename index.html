@@ -18,8 +18,14 @@
     <!-- Github gh-pages weblog code: -->
     <section id="gh-weblog"></section>
     <link rel="stylesheet" href="gh-weblog/style.css">
-    <script src="http://fb.me/react-0.12.2.min.js"></script>
-    <script src='gh-weblog/bower_components/octokit/octokit.js'></script>
+    <script>
+    var WebLogSettings = {
+      target:      "gh-weblog",
+      base:        "http://pomax.github.io/gh-blog",
+      title:       "Github Weblogging",
+      description: "A free, simple github powered blogging platform",
+    };
+    </script>
     <script src='gh-weblog/dist/gh-weblog.js'></script>
     <!-- End of Github gh-pages weblog code -->
 
