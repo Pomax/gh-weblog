@@ -56,7 +56,7 @@ module.exports = React.createClass({
   componentDidUpdate: function() {
     this.props.runProcessors(this.refs.markdown.getDOMNode());
   },
-  
+
   handleClickOutside: function(evt) {
     this.view();
   },

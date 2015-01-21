@@ -1,18 +1,15 @@
 var React = require("react");
-
+var marked = require("../bower_components/marked/lib/marked");
 module.exports = React.createClass({
-
-  mixins: [
-    require("../mixins/markdown")
-  ],
-
   render: function() {
-    this.html = this.markdown(this.props.text)
-    return <div className="post" hidden={this.props.hidden} onClick={this.props.onClick} {...this.html}/>
+    var html = {__html: marked(this.props.text)};
+    return <div ref="post"
+                className="post"
+                hidden={this.props.hidden}
+                onClick={this.props.onClick}
+                dangerouslySetInnerHTML={html}/>
   },
-
   getHTML: function() {
-    return this.html.dangerouslySetInnerHTML.__html;
+    return this.refs.post.getDOMNode().innerHTML
   }
-
 });

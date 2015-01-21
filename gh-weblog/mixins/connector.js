@@ -51,7 +51,14 @@ module.exports = {
 
       // And we also don't need zepto or jquery for an xhr .json()
       json: function(url, processData) {
-        this.get(url, { responseType: "json" }, processData);
+        this.get(url, function(err, data) {
+          if(err) { return console.error(err); }
+          try {
+            var obj = JSON.parse(data);
+            processData(false, obj);
+          }
+          catch(error) { processdata(error); }
+        });
       },
 
       loadIndex: function(handleIndex, entryId) {
