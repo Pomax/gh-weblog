@@ -73,20 +73,26 @@ module.exports = React.createClass({
   },
 
   renderContent: function(adminbutton, postbutton, morebutton) {
+    // ensure the URL looks "normal"
+    var entry = this.getSlice()[0];
+    var title = entry.metadata.title.replace(/\s+/g,'-').toLowerCase();
+    window.history.replaceState({}, title, "/" + entry.metadata.id + "/" + title);
+    // then load the content for this singleton
     return (
       <div ref="weblog" className="gh-weblog">
         <Admin ref="admin" hidden="true" onClose={this.bindSettings} onLogout={this.onLogOut}/>
         {adminbutton}
         {postbutton}
-        {this.generateEntries()}
+        {this.generateEntries([entry])}
         {morebutton}
       </div>
     );
   },
 
-  generateEntries: function() {
+  generateEntries: function(entries) {
+    entries = entries || this.getSlice();
     var self = this;
-    return this.getSlice().map(function(entry) {
+    return entries.map(function(entry) {
       return <Entry key={entry.metadata.created}
                     ref={entry.metadata.id}
                     issues={self.state.issues}
