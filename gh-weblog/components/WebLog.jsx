@@ -74,17 +74,20 @@ module.exports = React.createClass({
 
   renderContent: function(adminbutton, postbutton, morebutton) {
     // ensure the URL looks "normal"
-    var entry = this.getSlice()[0];
-    if(!entry) return false;
-    var title = entry.metadata.title.replace(/\s+/g,'-').toLowerCase();
-    window.history.replaceState({}, title, "/" + entry.metadata.id + "/" + title);
-    // then load the content for this singleton
+    var entry = false;
+    if (arguments.length === 0) {
+      entry = this.getSlice()[0];
+      if(!entry) { return false; }
+      var title = entry.metadata.title.replace(/[\s\:;,_.]+/g,'-').toLowerCase();
+      var vanityURL = ["/", entry.metadata.created, "/", title].join('');
+      window.history.replaceState({}, title, vanityURL);
+    }
     return (
       <div ref="weblog" className="gh-weblog">
         <Admin ref="admin" hidden="true" onClose={this.bindSettings} onLogout={this.onLogOut}/>
         {adminbutton}
         {postbutton}
-        {this.generateEntries([entry])}
+        {this.generateEntries(entry ? [entry] : false)}
         {morebutton}
       </div>
     );

@@ -31,7 +31,8 @@ module.exports = React.createClass({
   render: function() {
     var text = this.getText();
     var id = "gh-weblog-" + this.state.created;
-    var idLink = "#" + id;
+    var title = this.state.title.replace(/[\s\:;,_.]+/g,'-').toLowerCase();
+    var entryURL = ["/", this.state.created, "/", title].join('');
     var deletebutton;
     if(this.props.editable) {
       deletebutton = <button className="admin delete button" onClick={this.delete}>remove entry</button>;
@@ -42,7 +43,7 @@ module.exports = React.createClass({
       <div className="entry" id={id}>
         {deletebutton}
         <header>
-          <h1><a href={idLink}>{this.state.title}</a></h1>
+          <h1><a href={entryURL}>{this.state.title}</a></h1>
           <h2>Originally posted on {posted}, last updated on {updated}</h2>
         </header>
         <MarkDown ref="markdown" hidden={this.state.editing} text={this.state.postdata} onClick={this.edit} />
