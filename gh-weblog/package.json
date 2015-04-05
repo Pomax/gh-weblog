@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
     "browserify-global-shim": "^1.0.0",
     "browserify-shim": "^3.8.2",
     "bundle-collapser": "^1.1.1",
-    "gulp": "^3.8.10",
+    "gulp": "^3.8.11",
     "gulp-add": "0.0.2",
     "gulp-add-src": "^0.2.0",
     "gulp-concat": "^2.4.3",
