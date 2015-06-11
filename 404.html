@@ -23,13 +23,15 @@
        * integrity of the URL: requesting a plain URL will always work, and the
        * fact that "under the hood" we temporarily rely on fragment IDs to get
        * the content does not affect the user, who should always only see the
-       * "real" URL for the content they're requestin.
+       * "real" URL for the content they're requesting.
        *
+       * Note this uses the "a" rather than new URL() approach, because IE...
        */ 
-      var url = new URL(window.location.toString());
+      var url = document.createElement("a");
+      url.href = window.location.toString()
       if(!!url.pathname) {
-        var postid = url.pathname.match(/^\/(\d+)(\/)?/);
-        if(!!postid && !!postid[1]) {
+        var postid = url.pathname.match(/^\/?(\d+)\/?/);
+        if(!!postid && !!postid[0]) {
           // redirect to post
           window.location = url.protocol + "//" + url.hostname + "/#gh-weblog-" + postid[1];
         }
