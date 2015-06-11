@@ -1,4 +1,6 @@
 var React = require("react");
+var utils = require("../lib/utils");
+
 var Admin = require("./Admin.jsx");
 var Entry = require("./Entry.jsx");
 
@@ -78,7 +80,7 @@ module.exports = React.createClass({
     if (arguments.length === 0) {
       entry = this.getSlice()[0];
       if(!entry) { return false; }
-      var title = entry.metadata.title.replace(/[\s\:;,_.]+/g,'-').toLowerCase();
+      var title = utils.titleReplace(entry.metadata.title);
       var vanityURL = ["/", entry.metadata.created, "/", title].join('');
       window.history.replaceState({}, title, vanityURL);
     }

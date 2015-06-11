@@ -1,4 +1,6 @@
 var React = require("react");
+var utils = require("../lib/utils");
+
 var MarkDown = require("./MarkDown.jsx");
 var Editor = require("./Editor.jsx");
 var Tags = require("./Tags.jsx");
@@ -31,7 +33,7 @@ module.exports = React.createClass({
   render: function() {
     var text = this.getText();
     var id = "gh-weblog-" + this.state.created;
-    var title = this.state.title.replace(/[\s\:;,_.]+/g,'-').toLowerCase();
+    var title = utils.titleReplace(this.state.title);
     var entryURL = ["/", this.state.created, "/", title].join('');
     var deletebutton;
     if(this.props.editable) {
