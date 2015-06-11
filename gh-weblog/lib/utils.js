@@ -5,6 +5,7 @@ module.exports = {
   titleReplace: function(title) {
     return title.replace(/[\s\:;,_.'"\u2010-\u2015]+/g,'-')
                 .replace(/-+/g,'-')
+                .replace(/^-/, '')
                 .replace(/-$/, '')
                 .toLowerCase();
   }
